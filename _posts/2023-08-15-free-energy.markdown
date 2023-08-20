@@ -1,7 +1,7 @@
 ---
 layout: post
-title:  "Brief notes on spiking neuron models"
-date:   2023-07-24 09:00:00
+title:  "Free-Energy"
+date:   2023-08-15 09:00:00
 mathjax: true
 ---
 
@@ -120,5 +120,3 @@ effect leads to the LIF model:
 $$C \frac{dV}{dt}(t) = -\frac{1}{R}(V(t) - V_{\text{rest}}) + I(t)$$
 
 and we can further expand $$I(t)$$ into the currents incoming via synapses to get the desired expression.
-
-![figure_1](/assets/free-energy/figure_1.png)
