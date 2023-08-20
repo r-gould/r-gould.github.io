@@ -199,12 +199,11 @@ $$f := A \circ \Sigma_N \circ f_N \circ \cdots \circ \Sigma_1 \circ f_1$$
 A general definition of the concept of a convolution is that of the 
 **group convolution**.
 
-**Definition:** For a group $$G$$ and $$\theta \in \mathcal{X}(\Omega, \mathcal{C})$$, the group convolution $$C_{\theta}: \mathcal{X}(\Omega, \mathcal{C}) \to \mathcal{X}(G, \mathcal{C})$$ is defined by
-
-$$C_{\theta}(x)(g) := \int_{\Omega} \langle x(u), \theta(g^{-1} \bullet u) \rangle_{\mathcal{C}} du$$
-
-where $$\langle\cdot, \cdot\rangle_{\mathcal{C}}$$ is an inner product on $$\mathcal{C}$$.
-\end{mdframed}
+> **Definition:** For a group $$G$$ and $$\theta \in \mathcal{X}(\Omega, \mathcal{C})$$, the group convolution $$C_{\theta}: \mathcal{X}(\Omega, \mathcal{C}) \to \mathcal{X}(G, \mathcal{C})$$ is defined by
+> 
+> $$C_{\theta}(x)(g) := \int_{\Omega} \langle x(u), \theta(g^{-1} \bullet u) \rangle_{\mathcal{C}} du$$
+> 
+> where $$\langle\cdot, \cdot\rangle_{\mathcal{C}}$$ is an inner product on $$\mathcal{C}$$.
 
 The group convolution is special in that $$f: \mathcal{X}(G, \mathcal{C}) \to \mathcal{X}(G, \mathcal{C})$$ is $$G$$-equivariant and linear iff $$f$$ is a group convolution (see [Kondor, Trivedi (2018)](https://arxiv.org/abs/1802.03690)). So for functions on $$\mathcal{X}(G, \mathcal{C})$$, we can fully characterise 
 linear $$G$$-equivariances.
@@ -212,38 +211,36 @@ linear $$G$$-equivariances.
 In the case of $$f: \mathcal{X}(\Omega, \mathcal{C}) \to \mathcal{X}(G, \mathcal{C})$$ however, certain conditions must be met. If $$\Omega$$ is countable, or $$\Omega$$ uncountable with $$\det\left(\frac{\partial \bullet_g(u)}{\partial u}\right) = 1$$, 
 then the group convolution is $$G$$-equivariant. The former result is proven below, and the latter is proven similarly.
 
-\begin{mdframed}
-**Claim:** If $$\Omega$$ is countable, then for any $$\theta \in \mathcal{X}(\Omega, \mathcal{C})$$, the group convolution is $$G$$-equivariant. That is,
-
-$$C_{\theta} \circ \ast_g = \ast'_g \circ C_{\theta}$$
-
-$$\forall \; g \in G$$, where $$\ast'_g$$ is defined by action $$\bullet'_g: G \to G$$ with $$\bullet'_g(h) := gh$$.
-
-
-**Proof:** Since $$\Omega$$ is countable, the integral becomes a sum:
-
-$$C_{\theta}(x)(g) = \sum_{u \in \Omega} \langle x(u), \theta(g^{-1} \bullet u) \rangle_{\mathcal{C}}$$
-
-To show $$G$$-equivariance, we make use of the fact that $$\bullet_g \in \text{Sym}(\Omega)$$ to make the substitution $$v = h^{-1} \bullet u$$:
-
-$$
-\begin{align*}
-C_{\theta}(\ast_h(x))(g) &= \sum_{u \in \Omega} \langle x(h^{-1} \bullet u), \theta(g^{-1} \bullet u) \rangle_{\mathcal{C}}\\
-&= \sum_{v \in \Omega} \langle x(v), \theta(g^{-1} \bullet (h \bullet v)) \rangle_{\mathcal{C}}\\
-&= \sum_{u \in \Omega} \langle x(u), \theta(g^{-1}h \bullet u) \rangle_{\mathcal{C}}
-\end{align*}
-$$
-
-Compare this to the outer application of $$\ast'_h$$:
-
-$$\ast'_h(C_{\theta}(x))(g) = C_{\theta}(x)(h^{-1}g) = \sum_{u \in \Omega} \langle x(u), \theta(g^{-1}h \bullet u) \rangle_{\mathcal{C}}$$
-
-These are identical, and so
-
-$$C_{\theta} \circ \ast_g = \ast'_g \circ C_{\theta}$$
-
-$$\forall \; g \in G, \theta \in \mathcal{X}(\Omega, \mathcal{C})$$ as required, hence $$C_{\theta}$$ is $$G$$-equivariant.
-\end{mdframed}
+> **Claim:** If $$\Omega$$ is countable, then for any $$\theta \in \mathcal{X}(\Omega, \mathcal{C})$$, the group convolution is $$G$$-equivariant. That is,
+> 
+> $$C_{\theta} \circ \ast_g = \ast'_g \circ C_{\theta}$$
+> 
+> $$\forall \; g \in G$$, where $$\ast'_g$$ is defined by action $$\bullet'_g: G \to G$$ with $$\bullet'_g(h) := gh$$.
+> 
+> 
+> **Proof:** Since $$\Omega$$ is countable, the integral becomes a sum:
+> 
+> $$C_{\theta}(x)(g) = \sum_{u \in \Omega} \langle x(u), \theta(g^{-1} \bullet u) \rangle_{\mathcal{C}}$$
+> 
+> To show $$G$$-equivariance, we make use of the fact that $$\bullet_g \in \text{Sym}(\Omega)$$ to make the substitution $$v = h^{-1} \bullet u$$:
+> 
+> $$
+> \begin{align*}
+> C_{\theta}(\ast_h(x))(g) &= \sum_{u \in \Omega} \langle x(h^{-1} \bullet u), \theta(g^{-1} \bullet u) \rangle_{\mathcal{C}}\\
+> &= \sum_{v \in \Omega} \langle x(v), \theta(g^{-1} \bullet (h \bullet v)) \rangle_{\mathcal{C}}\\
+> &= \sum_{u \in \Omega} \langle x(u), \theta(g^{-1}h \bullet u) \rangle_{\mathcal{C}}
+> \end{align*}
+> $$
+> 
+> Compare this to the outer application of $$\ast'_h$$:
+> 
+> $$\ast'_h(C_{\theta}(x))(g) = C_{\theta}(x)(h^{-1}g) = \sum_{u \in \Omega} \langle x(u), \theta(g^{-1}h \bullet u) \rangle_{\mathcal{C}}$$
+> 
+> These are identical, and so
+> 
+> $$C_{\theta} \circ \ast_g = \ast'_g \circ C_{\theta}$$
+> 
+> $$\forall \; g \in G, \theta \in \mathcal{X}(\Omega, \mathcal{C})$$ as required, hence $$C_{\theta}$$ is $$G$$-equivariant.
 
 Classical CNNs can be derived by choosing to use a **linear** equivariance wrt. translations, which 
 is equivalently a convolution $$C_{\theta}$$ (since $$G = \Omega = \mathbb{Z}^2$$), and then imposing locality by choosing a 
