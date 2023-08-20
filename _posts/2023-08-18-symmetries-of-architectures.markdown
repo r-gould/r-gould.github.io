@@ -71,22 +71,21 @@ group action if $$\bullet$$ is a valid group action.
 
 #### Key Definitions
 
-> **Definition:** $f: \mathcal{X}(\Omega, \mathcal{C}) \to \mathcal{Y}$ is called $G$-invariant if
+> **Definition:** $$f: \mathcal{X}(\Omega, \mathcal{C}) \to \mathcal{Y}$$ is called $$G$$-invariant if
 > 
 > $$f \circ \ast_g = f$$
 > 
-> $\forall \; g \in G$.
+> $$\forall \; g \in G$$.
 
 * Equivalent definition of $$G$$-invariance: $$f(x \circ \bullet_g) = f(x) \; \forall \; x \in \mathcal{X}(\Omega, \mathcal{C}), g \in G$$.
 * $$G$$-invariance says that applying the action $$\bullet_g$$ onto the domain input $$u \in \Omega$$ does not effect the output of $$f$$.
 
-\begin{mdframed}
-**Definition:** $$f: \mathcal{X}(\Omega, \mathcal{C}) \to \mathcal{X}(\Omega', \mathcal{C}')$$ is called $$G$$-equivariant if
+> **Definition:** $$f: \mathcal{X}(\Omega, \mathcal{C}) \to \mathcal{X}(\Omega', \mathcal{C}')$$ is called $$G$$-equivariant if
+> 
+> $$f \circ \ast_g = \ast'_g \circ f$$
+> 
+> $$\forall \; g \in G$$, where $$\ast$$, $$\ast'$$ are the group actions of $$G$$ on $$\mathcal{X}(\Omega, \mathcal{C})$$, $$\mathcal{X}(\Omega', \mathcal{C}')$$ respectively.
 
-$$f \circ \ast_g = \ast'_g \circ f$$
-
-$$\forall \; g \in G$$, where $$\ast$$, $$\ast'$$ are the group actions of $$G$$ on $$\mathcal{X}(\Omega, \mathcal{C})$$, $$\mathcal{X}(\Omega', \mathcal{C}')$$ respectively.
-\end{mdframed}
 * In the special case of $$\ast \equiv \ast'$$, $$G$$-equivariance says that $$f$$ and $$\ast_g$$ commute.
 
 And two key properties:
@@ -200,7 +199,6 @@ $$f := A \circ \Sigma_N \circ f_N \circ \cdots \circ \Sigma_1 \circ f_1$$
 A general definition of the concept of a convolution is that of the 
 **group convolution**.
 
-\begin{mdframed}
 **Definition:** For a group $$G$$ and $$\theta \in \mathcal{X}(\Omega, \mathcal{C})$$, the group convolution $$C_{\theta}: \mathcal{X}(\Omega, \mathcal{C}) \to \mathcal{X}(G, \mathcal{C})$$ is defined by
 
 $$C_{\theta}(x)(g) := \int_{\Omega} \langle x(u), \theta(g^{-1} \bullet u) \rangle_{\mathcal{C}} du$$
