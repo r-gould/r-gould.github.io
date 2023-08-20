@@ -9,8 +9,7 @@ mathjax: true
 
 The free-energy principle says that self-organizing systems (e.g. biological systems) can be viewed as minimizing a quantity called the **free energy**.
 
-There is a mathematically involved derivation of the free-energy principle by assuming that states follow Langevin dynamics 
-along with some other assumptions. For a full description of this approach see [Friston (2019)](https://arxiv.org/abs/1906.10184).
+There is a mathematically involved derivation of the free-energy principle by assuming that states follow Langevin dynamics along with some other assumptions. For a full description of this approach see [Friston (2019)](https://arxiv.org/abs/1906.10184).
 
 Assuming the **Bayesian brain hypothesis** provides another, less involved, route to the concept of the brain minimizing free energy, as will be described in this section. 
 The Bayesian brain hypothesis says: the brain has a generative model 
@@ -39,7 +38,7 @@ $$
 where $$F(o)$$ is called the **variational free energy** of observation $$o$$, and is a tractable upper bound on this objective. This has shown that updating beliefs in a tractable way can be done by minimizing the variational free energy.
 * Variational auto-encoders (VAEs) then follow by letting $$p(o)$$ be the data distribution and choosing prior belief $$p(x) := \mathcal{N}(x; 0, I)$$ (isotropic Gaussian), and $$p(o|x;\theta)$$, $$q(x|o;\phi)$$ to be parameterized MVNs, and 
 then applying the reparameterization trick to obtain a low variance estimator of $$\mathbb{E}_{p(o)}[F(o)]$$ and applying gradient descent on this estimator.
-* Diffusion models have a data distribution $$p(o)$$ and $$x = (x_1, \ldots, x_T)$$, with $$p(x_T)$$ an isotropic Gaussian, and generative model $$p(x, o; \theta) = p(x_T) \prod_{t=1}^{T} p(x_{t-1}|x_t; \theta)$$ with $$x_0 := o$$, and $$q(x|o) = \prod_{t=1}^{T} q(x_t|x_{t-1})$$ (i.e. Markov chains in both 
+* Diffusion models follow from a data distribution $$p(o)$$ and $$x = (x_1, \ldots, x_T)$$, with $$p(x_T)$$ an isotropic Gaussian, and generative model $$p(x, o; \theta) = p(x_T) \prod_{t=1}^{T} p(x_{t-1}|x_t; \theta)$$ with $$x_0 := o$$, and $$q(x|o) = \prod_{t=1}^{T} q(x_t|x_{t-1})$$ (i.e. Markov chains in both 
 directions). Specifically, there is an **exact** noising process $$q(x_t|x_{t-1}) := \mathcal{N}(x_t; \sqrt{1 - \beta_t} x_{t-1}, \beta_t I)$$ and a parameterized noise-reversing process $$p(x_{t-1}|x_t; \theta) := \mathcal{N}(x_{t-1}; \mu_{\theta}(x_t, t), \Sigma_{\theta}(x_t, t))$$. The 
 rest then amounts to minimizing $$\mathbb{E}_{p(o)}[F(o)]$$ by using some tricks to find a low variance estimator and applying gradient descent.
 
@@ -137,7 +136,7 @@ and so minimizing $$\mathcal{F}_{\pi}$$ means
 Now consider the special case of reinforcement learning, where for a time horizon of length $$T$$,
 * States $$x = (s_0, \ldots, s_T)$$ of the environment, with $$s_i \in \mathbb{R}^S$$.
 * Observations $$o = (o_0, \ldots, o_T)$$ with $$o_i = (r_i, s_{i+1})$$ in the case of RL, since the environment states are given directly to the agent. Reward $$r_i \in \mathbb{R}$$.
-* Policy $$\pi = (a_0, \ldots, a_T)$, with actions $a_i \in \mathbb{R}^A$$.
+* Policy $$\pi = (a_0, \ldots, a_T)$$, with actions $$a_i \in \mathbb{R}^A$$.
 
 forming a Markov Decision Process (MDP). For one step, $$(s_i, a_i) \mapsto o_i$$ by the environment, with $$o_i = (r_i, s_{i+1})$$
 
