@@ -5,7 +5,7 @@ date:   2023-07-24 09:00:00
 mathjax: true
 ---
 
-## Spiking Neuron Model
+### Spiking Neuron Model
 
 A primary asset of machine learning is the artificial neuron; a very idealized, non-spiking model of a neuron in the brain. What does a more realistic model of 
 neurons and their spiking behaviour look like?
@@ -42,7 +42,7 @@ its input neurons, and not anything more specific about their potential changes.
 We could update discretely using $$u_i(t + \Delta t) \approx u_i(t) + \Delta t \frac{du_i}{dt}(t)$$, and after updating in this way we would check for neurons that have increased over the threshold, set them to the rest potential and put them in refractory mode until the refractory period 
 is over. 
 
-\section{Encoding data}
+### Encoding data
 
 Say we have data $$x \in \mathbb{R}^n$$ with $$x_i \in [0, 1]$$. How do we convert this information into binary spikes across time analogously to how our sensory receptors do?
 
@@ -59,7 +59,7 @@ There are other methods of encoding, such as temporal coding schemes that encode
 Within the network there would be a set of neurons that have no incoming synapses, and these would act as input neurons, where we would provide these neurons directly with the raw data encoded as spikes. Then, other neurons 
 would receive the spike information of this raw data via incoming currents.
 
-\section{Learning by STDP}
+### Learning by STDP
 
 STDP is based on the observed phenomena of synapses strengthening if the pre-synaptic neuron spikes before the post-synaptic does too, and the synapse weakening if the post-synaptic neuron fires before the pre-synaptic neuron. The smaller the time difference between the two spikes, 
 the stronger the synaptic update.
@@ -73,9 +73,9 @@ $$\delta w = -A_{-} \exp(-(t_{pre} - t_{post})/\tau_{-})$$. This is an example o
 For better stability and noise reduction, the updates can be stored until, say, $$w_{ij}$$ has 5 stored updates, where the updates are summed and 
 then updated. It can also be done in a fixed time window, such as updating every 5ms, as opposed to performing the updates immediately.
 
-\section{Appendix}
+### Appendix
 
-\subsection{Derivation of LIF model}
+#### Derivation of LIF model
 
 The key idea is to model the intracellular and extracellular regions of the neuron as **conductors**, with the neuron membrane acting as the space between them. 
 * A conductor is an object in which charges can move freely, which implies that the electric field $$\mathbf{E} = \mathbf{0}$$ (as if this is not the case, the free charges would move in response to the electric force until the force was zero).
