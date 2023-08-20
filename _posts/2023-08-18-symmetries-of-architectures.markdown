@@ -7,7 +7,7 @@ mathjax: true
 
 ### Introduction
 
-Geometric deep learning provides a framework for viewing and deriving architectures via symmetry. Namely, imposing invariances and equivariances on a system with respect to 
+[Geometric deep learning](https://arxiv.org/abs/2104.13478) provides a framework for viewing and deriving architectures via symmetry. Namely, imposing invariances and equivariances on a system with respect to 
 a group of symmetries brings us prominent architectures present in machine learning, such as transformers and CNNs, that are empirically highly effective. This post aims to condense the core ideas of this framework.
 * The notion of using symmetry to derive models is significant in physics. Three out of the four fundamental forces can be derived this way; for example, the Maxwell equations for the electromagnetic force can be derived 
 by imposing $$U(1)$$ symmetry, and this approach was discovered long after the empirical finding of the Maxwell equations via experiment.
@@ -21,10 +21,10 @@ Notation:
 $$\Omega$$ to $$\mathcal{C}$$. $$\Omega$$ is called the **domain** and 
 the dimensions of $$\mathcal{C}$$ are called channels.
 
-		As a concrete example, 10x10 RGB images can be described with $$\Omega := \mathbb{Z}_{10} \times \mathbb{Z}_{10}$$ and $$\mathcal{C} := \mathbb{R}^3$$, assigning RGB values to each point in a grid.
+	As a concrete example, 10x10 RGB images can be described with $$\Omega := \mathbb{Z}_{10} \times \mathbb{Z}_{10}$$ and $$\mathcal{C} := \mathbb{R}^3$$, assigning RGB values to each point in a grid.
 		
-		This is equivalent to representing the data as a tensor of type $$\mathbb{R}^{10 \times 10 \times 3}$$. But here, we make a seperation of the shape $$(10, 10, 3)$$ into $$(\Omega, \mathcal{C})$$. 
-		The reason for this will become clearer, but we define our symmetries by a group $$G$$ that acts on $$\Omega$$, whereas $$\mathcal{C}$$ is not involved in these symmetries.
+	This is equivalent to representing the data as a tensor of type $$\mathbb{R}^{10 \times 10 \times 3}$$. But here, we make a seperation of the shape $$(10, 10, 3)$$ into $$(\Omega, \mathcal{C})$$. 
+	The reason for this will become clearer, but we define our symmetries by a group $$G$$ that acts on $$\Omega$$, whereas $$\mathcal{C}$$ is not involved in these symmetries.
 
 
 * Our system $$f: \mathcal{X}(\Omega, \mathcal{C}) \to \mathcal{Y}$$ takes a data signal, and returns a property of the signal.
@@ -44,15 +44,15 @@ inductive biases built into the architecture of the system, not those built into
 * Tangent propagation uses a regularizing term in the optimization objective to incentivize local invariances to transformations. Data augmentation also produces such an effect. However in geometric deep learning, the goal is to build 
 these invariances into the functional form/architecture of the model itself.
 
-		Sidenote (not important): an example of tangent propagation: for data $$x \in \mathbb{R}^n$$ and model $$y(x) \in \mathbb{R}^m$$ under transformations parameterized by, for convenience, a scalar $$\xi$$, then $$\xi \cdot x \in \mathbb{R}^n$$ is the transformed data point (with $$0 \cdot x = x$$). Then
+	Sidenote (not important): an example of tangent propagation: for data $$x \in \mathbb{R}^n$$ and model $$y(x) \in \mathbb{R}^m$$ under transformations parameterized by, for convenience, a scalar $$\xi$$, then $$\xi \cdot x \in \mathbb{R}^n$$ is the transformed data point (with $$0 \cdot x = x$$). Then
 		
-		$$\frac{\partial y(\xi \cdot x)_i}{\partial \xi}\bigg\rvert_{\xi=0} = \sum_{j=1}^{n} \frac{\partial y(x)_i}{\partial x_j} \frac{\partial (\xi \cdot x)_j}{\partial \xi}\bigg\rvert_{\xi=0} =: \sum_{j=1}^{n} J_{ij} \tau_j$$
+	$$\frac{\partial y(\xi \cdot x)_i}{\partial \xi}\bigg\rvert_{\xi=0} = \sum_{j=1}^{n} \frac{\partial y(x)_i}{\partial x_j} \frac{\partial (\xi \cdot x)_j}{\partial \xi}\bigg\rvert_{\xi=0} =: \sum_{j=1}^{n} J_{ij} \tau_j$$
 
-		with Jacobian $$J_{ij} := \frac{\partial y_i}{\partial x_j}$$ and tangent vector $$\tau := \frac{\partial (\xi \cdot x)}{\partial \xi}\rvert_{\xi=0}$$. Then tangent propagation includes a regularizing term
+	with Jacobian $$J_{ij} := \frac{\partial y_i}{\partial x_j}$$ and tangent vector $$\tau := \frac{\partial (\xi \cdot x)}{\partial \xi}\rvert_{\xi=0}$$. Then tangent propagation includes a regularizing term
 
-		$$\lambda \sum_{i=1}^{m} \left(\frac{\partial y(\xi \cdot x)_i}{\partial \xi}\bigg\rvert_{\xi=0}\right)^2 = \lambda \sum_{i=1}^{n} \left(\sum_{j=1}^{n} J_{ij} \tau_j\right)^2$$
+	$$\lambda \sum_{i=1}^{m} \left(\frac{\partial y(\xi \cdot x)_i}{\partial \xi}\bigg\rvert_{\xi=0}\right)^2 = \lambda \sum_{i=1}^{n} \left(\sum_{j=1}^{n} J_{ij} \tau_j\right)^2$$
 
-		into the objective function to incentivize local invariances, with $$\lambda$$ chosen to balance this invariance effect.
+	into the objective function to incentivize local invariances, with $$\lambda$$ chosen to balance this invariance effect.
 
 
 ### Framework
@@ -62,7 +62,7 @@ these invariances into the functional form/architecture of the model itself.
 With knowledge of the kind of data we are working with, and the task we wish to solve, we can determine symmetries 
 on the domain $$\Omega$$, and describe these symmetries by a group $$G$$.
 
-$G$ acts on $$\Omega$$ via $$\bullet: G \times \Omega \to \Omega$$, and $$\bullet_g \in \text{Sym}(\Omega)$$ is the group action restricted to $$g \in G$$, with $$\bullet_g(u) = g \bullet u$$. 
+$$G$$ acts on $$\Omega$$ via $$\bullet: G \times \Omega \to \Omega$$, and $$\bullet_g \in \text{Sym}(\Omega)$$ is the group action restricted to $$g \in G$$, with $$\bullet_g(u) = g \bullet u$$. 
 
 We can define another group action $$\ast: G \times \mathcal{X}(\Omega, \mathcal{C}) \to \mathcal{X}(\Omega, \mathcal{C})$$ by $$g \ast x := x(g^{-1} \bullet \; \cdot \;) \in \mathcal{X}(\Omega, \mathcal{C})$$, now instead 
 acting on a space of functions on $$\Omega$$ rather than $$\Omega$$ itself. This is a valid 
@@ -71,13 +71,12 @@ group action if $$\bullet$$ is a valid group action.
 
 #### Key Definitions
 
-\begin{mdframed}
-**Definition:** $$f: \mathcal{X}(\Omega, \mathcal{C}) \to \mathcal{Y}$$ is called $$G$$-invariant if
+\fbox{**Definition:** $$f: \mathcal{X}(\Omega, \mathcal{C}) \to \mathcal{Y}$$ is called $$G$$-invariant if
 
 $$f \circ \ast_g = f$$
 
-$$\forall \; g \in G$$.
-\end{mdframed}
+$$\forall \; g \in G$$.}
+
 * Equivalent definition of $$G$$-invariance: $$f(x \circ \bullet_g) = f(x) \; \forall \; x \in \mathcal{X}(\Omega, \mathcal{C}), g \in G$$.
 * $$G$$-invariance says that applying the action $$\bullet_g$$ onto the domain input $$u \in \Omega$$ does not effect the output of $$f$$.
 
@@ -91,8 +90,8 @@ $$\forall \; g \in G$$, where $$\ast$$, $$\ast'$$ are the group actions of $$G$$
 * In the special case of $$\ast \equiv \ast'$$, $$G$$-equivariance says that $$f$$ and $$\ast_g$$ commute.
 
 And two key properties:
-1. $G$-equivariances are closed under composition, i.e. if $A$ and $B$ are $G$-equivariances, then $A \circ B$ is a $G$-equivariance.
-2. If $A$ is a $G$-invariance, and $B$ is a $G$-equivariance, then $A \circ B$ is a $G$-invariance.
+1. $$G$$-equivariances are closed under composition, i.e. if $$A$$ and $$B$$ are $$G$$-equivariances, then $$A \circ B$$ is a $$G$$-equivariance.
+2. If $$A$$ is a $$G$$-invariance, and $$B$$ is a $$G$$-equivariance, then $$A \circ B$$ is a $$G$$-invariance.
 
 #### Pertubative Stability
 
