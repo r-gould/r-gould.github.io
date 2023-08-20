@@ -229,7 +229,7 @@ Saving the rewards across 10 runs for each method and averaging over these runs 
 <img src="/assets/free-energy/figure_1.png" width="350"/>
 <img src="/assets/free-energy/figure_2.png" width="350"/>
 
-And this approach outperforms with 95\% confidence (via. bootstrapping of the $U$-statistic wrt. the reward at the final timestep) in both environments.
+And this approach outperforms with 95% confidence (via. bootstrapping of the $$U$$-statistic wrt. the reward at the final timestep) in both environments.
 
 Code can be found at: https://github.com/r-gould/active-inference
 
