@@ -71,14 +71,11 @@ group action if $$\bullet$$ is a valid group action.
 
 #### Key Definitions
 
-<div style="border: 1px solid #000; padding: 10px;">
-
-**Definition:** $f: \mathcal{X}(\Omega, \mathcal{C}) \to \mathcal{Y}$ is called $G$-invariant if
-
-$$f \circ \ast_g = f$$
-
-$\forall \; g \in G$.
-</div>
+> **Definition:** $f: \mathcal{X}(\Omega, \mathcal{C}) \to \mathcal{Y}$ is called $G$-invariant if
+> 
+> $$f \circ \ast_g = f$$
+> 
+> $\forall \; g \in G$.
 
 * Equivalent definition of $$G$$-invariance: $$f(x \circ \bullet_g) = f(x) \; \forall \; x \in \mathcal{X}(\Omega, \mathcal{C}), g \in G$$.
 * $$G$$-invariance says that applying the action $$\bullet_g$$ onto the domain input $$u \in \Omega$$ does not effect the output of $$f$$.
