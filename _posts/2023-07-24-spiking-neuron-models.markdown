@@ -5,19 +5,16 @@ date:   2023-07-24 09:00:00
 mathjax: true
 ---
 
-\section{Neuron Model}
+## Spiking Neuron Model
 
 A primary asset of machine learning is the artificial neuron; a very idealized, non-spiking model of a neuron in the brain. What does a more realistic model of 
 neurons and their spiking behaviour look like?
 
-The spiking network is modelled as a \textbf{directed} graph $G = (V, E)$, where nodes $V$ represent \textbf{neurons} and edges $E$ represent \textbf{synapses} between neurons. 
-For $n$ neurons, $V := \{1, \ldots, n\}$.
-\begin{itemize}
-\item Define the input function $\mathcal{I}: V \to \mathcal{P}(V)$ by $\mathcal{I}(i) := \{j : (j, i) \in E\}$, mapping a neuron  
-to its set of incoming neurons, and analogously the output function $\mathcal{O}: V \to \mathcal{P}(V)$ mapping a neuron to its set of outgoing neurons.
-\end{itemize}
+The spiking network is modelled as a directed graph $$G = (V, E)$$, where nodes $$V$$ represent **neurons** and edges $$E$$ represent **synapses** between neurons. 
+For $$n$$ neurons, $$V := \{1, \ldots, n\}$$.
+* Define the input function $$\mathcal{I}: V \to \mathcal{P}(V)$$ by $$\mathcal{I}(i) := \{j : (j, i) \in E\}$$, mapping a neuron to its set of incoming neurons, and analogously the output function $$\mathcal{O}: V \to \mathcal{P}(V)$$ mapping a neuron to its set of outgoing neurons.
 
-The most common spiking neural models are \textbf{Integrate-and-Fire} (IF) and \textbf{Leaky-Integrate-and-Fire} (LIF).
+The most common spiking neural models are **Integrate-and-Fire** (IF) and **Leaky-Integrate-and-Fire** (LIF).
 
 For a neuron $i \in V$, let $u_i = u_i(t)$ model the state variable, which represents the \textbf{neural membrane potential} of neuron $i$. Then under the LIF model it evolves as
 
