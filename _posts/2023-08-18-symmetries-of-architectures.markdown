@@ -292,7 +292,7 @@ $$f(PX, PAP^T) = Pf(X, A)$$
 
 $$\forall \; P \in S_n$$, where $$S_n$$ is the group of $$n \times n$$ permutation matrices.
 
-One way of imposing locality here is to impose that $$f(X, A)_i \in \mathbb{R}^{d_{O}}$$ only depends on $$x_i$$ and $$X_{\mathcal{N}_i(A)} \in \mathbb{R}^{|\mathcal{N}_i(A)| \times d_I}$$, the node representations of neighbours of $$i$$. This means that
+One way of imposing locality here is to impose that $$f(X, A)_i \in \mathbb{R}^{d_{O}}$$ only depends on $$x_i$$ and $$X_{\mathcal{N}_i(A)} \in \mathbb{R}^{\vert \mathcal{N}_i(A)\vert \times d_I}$$, the node representations of neighbours of $$i$$. This means that
 
 $$f(X, A)_i = \phi(x_i, X_{\mathcal{N}_i(A)})$$
 
@@ -300,7 +300,7 @@ In this case, $$\phi$$ must be **invariant** to permutations of the input neighb
 
 $$\phi(x_i, PX_{\mathcal{N}_i(A)}) = \phi(x_i, X_{\mathcal{N}_i(A)})$$
 
-$$\forall \; P \in S_{|\mathcal{N}_i(A)|}$$.
+$$\forall \; P \in S_{\vert \mathcal{N}_i(A)\vert }$$.
 
 One way of imposing that $$\phi$$ is invariant is to enforce that $$\phi$$ only depends on a permutation invariant operator across the neighbours, i.e.
 
