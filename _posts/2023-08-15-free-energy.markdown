@@ -39,8 +39,10 @@ where $$F(o)$$ is called the **variational free energy** of observation $$o$$, a
 * Variational auto-encoders (VAEs) then follow by letting $$p(o)$$ be the data distribution and choosing prior belief $$p(x) := \mathcal{N}(x; 0, I)$$ (isotropic Gaussian), and $$p(o|x;\theta)$$, $$q(x|o;\phi)$$ to be parameterized MVNs, and 
 then applying the reparameterization trick to obtain a low variance estimator of $$\mathbb{E}_{p(o)}[F(o)]$$ and applying gradient descent on this estimator.
 * Diffusion models follow from a data distribution $$p(o)$$ and $$x = (x_1, \ldots, x_T)$$, with $$p(x_T)$$ an isotropic Gaussian, and generative model $$p(x, o; \theta) = p(x_T) \prod_{t=1}^{T} p(x_{t-1}|x_t; \theta)$$ with $$x_0 := o$$, and $$q(x|o) = \prod_{t=1}^{T} q(x_t|x_{t-1})$$ (i.e. Markov chains in both 
-directions). Specifically, there is an **exact** noising process $$q(x_t|x_{t-1}) := \mathcal{N}(x_t; \sqrt{1 - \beta_t} x_{t-1}, \beta_t I)$$ and a parameterized noise-reversing process $$p(x_{t-1}|x_t; \theta) := \mathcal{N}(x_{t-1}; \mu_{\theta}(x_t, t), \Sigma_{\theta}(x_t, t))$$. The 
-rest then amounts to minimizing $$\mathbb{E}_{p(o)}[F(o)]$$ by using some tricks to find a low variance estimator and applying gradient descent.
+directions). 
+
+	Specifically, there is an **exact** noising process $$q(x_t|x_{t-1}) := \mathcal{N}(x_t; \sqrt{1 - \beta_t} x_{t-1}, \beta_t I)$$ and a parameterized noise-reversing process $$p(x_{t-1}|x_t; \theta) := \mathcal{N}(x_{t-1}; \mu_{\theta}(x_t, t), \Sigma_{\theta}(x_t, t))$$. The 
+	rest then amounts to minimizing $$\mathbb{E}_{p(o)}[F(o)]$$ by using some tricks to find a low variance estimator and applying gradient descent.
 
 The negative **model evidence** acts as a lower bound on $$F(o)$$:
 
