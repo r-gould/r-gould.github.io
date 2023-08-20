@@ -7,8 +7,8 @@ mathjax: true
 
 \section{Neuron Model}
 
-A primary asset of machine learning is the artificial neuron; a very rough, idealized model of a neuron in the brain. What does a more realistic model of 
-neurons look like?
+A primary asset of machine learning is the artificial neuron; a very idealized, non-spiking model of a neuron in the brain. What does a more realistic model of 
+neurons and their spiking behaviour look like?
 
 The spiking network is modelled as a \textbf{directed} graph $G = (V, E)$, where nodes $V$ represent \textbf{neurons} and edges $E$ represent \textbf{synapses} between neurons. 
 For $n$ neurons, $V := \{1, \ldots, n\}$.
