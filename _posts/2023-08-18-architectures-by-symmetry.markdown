@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Symmetries of architectures"
+title:  "Architectures by symmetry"
 date:   2023-08-18 09:00:00
 mathjax: true
 ---
