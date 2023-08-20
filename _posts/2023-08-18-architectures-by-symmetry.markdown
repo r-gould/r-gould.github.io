@@ -361,7 +361,7 @@ Consider a **time warping** $$\tau: \mathbb{R}^+ \to \mathbb{R}^+$$, which is mo
 by requiring that the RNN model class is invariant to such time warping operations.
 
 * The concept of a model class being invariant can be seen as a generalization of $G$-invariance. Model class invariance of model class $$M$$ 
-says that for any $$f \in M$$, $$f \circ \tau = g$$ for some $g \in M$. $G$-invariance is the case of $f \equiv g$.
+says that for any $$f \in M$$, $$f \circ \tau = g$$ for some $$g \in M$$. $$G$$-invariance is the case of $$f \equiv g$$.
 	TODO: rewrite this point
 
 First make a substitution $$t \mapsto \tau(t)$$:
