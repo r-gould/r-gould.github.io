@@ -21,7 +21,7 @@ Then the brain's beliefs are **implicitly** contained in its generative model $$
 * prior belief on latent variable $$p(x)$$,
 * likelihood $$p(o, x)$$.
 
-After receiving an observation $$o$$, the posterior $$p(x\|o)$$ is determined by Bayes rule:
+After receiving an observation $$o$$, the posterior $$p(x\vert o)$$ is determined by Bayes rule:
 
 $$p(x|o) = \frac{p(x, o)}{p(o)}$$
 
