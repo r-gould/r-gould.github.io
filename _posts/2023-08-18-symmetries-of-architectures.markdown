@@ -72,6 +72,7 @@ group action if $$\bullet$$ is a valid group action.
 #### Key Definitions
 
 <div style="border: 1px solid #000; padding: 10px;">
+
 **Definition:** $$f: \mathcal{X}(\Omega, \mathcal{C}) \to \mathcal{Y}$$ is called $$G$$-invariant if
 
 $$f \circ \ast_g = f$$
