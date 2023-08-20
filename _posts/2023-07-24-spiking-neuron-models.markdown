@@ -121,8 +121,8 @@ $$C \frac{dV}{dt}(t) = -\frac{1}{R}(V(t) - V_{\text{rest}}) + I(t)$$
 
 and we can further expand $$I(t)$$ into the currents incoming via synapses to get the desired expression.
 
-<img src="/assets/free-energy/figure_1.png" width="5cm"/>
-<img src="/assets/free-energy/figure_2.png" width="5cm"/>
+<img src="/assets/free-energy/figure_1.png" width="200"/>
+<img src="/assets/free-energy/figure_2.png" width="200"/>
 
 
 ![](/assets/free-energy/figure_1.png)
