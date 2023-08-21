@@ -5,6 +5,19 @@ date:   2023-08-15 09:00:00
 mathjax: true
 ---
 
+### Introduction
+
+This post describes the notion of an agent minimizing their **free-energy** and its extension 
+to **active inference**, which includes the ability for the agent to 
+take **action**, additionally introducing an **expected** free-energy. I then derive an approach for 
+applying these methods to reinforcement learning, comparing my approach to another approach in the 
+literature. I then briefly describe predictive coding, a more biologically plausible replacement 
+for backpropagation.
+
+* Minimizing free-energy is exactly what both VAEs and Diffusion models perform. Free-energy 
+is also related to the negative model evidence, and many common objectives minimize 
+this, e.g. cross-entropy and mean-squared loss.
+
 ### Free-energy
 
 The free-energy principle says that self-organizing systems (e.g. biological systems) can be viewed as minimizing a quantity called the **free energy**.
@@ -200,7 +213,7 @@ Given this, we choose the reward model $$q(r_t|x_t, a_t) = \mathcal{N}(r_t; f_{\
 the transition model $$q(x_t|x_{t-1}, a_{t-1}) = \mathcal{N}(x_t; g_{\mu}(x_{t-1}, a_{t-1}), \text{diag}(g_{\sigma^2}(x_{t-1}, a_{t-1})))$$. We represent 
 $$f_{\mu}, f_{\sigma^2}: \mathbb{R}^{S} \times \mathbb{R}^{A} \to \mathbb{R}$$ and $$g_{\mu}, g_{\sigma^2}: \mathbb{R}^{S} \times \mathbb{R}^{A} \to \mathbb{R}^{S}$$ as neural networks.
 
-A natural prior is $$\tilde{p}(r_t) = \mathcal{N}(r_t; r_{\text{max}}, \alpha^2)$ where $r_{\text{max}}$$ is the maximum reward in the environment and $$\alpha$$ is suitably chosen.
+A natural prior is $$\tilde{p}(r_t) = \mathcal{N}(r_t; r_{\text{max}}, \alpha^2)$$ where $$r_{\text{max}}$$ is the maximum reward in the environment and $$\alpha$$ is suitably chosen.
 
 Then, we can find
 
