@@ -46,7 +46,7 @@ Encoders are models of sensory receptors, which convert real world data into SDR
 
 An SDR sparsity of $$2\%$$ is often used, meaning that $$\left[\frac{k}{n}\right] = 0.02$$.
 
-####
+#### Semantic Embeddings for NLP
 
 (for understanding the HTM system generally, can skip this)
 
@@ -89,7 +89,9 @@ the synapses instead connect to other neurons across HTM layer. Specifically, ea
 
 e.g. a neuron with 2 distal segments, each segment with 3 synapses (without including pre-synaptic neurons):
 
-<img src="/assets/understanding-htm/distal_segment.png" width="350"/>
+<p align="center">
+	<img src="/assets/understanding-htm/distal_segment.png" width="350"/>
+</p>
 
 #### Overview
 
@@ -142,7 +144,7 @@ if $$x^{(t)}_s = 1$$, then let $$p^{(t)}_{c, s} := \min(1, p^{(t-1)}_{c, s} + \D
 let $$p^{(t)}_{c, s} := \max(0, p^{(t-1)}_{c, s} - \Delta_-)$$.
 
 If boosting is active, we also:
-1. Update the boosting paramters $\{b_c\}_{c=1}^{C}$. This involves TODO
+1. Update the boosting paramters $$\{b_c\}_{c=1}^{C}$$. This involves TODO
 
 The goal of boosting is to maintain homeostasis of neuronal activity, encouraging a variety of minicolumns to be activating across inputs 
 rather than a small set of minicolumns dominating activity with most minicolumns remaining unactive for long periods.
@@ -164,14 +166,13 @@ The temporal memory algorithm then finds the information for the next timestep,
 i.e. $$\mathcal{N}^{(t)}_A$$, $$\mathcal{N}^{(t)}_W$$, $$\mathcal{D}^{(t)}_A$$, $$\mathcal{D}^{(t)}_M$$, all initially set to $$\{\}$$, while learning from the input $$x^{(t)}$$. Whether a neuron is in predictive state is determined by 
 whether one of its segments is active (in $$\mathcal{D}^{(t-1)}_A$$).
 
-This process can be split into three processes, involving: active columns, inactive columns and updating of segments. These processes are explained below, 
-in 8.1.1, 8.1.2, 8.1.3 respectively.
+This process can be split into three processes, involving: active columns, inactive columns and updating of segments. These processes are explained below.
 
 ### Algorithm
 
 #### For each active column $$c \in A^{(t)}$$
 
-<u>If $$|\mathcal{D}^{(t-1)}(c) \cap \mathcal{D}^{(t-1)}_A| > 0$$:</u> 
+##### If $$|\mathcal{D}^{(t-1)}(c) \cap \mathcal{D}^{(t-1)}_A| > 0$$:
 
 (if a segment of minicolumn $$c$$ is active, meaning the minicolumn was correctly predicted to be active)
 
@@ -202,7 +203,7 @@ and synapse growth:
 
 In this case there are no new segments formed, therefore $$\mathcal{D}^{(t)}(c) := \mathcal{D}^{(t-1)}(c)$$.
 
-<u>If, instead, $$|\mathcal{D}^{(t-1)}(c) \cap \mathcal{D}^{(t-1)}_A| = 0$$:</u>
+##### If, instead, $$|\mathcal{D}^{(t-1)}(c) \cap \mathcal{D}^{(t-1)}_A| = 0$$:
 
 (no segments of minicolumn $$c$$ is active, meaning no neuron was in predictive state, when it should have been)
 
@@ -271,12 +272,12 @@ We can now determine which segments are active and matching: $$\mathcal{D}^{(t)}
 simple check over segments.
 
 For each segment $$d \in \mathcal{D}(c)$$:
-* Set $$n^{(t)}(d) := |\{\mathcal{P}(s) : s \in \mathcal{S}^{(t)}(d)\} \cap \mathcal{N}^{(t)}_A|$$
-* If $$n^{(t)}(d) \equiv |\{\mathcal{P}(s) : s \in \mathcal{S}^{(t)}(d)\} \cap \mathcal{N}^{(t)}_A| \geq M_{\text{thresh}}$$ (sufficiently many active synapses, **including non-receptive** synapses), then update
+* Set $$n^{(t)}(d) := \vert\{\mathcal{P}(s) : s \in \mathcal{S}^{(t)}(d)\} \cap \mathcal{N}^{(t)}_A\vert$$
+* If $$n^{(t)}(d) \equiv \vert\{\mathcal{P}(s) : s \in \mathcal{S}^{(t)}(d)\} \cap \mathcal{N}^{(t)}_A\vert \geq M_{\text{thresh}}$$ (sufficiently many active synapses, **including non-receptive** synapses), then update
 
 $$\mathcal{D}^{(t)}_M := \mathcal{D}^{(t)}_M \cup \{d\}$$
 
-* If $$|\{\mathcal{P}(s) : s \in \mathcal{R}^{(t)}(d)\} \cap \mathcal{N}^{(t)}_A| \geq A_{\text{thresh}}$$ (sufficiently many active **receptive** synapses), then update
+* If $$\vert\{\mathcal{P}(s) : s \in \mathcal{R}^{(t)}(d)\} \cap \mathcal{N}^{(t)}_A\vert \geq A_{\text{thresh}}$$ (sufficiently many active **receptive** synapses), then update
 
 $$\mathcal{D}^{(t)}_A := \mathcal{D}^{(t)}_A \cup \{d\}$$
 
