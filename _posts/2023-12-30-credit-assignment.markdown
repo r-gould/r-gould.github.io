@@ -58,7 +58,7 @@ In the parameterized view, with $$h_{\tau} = (\theta_{\tau}, \pi_{\tau})$$, what
 
 #### Gradient-based learning
 
-A common choice for the learning rule is **gradient descent**, with $$q := q_{\text{grad}}$$, where
+A common choice for the learning rule is **gradient descent**, with $$q = q_{\text{grad}}$$, where
 
 $$q_{\text{grad}}(\theta_{\tau}\mid \theta_{\tau-1}, \pi_{\tau-1}, o_{\tau}) := \delta\left(\theta_{\tau} - \left(\theta_{\tau-1} - \alpha \nabla_{\theta} P_t[q_{\theta}^{\tau}]\mid _{\theta = \theta_{\tau-1}}\right)\right)$$
 
@@ -238,12 +238,15 @@ choose actions effectively. For simplicity assume a discrete finite action space
 At time $$t$$ the agent has observed $$o_{0:t}$$, say with parameter $$\theta$$ parameterizing the predictive distributions
 
 $$h_{\theta} = h_{\theta}(o_{0:t}) =: z^t_{0} \in \mathbb{R}^{d}$$
+
 $$f_{\theta} = f_{\theta}(z^t_{k}) =: (\mathbf{p}^t_{k}, v^{t:t+k}_{t+k})$$
+
 $$g_{\theta} = g_{\theta}(z^t_{k-1}, i) = (\psi^{t:t+k-1}_{t+k}, z^{t}_{k, i})$$
 
 with
 
 $$\psi^{\tau}_{t+k} \approx \mathbb{E}_{q}^{\mu}[\phi^{\tau}_{t+k}(O_{t+k})\mid\Omega_{t} = \omega_{t}]$$
+
 $$v^{\tau}_{t+k} \approx \mathbb{E}_{q}^{\mu}[V^{\tau}_{t+k}\mid\Omega_{t} = \omega_t]$$
 
 enforced via supervised learning (discussed more below).
