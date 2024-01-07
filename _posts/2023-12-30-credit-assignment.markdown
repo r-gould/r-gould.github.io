@@ -20,7 +20,7 @@ generating the random sequence
 
 $$(S_1, O_1, H_1, A_1, S_{2}, \ldots)$$
 
-which can be described by the diagram
+which can be described by the following diagram, with the environment and agent only interacting with eachother via observations and actions along the central dotted line
 
 <p align="center">
 	<img src="/assets/credit-assignment/markovblanket.png" width="350"/>
