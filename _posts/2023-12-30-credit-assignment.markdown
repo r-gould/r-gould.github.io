@@ -309,7 +309,7 @@ P_t[q] &:= \mathbb{E}_{q}^{\mu}[\phi^t(O_{t+1}, O_{t+2}, \ldots)\mid \Omega_t=\o
 \end{align*}
 $$
 
-The agent does not have access to $$p(o_{\tau+1}\mid o_{0:\tau}, h_{0:\tau})$$, but lets say it has a model of this distribution, $$\hat{p} = \hat{p}(o_{\tau+1}\mid o_{0:\tau}, h_{0:\tau})$$. 
+The agent does not have access to $$p(o_{\tau+1}\mid o_{0:\tau}, h_{0:\tau})$$, but lets say it has a model of this distribution, $$\hat{p} = \hat{p}(o_{\tau+1}\mid o_{0:\tau}, h_{0:\tau})$$ (observations and hidden states are accessible by the agent, hence one can imagine learning such a model via supervised learning).
 
 Define the preference under this predictive model
 
