@@ -296,7 +296,7 @@ This gives overall $$\text{meta}^{K}$$ dynamics
 
 $$q = q^{(K)}(h_{\tau}^{(K)}\mid h_{\tau-1}^{(K)}, o_{\tau}) = q_{\tau}^{(0)}(h_{\tau}^{(0)}\mid h_{\tau-1}^{(0)}, o_{\tau}) \left[\prod_{k=1}^{K} q_{\tau}^{(k)}(q_{\tau}^{(k-1)}\mid q_{\tau-1}^{(k-1)}, h_{\tau-1}^{(k-1)}, o_{\tau})\right]$$
 
-
+TODO: discuss popular meta learning dynamics (MAML, etc.)
 
 ### AIXI
 
