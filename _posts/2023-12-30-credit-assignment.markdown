@@ -20,7 +20,7 @@ generating the random sequence
 
 $$(S_1, O_1, H_1, A_1, S_{2}, \ldots)$$
 
-which can be described by the following diagram, with the environment and agent only interacting with eachother via observations and actions along the central dotted line
+which can be described by the following diagram, with the environment and agent only interacting with eachother via observations and actions
 
 <p align="center">
 	<img src="/assets/credit-assignment/markovblanket.png" width="350"/>
@@ -62,7 +62,7 @@ A common choice for the learning rule is **gradient descent**, with $$q = q_{\te
 
 $$q_{\text{grad}}(\theta_{\tau}\mid \theta_{\tau-1}, \pi_{\tau-1}, o_{\tau}) := \delta\left(\theta_{\tau} - \left(\theta_{\tau-1} - \alpha \nabla_{\theta} P_t[q_{\theta}^{\tau}]\mid _{\theta = \theta_{\tau-1}}\right)\right)$$
 
-with $$\alpha \in \mathbb{R}_{+}$$ the **learning rate**, where $$q_{\theta}^{\tau}$$ is defined such that the learning rule is \emph{turned off} from timestep $$\tau$$, with the parameter fixed to $$\theta$$. Specifically, $$q_{\theta}^{t}$$ is defined by
+with $$\alpha \in \mathbb{R}_{+}$$ the **learning rate**, where $$q_{\theta}^{\tau}$$ is defined such that the learning rule is _turned off_ from timestep $$\tau$$, with the parameter fixed to $$\theta$$. Specifically, $$q_{\theta}^{t}$$ is defined by
 
 $$q_{\theta}^{t}(\theta_{\tau}\mid \theta_{\tau-1}, \pi_{\tau-1}, o_{\tau}) := 
 \begin{cases} 
@@ -108,7 +108,7 @@ One can show that
 
 $$\mathbb{E}_{q_{\theta}^{t}}^{\mu}[b^{t}_{\tau}(\Pi_{\tau-1}, O_{\tau}; \phi) \nabla_{\theta} \log q(\Pi_{\tau}\mid \Pi_{\tau-1}, O_{\tau}; \theta)] = 0$$
 
-for any \emph{baseline} $$b^{t}_{\tau} = b^{t}_{\tau}(\pi_{\tau-1}, o_{\tau}; \phi)$$, which gives us another expression for the preference gradient:
+for any _baseline_ $$b^{t}_{\tau} = b^{t}_{\tau}(\pi_{\tau-1}, o_{\tau}; \phi)$$, which gives us another expression for the preference gradient:
 
 $$\nabla_{\theta} P_t[q_{\theta}^{t}] = \mathbb{E}_{q_{\theta}^{t}}^{\mu}\left[\sum_{\tau=t}^{\infty} \left[\phi^t(O_{t+1}, O_{t+2}, \ldots) - b^{t}_{\tau}(\Pi_{\tau-1}, O_{\tau}; \phi)\right] \nabla_{\theta} \log q(\Pi_{\tau}\mid \Pi_{\tau-1}, O_{\tau}; \theta)\mid\Omega_t = \omega_t\right]$$
 
@@ -168,13 +168,13 @@ Q_{\tau}^{t}[q_{\theta}^{t}\mid\Omega_{\tau}, \Pi_{\tau}] &:= \mathbb{E}_{q_{\th
 \end{align*}
 $$
 
-i.e. the expected value in the future from $$\tau \geq t$$, conditioned on all past observed information from $$\tau$$ \emph{and the hidden state at $$\tau$$}.
+i.e. the expected value in the future from $$\tau \geq t$$, conditioned on all past observed information from $$\tau$$ _and the hidden state at $$\tau$$_.
 
 Then including baseline we have
 
 $$\nabla_{\theta} P_t[q_{\theta}^{t}] = \mathbb{E}_{q_{\theta}^{t}}^{\mu}\left[\sum_{\tau=t}^{\infty} \left[Q_{\tau}^{t}[q_{\theta}^{t}\mid\Omega_{\tau}, \Pi_{\tau}] - b^{t}_{\tau}(\Pi_{\tau-1}, O_{\tau}; \phi)\right] \nabla_{\theta} \log q(\Pi_{\tau}\mid \Pi_{\tau-1}, O_{\tau}; \theta)\right]$$
 
-Typical advantage based estimators choose a \emph{value baseline} as seen in the previous section, with $$b^{t}_{\tau} = \hat{V}^{t}_{\tau}$$, giving preference gradient
+Typical advantage based estimators choose a _value baseline_ as seen in the previous section, with $$b^{t}_{\tau} = \hat{V}^{t}_{\tau}$$, giving preference gradient
 
 $$\nabla_{\theta} P_t[q_{\theta}^{t}] = \mathbb{E}_{q_{\theta}^{t}}^{\mu}\left[\sum_{\tau=t}^{\infty} A_{\tau}^{t}[q_{\theta}^{t}\mid\Omega_{\tau}, \Pi_{\tau}; \phi] \; \nabla_{\theta} \log q(\Pi_{\tau}\mid \Pi_{\tau-1}, O_{\tau}; \theta)\right]$$
 
@@ -192,7 +192,7 @@ for any $$K = 1, 2, \ldots$$, and using
 
 $$\mathbb{E}_{q_{\theta}^{t}}^{\mu}[V^{t}_{\tau+K}] \approx \mathbb{E}_{q_{\theta}^{t}}^{\mu}[\hat{V}^{t}_{\tau+K}(\Pi_{\tau+K-1}, O_{\tau+K}; \phi)]$$
 
-we can \emph{bootstrap} $$Q_{\tau}^{t}$$ by $$K$$ steps
+we can _bootstrap_ $$Q_{\tau}^{t}$$ by $$K$$ steps
 
 $$
 \begin{align*}
@@ -232,7 +232,7 @@ Advantage-based methods are seen to work very well in the context of reinforceme
 
 #### Tree search methods
 
-We now discuss the approach of an agent using \emph{tree search} methods, guided by learned predictive models of the environment, in order to 
+We now discuss the approach of an agent using _tree search_ methods, guided by learned predictive models of the environment, in order to 
 choose actions effectively. For simplicity assume a discrete finite action space of $$A$$ actions.
 
 At time $$t$$ the agent has observed $$o_{0:t}$$, say with parameter $$\theta$$ parameterizing the predictive distributions
