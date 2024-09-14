@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Credit assignment"
-date:   2023-12-30 09:00:00
+date:   2022-12-30 09:00:00
 mathjax: true
 ---
 
