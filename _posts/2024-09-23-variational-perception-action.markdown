@@ -234,8 +234,12 @@ That is, we can potentially think of iterative inference as taking place implici
 
 Given \Cref{eqn:boltz}, the term (c) in \Cref{eqn:freeenergy} can be written
 
-$$\sum_{\tau=1}^{t-1} \mathbb{E}_{q(\pi\mid s_{\tau}) q(s_{\tau}\mid x_{1:t}, a_{<t})}[-\log p(\pi\mid s_{\tau})]$$
-$$= -\beta \sum_{\tau=1}^{t-1} \mathbb{E}_{q(\pi\mid s_{\tau}) q(s_{\tau}\mid x_{1:t}, a_{<t})}[V_{\pi}(s_{\tau})]$$
+$$
+\begin{align*}
+&\sum_{\tau=1}^{t-1} \mathbb{E}_{q(\pi\mid s_{\tau}) q(s_{\tau}\mid x_{1:t}, a_{<t})}[-\log p(\pi\mid s_{\tau})]\\
+&= -\beta \sum_{\tau=1}^{t-1} \mathbb{E}_{q(\pi\mid s_{\tau}) q(s_{\tau}\mid x_{1:t}, a_{<t})}[V_{\pi}(s_{\tau})]
+\end{align*}
+$$
 
 If we choose $$q(\pi\mid s_{\tau}) = \delta(\pi-\pi_{\phi})$$, then we essentially arrive at the problem of:
 
@@ -244,20 +248,24 @@ $$\text{maximize} \; V_{\pi_{\phi}}(s_t) \; \text{with respect to} \; \phi$$
 which is exactly the goal of policy-based reinforcement learning (RL). Recall that,
 
 $$V_{\pi}(s_t) = \mathbb{E}_{p(s_{>t}, a_{\geq t}\mid s_t, \pi)}\left[\sum_{\tau=t}^{T} \gamma^{\tau-t} R(s_{\tau}, a_{\tau})\right],$$
+
 $$Q_{\pi}(s_t, a_t) = \mathbb{E}_{p(s_{>t}, a_{>t}\mid s_t, a_t, \pi)}\left[\sum_{\tau=t}^{T} \gamma^{\tau-t} R(s_{\tau}, a_{\tau})\right]$$
 
 and note that
 
 $$V_{\pi}(s) = \mathbb{E}_{\pi(a\mid s)}[Q_{\pi}(s, a)]$$
+
 $$Q_{\pi}(s, a) = R(s, a) + \gamma \mathbb{E}_{p(s'\mid s, a)}[V_{\pi}(s')]$$
 
 There appears to be two notable methods for performing credit assignment in RL: (a) policy gradient methods (e.g. REINFORCE, PPO) (b) amortized gradient methods (e.g. DQN, DDPG, SVG(0), SAC). Both involve gradient ascent using gradient $$\nabla_{\phi} V_{\pi_{\phi}}(s_t)$$, yet utilize different expressions for this gradient. As a quick summary,
-a. Policy gradient methods consider writing the gradient in the form,
+
+a) *Policy gradient methods* consider writing the gradient in the form,
 
 $$\nabla_{\phi} V_{\pi_{\phi}}(s_t) = \sum_{\tau=t}^{\infty} \mathbb{E}_{p(s_{>t}, a_{\geq t}\mid s_t, \pi_{\phi})}[\Phi_{t, \tau} \nabla_{\phi} \log \pi_{\phi}(a_{\tau}\mid s_{\tau})]$$
 
 with various choices of $$\Phi_{t, \tau}$$, typically involving approximations $$\hat{V} \approx  V_{\pi_{\phi}}$$ and/or $$\hat{Q} \approx Q_{\pi_{\phi}}$$, described in more detail below.
-b. Amortized gradient methods instead consider the form,
+
+b) *Amortized gradient methods* instead consider the form,
 
 $$\nabla_{\phi} V_{\pi_{\phi}}(s_t) \approx \nabla_{\phi} \mathbb{E}_{\pi_{\phi}(a_t\mid s_t)}[\hat{Q}(s_t, a_t)]$$
 
@@ -268,6 +276,7 @@ $$\nabla_{\phi} V_{\pi_{\phi}}(s_t) \approx  \mathbb{E}_{p(\epsilon)}[\nabla_{\p
 As an example of what $$f_{\phi}$$ may look like in practice, for a Gaussian policy:
 
 $$\pi_{\phi}(a_t\mid s_t) = \text{N}(a_t; \mu_{\phi}(s_t), \Sigma_{\phi}(s_t))$$
+
 $$\implies a_t = f_{\phi}(s_t, \epsilon) = \mu_{\phi}(s_t) + \epsilon U_{\phi}(s_t), \; \; \; \text{where} \; \; \Sigma_{\phi}(s_t) = U_{\phi}(s_t) U_{\phi}(s_t)^{T}$$
 
 for $$\epsilon \sim \text{N}(0, I)$$.
@@ -277,21 +286,19 @@ for $$\epsilon \sim \text{N}(0, I)$$.
 1. DQN corresponds to the amortized method, however since its in the context of (small) discrete action spaces, the optimal action
 
 $$a^{*}(s) = \text{argmax}_a \hat{Q}(s, a)$$
-
-can be computed directly. Further, as in Q-learning, $\hat{Q} \approx Q_{\pi_{*}}$ where $\pi_{*}$ is the optimal policy, satisfying the Bellman equation,
+can be computed directly. Further, as in Q-learning, $$\hat{Q} \approx Q_{\pi_{*}}$$ where $$\pi_{*}$$ is the optimal policy, satisfying the Bellman equation,
 
 $$Q_{\pi_{*}}(s, a) = \mathbb{E}_{p(s'\mid s, a)}[R(s, a) + \gamma \max_{a'} Q_{\pi_{*}}(s', a')]$$
-
 where we minimize the associated greedy SARSA-like loss,
 
 $$\frac{1}{2} \mathbb{E}_{p(s, a, s'\mid \pi_{a^{*}})}[(\hat{Q}(s, a) - (R(s, a) + \gamma\max_{a'} \hat{Q}(s', a'))^2]$$
-
 to obtain $$\hat{Q} \approx Q_{\pi_{*}}$$.
+
 2. DDPG extends Q-learning/DQN to continuous action spaces using the amortized method, restricting to deterministic policies $$\pi_{\phi}(a\mid s) = \delta(a - \mu_{\phi}(s))$$, hence with corresponding gradient,
 
 $$\nabla_{\phi} V_{\pi_{\phi}}(s_t) \approx \nabla_{\phi} \hat{Q}(s_t, \mu_{\phi}(s_t))$$
-
 It approximates $$\hat{Q} = Q_{\pi_{*}}$$ equivalently to DQN.
+
 3. The SVG(0) algorithm is an extension of DDPG for stochastic policies $$\pi_{\phi}$$, by utilizing the reparameterization trick (demonstrated above in (b)). It approximates $$\hat{Q} \approx Q_{\pi_{\phi}}$$ (i.e. not under the optimal policy, unlike DDPG) using a SARSA-like objective,
 
 $$\frac{1}{2} \mathbb{E}_{p(s, a, s', a'\mid \pi_{\phi})}[(\hat{Q}(s, a) - (R(s, a) + \gamma\hat{Q}(s', a'))^2]$$
@@ -300,13 +307,13 @@ $$\frac{1}{2} \mathbb{E}_{p(s, a, s', a'\mid \pi_{\phi})}[(\hat{Q}(s, a) - (R(s,
 
 $$\frac{1}{2}\mathbb{E}_{p(s)}[(\hat{V}(s) - \mathbb{E}_{\pi_{\phi}(a\mid s)}[\hat{Q}(s, a) \underbrace{- \log \pi_{\phi}(a\mid s)}])^2],$$
 $$\frac{1}{2}\mathbb{E}_{p(s, a\mid \pi_{\phi})}[(\hat{Q}(s, a) - (R(s, a) + \gamma\mathbb{E}_{p(s'\mid s, a)}[\hat{V}(s')]))^2]$$
-
 respectively. The reason why $$\hat{V}$$'s objective has an entropy term yet $$\hat{Q}$$'s doesnt, is because SAC defines the value $$V_{\pi_{\phi}}$$ to include an entropy term.
 
 
 **Policy gradient methods.** For the return $$G_t := \sum_{\tau=t}^{\infty} \gamma^{\tau-t} R(s_{\tau}, a_{\tau})$$, note that
 
 $$V_{\pi_\phi}(s_t) = \mathbb{E}_{p(s_{>t}, a_{\geq t}\mid s_t, \pi_\phi)}[G_t]$$
+
 $$\implies \nabla_{\phi} V_{\pi_\phi}(s_t) = \sum_{\tau=t}^{\infty} \mathbb{E}_{p(s_{>t}, a_{\geq t}\mid s_t, \pi_\phi)}[G_t \nabla_{\phi} \log \pi_{\phi}(a_{\tau}\mid s_{\tau})]$$
 
 We can approximate this via a (truncated) Monte Carlo method over trajectory information, however if the trajectory information is taken under an older policy $$\pi_{\phi_{old}}$$, we should instead include a ratio factor:
@@ -323,7 +330,7 @@ We can write $$\nabla_{\phi} V_{\pi_{\phi}}(s_t)$$ in a more general form by man
 $$\nabla_{\phi} V_{\pi_{\phi}}(s_t) = \sum_{\tau=t}^{T} \mathbb{E}_{p(s_{>t}, a_{\geq t}\mid s_t, \pi_{\phi})}[\Phi_{t, \tau} \nabla_{\phi} \log \pi_{\phi}(a_{\tau}\mid s_{\tau})]$$
 
 for a variety of choices of $$\Phi_{t, \tau}$$:
-1. $$\Phi_{t, \tau} = G_t$$
+1. $\Phi_{t, \tau} = G_t$
 2. $$\Phi_{t, \tau} = G_{\tau} = \sum_{\tau'=\tau}^{T} R(s_{\tau'}, a_{\tau'})$$
 3. $$\Phi_{t, \tau} = G_{\tau} - b(s_{\tau})$, e.g. $b = \hat{V} \approx V_{\pi_{\phi}}$$
 4. $$\Phi_{t, \tau} = Q_{\pi_{\phi}}(s_{\tau}, a_{\tau})$$
@@ -352,7 +359,7 @@ $$Q_{\pi_{\phi}}(s_{\tau}, a_{\tau}) = R(s_{\tau}, a_{\tau}) + \gamma \mathbb{E}
 $$+ \gamma^T \mathbb{E}_{p(s_{>\tau}, a_{>\tau}\mid s_{\tau}, a_{\tau}, \pi_{\phi})}[R(s_{\tau+T}, a_{\tau+T})] + \gamma^{T+1} \mathbb{E}_{p(s_{>\tau}, a_{>\tau}\mid s_{\tau}, a_{\tau}, \pi_{\phi})}[V_{\pi_{\phi}}(s_{\tau+T+1})]$$
 
 Examples of policy gradient methods:
-1. REINFORCE uses choice (2) for $\Phi_{t, \tau}$. However this suffers from high variance, so in practice one typically uses a baseline, such as choice (3).
+1. REINFORCE uses choice (2) for $$\Phi_{t, \tau}$$. However this suffers from high variance, so in practice one typically uses a baseline, such as choice (3).
 2. PPO uses a GAE (generalized advantage estimator) variant of choice (6). We describe GAE below.
 
 **GAE estimator.** Recall the return
@@ -388,9 +395,15 @@ $$
 A_{\tau}^{(n)} &:= G_{\tau}^{(n)} - V(s_{\tau})\\
 &= \sum_{t=\tau}^{\tau+n-1} \gamma^{t-\tau} R(s_t, a_t) + \gamma^n V(s_{\tau+n}) - V(s_{\tau})
 \end{align*}
+$$
+
 and define the GAE (generalized advantage estimator) as an exponential moving-average,
+
 $$A_{\tau}(\lambda) := (1-\lambda)(A_{\tau}^{(1)} + \lambda A_{\tau}^{(2)} + \lambda^2 A_{\tau}^{(3)} + \cdots)$$
-which, by defining $\delta_t := R(s_t, a_t) + \gamma V(s_{t+1}) - V(s_t)$, we can write as
+
+which, by defining $$\delta_t := R(s_t, a_t) + \gamma V(s_{t+1}) - V(s_t)$$, we can write as
+
+$$
 \begin{align*}
 A_{\tau}(\lambda) &= (1-\lambda)(\delta_{\tau} + \lambda(\delta_{\tau} + \gamma \delta_{\tau+1}) + \lambda^2(\delta_{\tau} + \gamma \delta_{\tau+1} + \gamma^2 \delta_{\tau+2}) + \cdots)\\
 &= (1-\lambda)\underbrace{(1 + \lambda + \lambda^2 + \cdots)}_{1/(1-\lambda)}(\delta_{\tau} + (\gamma\lambda) \delta_{\tau+1} + (\gamma\lambda)^2 \delta_{\tau+2} + \cdots)\\
