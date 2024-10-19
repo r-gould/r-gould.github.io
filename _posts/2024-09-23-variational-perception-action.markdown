@@ -285,29 +285,35 @@ for $$\epsilon \sim \text{N}(0, I)$$.
 **Amortized gradient methods.** Examples of amortized gradient methods:
 1. DQN corresponds to the amortized method, however since its in the context of (small) discrete action spaces, the optimal action
 
-$$a^{*}(s) = \text{argmax}_a \hat{Q}(s, a)$$
-can be computed directly. Further, as in Q-learning, $$\hat{Q} \approx Q_{\pi_{*}}$$ where $$\pi_{*}$$ is the optimal policy, satisfying the Bellman equation,
+	$$a^{*}(s) = \text{argmax}_a \hat{Q}(s, a)$$
 
-$$Q_{\pi_{*}}(s, a) = \mathbb{E}_{p(s'\mid s, a)}[R(s, a) + \gamma \max_{a'} Q_{\pi_{*}}(s', a')]$$
-where we minimize the associated greedy SARSA-like loss,
+	can be computed directly. Further, as in Q-learning, $$\hat{Q} \approx Q_{\pi_{*}}$$ where $$\pi_{*}$$ is the optimal policy, satisfying the Bellman equation,
 
-$$\frac{1}{2} \mathbb{E}_{p(s, a, s'\mid \pi_{a^{*}})}[(\hat{Q}(s, a) - (R(s, a) + \gamma\max_{a'} \hat{Q}(s', a'))^2]$$
-to obtain $$\hat{Q} \approx Q_{\pi_{*}}$$.
+	$$Q_{\pi_{*}}(s, a) = \mathbb{E}_{p(s'\mid s, a)}[R(s, a) + \gamma \max_{a'} Q_{\pi_{*}}(s', a')]$$
+
+	where we minimize the associated greedy SARSA-like loss,
+
+	$$\frac{1}{2} \mathbb{E}_{p(s, a, s'\mid \pi_{a^{*}})}[(\hat{Q}(s, a) - (R(s, a) + \gamma\max_{a'} \hat{Q}(s', a'))^2]$$
+
+	to obtain $$\hat{Q} \approx Q_{\pi_{*}}$$.
 
 2. DDPG extends Q-learning/DQN to continuous action spaces using the amortized method, restricting to deterministic policies $$\pi_{\phi}(a\mid s) = \delta(a - \mu_{\phi}(s))$$, hence with corresponding gradient,
 
-$$\nabla_{\phi} V_{\pi_{\phi}}(s_t) \approx \nabla_{\phi} \hat{Q}(s_t, \mu_{\phi}(s_t))$$
-It approximates $$\hat{Q} = Q_{\pi_{*}}$$ equivalently to DQN.
+	$$\nabla_{\phi} V_{\pi_{\phi}}(s_t) \approx \nabla_{\phi} \hat{Q}(s_t, \mu_{\phi}(s_t))$$
+
+	It approximates $$\hat{Q} = Q_{\pi_{*}}$$ equivalently to DQN.
 
 3. The SVG(0) algorithm is an extension of DDPG for stochastic policies $$\pi_{\phi}$$, by utilizing the reparameterization trick (demonstrated above in (b)). It approximates $$\hat{Q} \approx Q_{\pi_{\phi}}$$ (i.e. not under the optimal policy, unlike DDPG) using a SARSA-like objective,
 
-$$\frac{1}{2} \mathbb{E}_{p(s, a, s', a'\mid \pi_{\phi})}[(\hat{Q}(s, a) - (R(s, a) + \gamma\hat{Q}(s', a'))^2]$$
+	$$\frac{1}{2} \mathbb{E}_{p(s, a, s', a'\mid \pi_{\phi})}[(\hat{Q}(s, a) - (R(s, a) + \gamma\hat{Q}(s', a'))^2]$$
 
 4. SAC extends SVG(0) to include an entropy term, and also uses a value network alongside the action-value network. They found that the value network improved training stability. The objectives considered for training $$\hat{V} \approx V_{\pi_{\phi}}$$ and $$\hat{Q} \approx Q_{\pi_{\phi}}$$ are
 
-$$\frac{1}{2}\mathbb{E}_{p(s)}[(\hat{V}(s) - \mathbb{E}_{\pi_{\phi}(a\mid s)}[\hat{Q}(s, a) \underbrace{- \log \pi_{\phi}(a\mid s)}])^2],$$
-$$\frac{1}{2}\mathbb{E}_{p(s, a\mid \pi_{\phi})}[(\hat{Q}(s, a) - (R(s, a) + \gamma\mathbb{E}_{p(s'\mid s, a)}[\hat{V}(s')]))^2]$$
-respectively. The reason why $$\hat{V}$$'s objective has an entropy term yet $$\hat{Q}$$'s doesnt, is because SAC defines the value $$V_{\pi_{\phi}}$$ to include an entropy term.
+	$$\frac{1}{2}\mathbb{E}_{p(s)}[(\hat{V}(s) - \mathbb{E}_{\pi_{\phi}(a\mid s)}[\hat{Q}(s, a) \underbrace{- \log \pi_{\phi}(a\mid s)}])^2],$$
+
+	$$\frac{1}{2}\mathbb{E}_{p(s, a\mid \pi_{\phi})}[(\hat{Q}(s, a) - (R(s, a) + \gamma\mathbb{E}_{p(s'\mid s, a)}[\hat{V}(s')]))^2]$$
+
+	respectively. The reason why $$\hat{V}$$'s objective has an entropy term yet $$\hat{Q}$$'s doesnt, is because SAC defines the value $$V_{\pi_{\phi}}$$ to include an entropy term.
 
 
 **Policy gradient methods.** For the return $$G_t := \sum_{\tau=t}^{\infty} \gamma^{\tau-t} R(s_{\tau}, a_{\tau})$$, note that
@@ -330,13 +336,12 @@ We can write $$\nabla_{\phi} V_{\pi_{\phi}}(s_t)$$ in a more general form by man
 $$\nabla_{\phi} V_{\pi_{\phi}}(s_t) = \sum_{\tau=t}^{T} \mathbb{E}_{p(s_{>t}, a_{\geq t}\mid s_t, \pi_{\phi})}[\Phi_{t, \tau} \nabla_{\phi} \log \pi_{\phi}(a_{\tau}\mid s_{\tau})]$$
 
 for a variety of choices of $$\Phi_{t, \tau}$$:
-1. $\Phi_{t, \tau} = G_t$
-2. $$\Phi_{t, \tau} = G_{\tau} = \sum_{\tau'=\tau}^{T} R(s_{\tau'}, a_{\tau'})$$
-3. $$\Phi_{t, \tau} = G_{\tau} - b(s_{\tau})$, e.g. $b = \hat{V} \approx V_{\pi_{\phi}}$$
-4. $$\Phi_{t, \tau} = Q_{\pi_{\phi}}(s_{\tau}, a_{\tau})$$
+1. $$\Phi_{t, \tau} = G_t$$.
+2. $$\Phi_{t, \tau} = G_{\tau} = \sum_{\tau'=\tau}^{T} R(s_{\tau'}, a_{\tau'})$$.
+3. $$\Phi_{t, \tau} = G_{\tau} - b(s_{\tau})$, e.g. $b = \hat{V} \approx V_{\pi_{\phi}}$$.
+4. $$\Phi_{t, \tau} = Q_{\pi_{\phi}}(s_{\tau}, a_{\tau})$$.
 5. $$\Phi_{t, \tau} = Q_{\pi_{\phi}}(s_{\tau}, a_{\tau}) - V_{\pi_{\phi}}(s_{\tau})$$ (advantage), which is just (4) with a baseline (3).
 6. $$\Phi_{t, \tau} = R(s_{\tau}, a_{\tau}) + \gamma R(s_{\tau+1}, a_{\tau+1}) + \cdots + \gamma^T R(s_{\tau+T}, a_{\tau+T}) + V_{\pi_{\phi}}(s_{\tau+T+1}) - V_{\pi_{\phi}}(s_{\tau})$$
-\end{enumerate}
 
 (2) and (3) follow from (1) because, for an arbitrary function $$f = f(s_{\leq \tau}, a_{<\tau})$$,
 
@@ -355,8 +360,12 @@ $$
 
 (6) follows from (5), using
 
-$$Q_{\pi_{\phi}}(s_{\tau}, a_{\tau}) = R(s_{\tau}, a_{\tau}) + \gamma \mathbb{E}_{p(s_{\tau+1}, a_{\tau+1}\mid s_{\tau}, a_{\tau})}[R(s_{\tau+1}, a_{\tau+1})] + \cdots$$
-$$+ \gamma^T \mathbb{E}_{p(s_{>\tau}, a_{>\tau}\mid s_{\tau}, a_{\tau}, \pi_{\phi})}[R(s_{\tau+T}, a_{\tau+T})] + \gamma^{T+1} \mathbb{E}_{p(s_{>\tau}, a_{>\tau}\mid s_{\tau}, a_{\tau}, \pi_{\phi})}[V_{\pi_{\phi}}(s_{\tau+T+1})]$$
+$$
+\begin{align*}
+Q_{\pi_{\phi}}(s_{\tau}, a_{\tau}) &= R(s_{\tau}, a_{\tau}) + \gamma \mathbb{E}_{p(s_{\tau+1}, a_{\tau+1}\mid s_{\tau}, a_{\tau})}[R(s_{\tau+1}, a_{\tau+1})] + \cdots\\
+&+ \gamma^T \mathbb{E}_{p(s_{>\tau}, a_{>\tau}\mid s_{\tau}, a_{\tau}, \pi_{\phi})}[R(s_{\tau+T}, a_{\tau+T})] + \gamma^{T+1} \mathbb{E}_{p(s_{>\tau}, a_{>\tau}\mid s_{\tau}, a_{\tau}, \pi_{\phi})}[V_{\pi_{\phi}}(s_{\tau+T+1})]
+\end{align*}
+$$
 
 Examples of policy gradient methods:
 1. REINFORCE uses choice (2) for $$\Phi_{t, \tau}$$. However this suffers from high variance, so in practice one typically uses a baseline, such as choice (3).
