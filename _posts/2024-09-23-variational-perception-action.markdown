@@ -7,9 +7,9 @@ mathjax: true
 
 ### Introduction
 
-This post aims to derive a variational Bayesian framework for perception, action, and learning from first principles. It appears that a variational formalism has the potential to shed light on ad-hoc choices used in practice, specifically in the context of RL; indeed, max-entropy RL has been justified through a Bayesian lens [1, 2]. We will see that the notion of entropy regularization (as in SAC) and penalizing policy drift (as in PPO) emerge from this framework. Further, a variational framework results in a natural unification of both model-based and model-free RL, featuring both representation learning \& decision-making on the basis of these learned representations, in a manner analogous to "World models" [3]. We will also see that, under certain assumptions, we obtain an alternative credit assignment scheme to backpropagation, called predictive coding [6, 7]. Backpropagation suffers from catastrophic interference [4] and has limited biological plausibility [5], whereas predictive coding -- a biologically-plausible credit assignment scheme -- has been observed to outperform backpropagation at continual learning tasks -- alleviating catastrophic interference to some degree [6] -- and at small batch sizes [8] (i.e. biologically relevant contexts).
+This post aims to derive a variational Bayesian framework for perception, action, and learning from first principles. It appears that a variational formalism has the potential to shed light on ad-hoc choices used in practice, specifically in the context of RL; indeed, max-entropy RL has been justified through a variational lens [1, 2]. We will see that the notion of entropy regularization (as in SAC) and penalizing policy drift (as in PPO) emerge from this framework. Further, a variational framework results in a natural unification of both model-based and model-free RL, featuring both representation learning & decision-making on the basis of these learned representations, in a manner analogous to "World models" [3]. We will also see that, under certain assumptions, we obtain an alternative credit assignment scheme to backpropagation, called predictive coding [6, 7]. Backpropagation suffers from catastrophic interference [4] and has limited biological plausibility [5], whereas predictive coding -- a biologically-plausible credit assignment scheme -- has been observed to outperform backpropagation at continual learning tasks -- alleviating catastrophic interference to some degree [6] -- and at small batch sizes [8] (i.e. biologically relevant contexts).
 
-The framework presented here differs from previous work: [1] describes an agent's preference via binary optimality variables whose distribution is defined in terms of reward, and does not result in a policy drift term (present in PPO), whereas here we will represent an agent's preferences via a distribution over policies defined in terms of value (i.e. total reward), from which a policy drift term naturally emerges. There is also the topic of active inference [9] which aims to formulate action-selection as inference, however it appears that central claims -- such as the minimization of the "expected free energy" -- lack a solid theoretical justification, as highlighted by [10, 11].
+The framework presented here differs from previous work: [1] describes an agent's preference via binary optimality variables whose distribution is defined in terms of reward, and does not result in a policy drift term (present in PPO), whereas here we will represent an agent's preferences via a distribution over policies defined in terms of value (i.e. total reward), and a policy drift term naturally emerges. There is also the topic of active inference [9] which aims to formulate action-selection as inference, however it appears that central claims -- such as the minimization of the "expected free energy" -- lack a solid theoretical justification, as highlighted by [10, 11].
 
 ### Variational framework for perception & action
 
@@ -63,8 +63,8 @@ When the VFE $$F_t$$ is perfectly minimized with respect to $$q$$, with $$q(s_{1
 $$F_t = -\log p(x_{1:t}, a_{<t})$$
 
 in which case further minimizing $$F_t$$ with respect to $$p$$ achieves our original goal. This is the basis of the variational EM algorithm: at time $$t$$,
-1. \textbf{E-step:} Minimize $$F_t$$ with respect to $$q$$ until convergence to $$q = q^{*}$$.
-2. \textbf{M-step:} At fixed $$q = q^{*}$$, minimize $$F_t$$ for one/a few steps with respect to $$p$$.
+1. **E-step:** Minimize $$F_t$$ with respect to $$q$$ until convergence to $$q = q^{*}$$.
+2. **M-step:** At fixed $$q = q^{*}$$, minimize $$F_t$$ for one/a few steps with respect to $$p$$.
 
 In practice, we will implement these steps via gradient-based minimization, as will be described in more detail later. The E-step cannot be performed until convergence in practice but we will typically perform many more E-steps than M-steps.
 
@@ -210,23 +210,23 @@ That is, we can potentially think of iterative inference as taking place implici
 
 [2] Millidge, B. (2020). Deep active inference as variational policy gradients.
 
-[3] Ha, D., \& Schmidhuber, J. (2018). World models.
+[3] Ha, D., & Schmidhuber, J. (2018). World models.
 
-[4] McCloskey, M., \& Cohen, N. J. (1989). Catastrophic interference in connectionist networks: The sequential learning problem.
+[4] McCloskey, M., & Cohen, N. J. (1989). Catastrophic interference in connectionist networks: The sequential learning problem.
 
-[5] Lillicrap, T. P., Santoro, A., Marris, L., Akerman, C. J., \& Hinton, G. (2020). Backpropagation and the brain.
+[5] Lillicrap, T. P., Santoro, A., Marris, L., Akerman, C. J., & Hinton, G. (2020). Backpropagation and the brain.
 
-[6] Song, Y., Millidge, B., Salvatori, T., Lukasiewicz, T., Xu, Z., \& Bogacz, R. (2024). Inferring neural activity before plasticity as a foundation for learning beyond backpropagation.
+[6] Song, Y., Millidge, B., Salvatori, T., Lukasiewicz, T., Xu, Z., & Bogacz, R. (2024). Inferring neural activity before plasticity as a foundation for learning beyond backpropagation.
 
-[7] Tscshantz, A., Millidge, B., Seth, A. K., \& Buckley, C. L. (2023). Hybrid predictive coding: Inferring, fast and slow.
+[7] Tscshantz, A., Millidge, B., Seth, A. K., & Buckley, C. L. (2023). Hybrid predictive coding: Inferring, fast and slow.
 
-[8] Alonso, N., Millidge, B., Krichmar, J., \& Neftci, E. O. (2022). A theoretical framework for inference learning.
+[8] Alonso, N., Millidge, B., Krichmar, J., & Neftci, E. O. (2022). A theoretical framework for inference learning.
 
-[9] Friston, K., Schwartenbeck, P., FitzGerald, T., Moutoussis, M., Behrens, T., \& Dolan, R. J. (2013). The anatomy of choice: active inference and agency.
+[9] Friston, K., Schwartenbeck, P., FitzGerald, T., Moutoussis, M., Behrens, T., & Dolan, R. J. (2013). The anatomy of choice: active inference and agency.
 
-[10] Millidge, B., Tschantz, A., \& Buckley, C. L. (2021). Whence the expected free energy?
+[10] Millidge, B., Tschantz, A., & Buckley, C. L. (2021). Whence the expected free energy?
 
-[11] Champion, T., Bowman, H., Marković, D., \& Grześ, M. (2024). Reframing the Expected Free Energy: Four Formulations and a Unification.
+[11] Champion, T., Bowman, H., Marković, D., & Grześ, M. (2024). Reframing the Expected Free Energy: Four Formulations and a Unification.
 
 [12] Millidge, B. (2023). Thoughts on the future of Predictive Coding. (https://www.beren.io/2023-03-30-Thoughts-on-future-of-PC/)
 
