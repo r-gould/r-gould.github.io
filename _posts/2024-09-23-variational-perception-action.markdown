@@ -40,17 +40,18 @@ where we write $$\pi(a_t\mid s_t) \equiv p(a_t\mid s_t, \pi)$$. A notable proper
 $$
 \begin{equation}
 \label{eqn:boltz}
-p(\pi\mid s_t) \propto \exp(\beta V_{\pi}(s_t))
+p(\pi\mid s_t) \propto \exp(\beta V_{\pi}(s_t)) \quad \quad (1)
 \end{equation}
 $$
 
 where, as typical in the context of RL, we define the value as,
 
 $$V_{\pi}(s_t) = \mathbb{E}_{p(s_{>t}, a_{\geq t}\mid s_t, \pi)}\left[\sum_{\tau=t}^{\infty} \gamma^{\tau-t} R(s_{\tau}, a_{\tau})\right]$$
+
 $$\text{with} \; \; \; p(s_{>t}, a_{\geq t}\mid s_t, \pi) = \prod_{\tau=t}^{\infty} \pi(a_{\tau}\mid s_{\tau}) p(s_{\tau+1}\mid s_{\tau}, a_{\tau})$$
 
 for a discount factor $$\gamma \in [0, 1]$$. Note that $$\beta = \infty$$ corresponds to taking an argmax over $$V_{\pi}(s_t)$$, representing "perfect rationality". Finite $$\beta$$ corresponds to "bounded rationality", placing weight on policies that dont perfectly maximize $$V_{\pi}(s_t)$$.
-* We will leave the remaining distributions -- $p(s_t\mid s_{t-1}, a_{t-1})$ and $$p(x_t\mid s_t)$$ -- implicit, but in practical implementation, we represent them as Gaussians parameterized by neural networks.
+* We will leave the remaining distributions -- $$p(s_t\mid s_{t-1}, a_{t-1})$$ and $$p(x_t\mid s_t)$$ -- implicit, but in practical implementation, we represent them as Gaussians parameterized by neural networks.
 
 **Variational inference.** However, even assuming that we have direct access to all relevant distributions (which we dont), computing the integral of Equation (1) will be intractable as we expect $$s_t$$ to be high-dimensional. As a result, we cannot perform exact Bayesian inference and so must utilize an approximate scheme of Bayesian inference. The approximate scheme we will consider is *variational inference*: at time $$t$$ an agent has access to information $$(x_{1:t}, a_{<t})$$, and we will consider minimizing (with respect to $$p$$) the model's corresponding surprise $$-\log p(x_{1:t}, a_{<t})$$ by instead minimizing (with respect to $$p$$ and $$q$$) the *variational bound* $$F(x_{1:t}, a_{<t})$$,
 
@@ -97,24 +98,24 @@ $$
 \begin{align}
 \label{eqn:freeenergy}
 F_t = \sum_{\tau=1}^{t} \mathbb{E}_{q(s_{1:t}\mid x_{1:t}, a_{<t})}[\underbrace{-\log p(s_{\tau}\mid s_{\tau-1}, a_{\tau-1})}_{\text{(a)}} \underbrace{-\log p(x_{\tau}\mid s_{\tau})}_{\text{(b)}}]\nonumber \\
-+\sum_{\tau=1}^{t-1} \mathbb{E}_{q(\pi\mid s_{\tau}) q(s_{\tau}\mid x_{1:t}, a_{<t})}[\underbrace{-\log p(\pi\mid s_{\tau})}_{\text{(c)}} \underbrace{-\log \pi(a_{\tau}\mid s_{\tau})}_{\text{(d)}}]\\
++\sum_{\tau=1}^{t-1} \mathbb{E}_{q(\pi\mid s_{\tau}) q(s_{\tau}\mid x_{1:t}, a_{<t})}[\underbrace{-\log p(\pi\mid s_{\tau})}_{\text{(c)}} \underbrace{-\log \pi(a_{\tau}\mid s_{\tau})}_{\text{(d)}}] \quad \quad \quad (2)\\
 \underbrace{- H[q(s_{1:t}\mid x_{1:t}, a_{<t})]}_{\text{(e)}} + \sum_{\tau=1}^{t-1} \mathbb{E}_{q(s_{\tau}\mid x_{1:t}, a_{<t})}[\underbrace{-H[q(\pi\mid s_{\tau})]}_{\text{(f)}}] \nonumber
 \end{align}
 $$
 
 where
 * (a) and (b) represent the process of perception and prediction/representation learning.
-* (c) represents achieving the agent's preference. In the case of \Cref{eqn:boltz} this term corresponds to value maximization, with
+* (c) represents achieving the agent's preference. In the case of Equation (1) this term corresponds to value maximization, with
 
-$$-\log p(\pi\mid s_{\tau}) = -\beta V[\pi\mid s_{\tau}] + \log Z(s_{\tau})$$
+	$$-\log p(\pi\mid s_{\tau}) = -\beta V[\pi\mid s_{\tau}] + \log Z(s_{\tau})$$
 
-for normalizing constant $$Z(s_{\tau})$$. Here $$\beta$$ determines the rate of exploration vs exploitation.
+	for normalizing constant $$Z(s_{\tau})$$. Here $$\beta$$ determines the rate of exploration vs exploitation.
 * (d) penalizes policy drift, by incentivizing $$q(\pi\mid s_{\tau})$$ to favour policies $$\pi$$ that fit previously taken actions $$a_{<t}$$.
 * (e) and (f) are entropy regularization terms, for perception and action-selection respectively.
 
 Note that (d) and (f) achieve the same role as policy clipping in PPO, and the entropy regularization in SAC, respectively. Note that entropy regularization in SAC has been previously justified via a variational framework [1], but with differences to the framework presented here.
 
-Under \Cref{eqn:boltz}, term (c) reduces to the expected value which is exactly what the field of reinforcement learning is concerned with. An overview of reinforcement learning methods is included in the Appendix.
+Under Equation (1), term (c) reduces to the expected value which is exactly what the field of reinforcement learning is concerned with. An overview of reinforcement learning methods is included in the Appendix.
 
 **Internal structure of hidden states.** We can include additional structure on the hidden state $$s$$ by generalizing to an arbitrary DAG topology for the hidden state $$s_t = (s_t^1, \ldots, s_t^N)$$, where $$s_t^n$$ is the state of node $$n$$ at time $$t$$. For a general DAG, a reasonable choice of dependence is
 
@@ -124,7 +125,7 @@ where $$\mathcal{P}(n) \subset \{1, \ldots, N\}$$ denotes the parent indices for
 * Conditioning $$s_{\tau}^{n}$$ on $$(s_{\tau-1}^n, a_{\tau-1})$$ accounts for temporal dynamics.
 * And conditioning on $$s_{\tau}^{\mathcal{P}(n)}$$ accounts for local interaction effects between nodes.
 
-In this case we can write \Cref{eqn:freeenergy} as
+In this case we can write Equation (2) as
 
 $$
 \begin{align}
@@ -168,7 +169,7 @@ where $$z = (z_1, \ldots, z_L)$$ parameterize $$q$$.
 
 We can interpret $$z$$ as the fast-changing synaptic activity, and $$\theta$$ as the slow-changing synaptic weights. This interpretation is supported by the variational EM algorithm.
 
-In this case the free energy $$F(x)$$ from \Cref{eqn:freeenergy} (now independent of time) takes the form,
+In this case the free energy $$F(x)$$ from Equation (2) (now independent of time) takes the form,
 
 $$
 \begin{align*}
@@ -232,7 +233,7 @@ That is, we can potentially think of iterative inference as taking place implici
 
 ### Appendix: Reinforcement learning background
 
-Given \Cref{eqn:boltz}, the term (c) in \Cref{eqn:freeenergy} can be written
+Given Equation (1), the term (c) in Equation (2) can be written
 
 $$
 \begin{align*}
