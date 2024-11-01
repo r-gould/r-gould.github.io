@@ -35,7 +35,10 @@ i.e. we can view action selection as the process of inferring the underlying sta
 
 $$p(a_t\mid s_t) = \int d\pi \; p(a_t, \pi\mid s_t) = \int d\pi \; p(\pi\mid s_t) \pi(a_t\mid s_t)$$
 
-where we write $$\pi(a_t\mid s_t) \equiv p(a_t\mid s_t, \pi)$$. A notable property of a mixture distribution is that we can write $$p(a_{\tau}\mid s_{\tau}) = \mathbb{E}_{p(\pi\mid s_{\tau})}[\pi(a_{\tau}\mid s_{\tau})]$$, which -- as we will see later -- allows us to apply a variational bound. We then introduce a value system $$V_{\pi}(s)$$, describing the value of policy $$\pi$$ starting from the state $$s$$. We consider a Boltzmann preference over policies based on this value system,
+where we write $$\pi(a_t\mid s_t) \equiv p(a_t\mid s_t, \pi)$$. A notable property of a mixture distribution is that we can write $$p(a_{\tau}\mid s_{\tau}) = \mathbb{E}_{p(\pi\mid s_{\tau})}[\pi(a_{\tau}\mid s_{\tau})]$$, which -- as we will see later -- allows us to apply a variational bound.
+* The reason for introducing the policy variable $$\pi$$ is because it is unclear how the goodness of a single action $$a_t$$ would be defined. Its goodness is based on how the future plays out, which requires taking some additional future actions, and the policy variable $$\pi$$ takes the role of determining these future actions in order for a well-defined value.
+
+We then introduce a value system $$V_{\pi}(s)$$, describing the value of policy $$\pi$$ starting from the state $$s$$. We consider a Boltzmann preference over policies based on this value system,
 
 $$
 \begin{equation}
