@@ -192,21 +192,19 @@ $$\frac{\partial F}{\partial z_l} = \begin{cases}
 \hat{\Sigma}^{-1} \epsilon_L - \left[\frac{\partial \mu_L(z_L)}{\partial z_L}\right]^T \Sigma_L^{-1} \epsilon_{L-1}, & l = L
 \end{cases}$$
 
-where we have defined $$\epsilon_l := z_l - \mu_{l+1}(z_{l+1})$$ (for $$l < L$$) and $$\epsilon_L := z_L - \hat{\mu}$$.
+	where we have defined $$\epsilon_l := z_l - \mu_{l+1}(z_{l+1})$$ (for $$l < L$$) and $$\epsilon_L := z_L - \hat{\mu}$$.
 2. Learning: update $$\theta$$ via the gradients
 
-$$\frac{\partial F}{\partial \theta_l} = -\left[\frac{\partial \mu_l(z_l)}{\partial \theta_l}\right]^T \Sigma_l^{-1} \epsilon_{l-1}, \; \; \; \; \; \frac{\partial F}{\partial \Sigma_l}$$
-$$\frac{\partial F}{\partial \hat{\mu}} = -\hat{\Sigma}^{-1} \epsilon_L, \; \; \; \; \; \frac{\partial F}{\partial \hat{\Sigma}} = $$
-
-
-TODO
+$$\frac{\partial F}{\partial \theta_l} = -\left[\frac{\partial \mu_l(z_l)}{\partial \theta_l}\right]^T \Sigma_l^{-1} \epsilon_{l-1}
 
 We can extend the above to include *amortized* inference, where upon receiving $$x$$ we compute some initialization value for the neural activity $$z$$, and from there perform iterative inference. We can interpret the typical models in machine learning, e.g. transformers, as solely performing such an amortized inference stage, without performing any iterative inference explicitly. However, one can argue that the residual structure of modern architectures, such as transformers, allows one to simulate an iteriative inference-like process. Indeed, they basically take the same form,
 
 $$\text{Residual structure:} \; \; \; z^{(l+1)} = z^{(l)} + f_{l+1}(z^{(l)}) \; \; \; \text{at layer} \; l$$
 $$\text{Explicit iterative inference:} \; \; \; z^{(n+1)} = z^{(n)} - \eta \frac{\partial F(z^{(n)})}{\partial z} \; \; \; \text{at time-step} \; n$$
 
-That is, we can potentially think of iterative inference as taking place implicitly over the layers of a transformer, whereas in the brain/predictive coding it takes place over time. This justifies why we may expect transformers to have to be much deeper than the brain; the brain's recurrent/backward connections are roughly analogous to a deeper, strictly feedforward residual architecture.
+That is, we can potentially think of iterative inference as taking place implicitly over the layers of a transformer, whereas in the brain/predictive coding it takes place over time. This justifies why we may expect transformers to have to be much deeper than the brain; the brain's recurrent/backward connections are *roughly* analogous to a deeper, strictly feedforward residual architecture.
+
+**Temporal and active predictive coding.** 
 
 ### References
 
@@ -345,7 +343,7 @@ for a variety of choices of $$\Phi_{t, \tau}$$:
 3. $$\Phi_{t, \tau} = G_{\tau} - b(s_{\tau})$, e.g. $b = \hat{V} \approx V_{\pi_{\phi}}$$.
 4. $$\Phi_{t, \tau} = Q_{\pi_{\phi}}(s_{\tau}, a_{\tau})$$.
 5. $$\Phi_{t, \tau} = Q_{\pi_{\phi}}(s_{\tau}, a_{\tau}) - V_{\pi_{\phi}}(s_{\tau})$$ (advantage), which is just (4) with a baseline (3).
-6. $$\Phi_{t, \tau} = R(s_{\tau}, a_{\tau}) + \gamma R(s_{\tau+1}, a_{\tau+1}) + \cdots + \gamma^T R(s_{\tau+T}, a_{\tau+T}) + V_{\pi_{\phi}}(s_{\tau+T+1}) - V_{\pi_{\phi}}(s_{\tau})$$
+6. $$\Phi_{t, \tau} = R(s_{\tau}, a_{\tau}) + \gamma R(s_{\tau+1}, a_{\tau+1}) + \cdots + \gamma^T R(s_{\tau+T}, a_{\tau+T}) + V_{\pi_{\phi}}(s_{\tau+T+1}) - V_{\pi_{\phi}}(s_{\tau})$$.
 
 (2) and (3) follow from (1) because, for an arbitrary function $$f = f(s_{\leq \tau}, a_{<\tau})$$,
 
