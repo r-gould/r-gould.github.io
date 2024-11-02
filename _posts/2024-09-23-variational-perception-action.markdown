@@ -191,8 +191,8 @@ $$\frac{\partial F}{\partial z_l} = \begin{cases}
 \Sigma_{l+1}^{-1} \epsilon_l - \left[\frac{\partial \mu_l(z_l)}{\partial z_l}\right]^T \Sigma_l^{-1} \epsilon_{l-1}, & l = 1, \ldots, L-1\\
 \hat{\Sigma}^{-1} \epsilon_L - \left[\frac{\partial \mu_L(z_L)}{\partial z_L}\right]^T \Sigma_L^{-1} \epsilon_{L-1}, & l = L
 \end{cases}$$
-
 	where we have defined $$\epsilon_l := z_l - \mu_{l+1}(z_{l+1})$$ (for $$l < L$$) and $$\epsilon_L := z_L - \hat{\mu}$$.
+
 2. Learning: update $$\theta$$ via the gradients
 
 $$\frac{\partial F}{\partial \theta_l} = -\left[\frac{\partial \mu_l(z_l)}{\partial \theta_l}\right]^T \Sigma_l^{-1} \epsilon_{l-1}$$
