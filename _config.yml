@@ -16,6 +16,9 @@ linkedin_username: rhys-gould-a54361221
 
 markdown: kramdown
 
+minima:
+  skin: classic
+  
 theme: minima
 plugins:
   - jekyll-feed
