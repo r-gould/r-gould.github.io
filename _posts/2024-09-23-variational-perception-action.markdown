@@ -9,7 +9,7 @@ mathjax: true
 
 This post presents a mathematical formalism of perception, action, and learning, based on the framework of *variational inference*. It appears that a variational formalism has the potential to shed light on ad-hoc choices used in practice; we will see that the notion of *entropy regularization* (as in SAC) and penalizing *policy drift* (as in PPO) emerge naturally from this framework. Further, this formalism provides a model-based method of reinforcement learning, featuring both representation learning & action-selection on the basis of these learned representations, in a manner analogous to "World models" [3]. We will also see that, under certain assumptions, we obtain an alternative credit assignment scheme to backpropagation, called predictive coding [6, 7]. Backpropagation suffers from catastrophic interference [4] and has limited biological plausibility [5], whereas predictive coding -- a biologically-plausible credit assignment scheme -- has been observed to outperform backpropagation at continual learning tasks -- alleviating catastrophic interference to some degree [6] -- and at small batch sizes [8] (i.e. biologically relevant contexts).
 
-**Related work.** The framework presented here differs from previous work: [1] describes an agent's preference via binary optimality variables whose distribution is defined in terms of reward, from which they are able to justify the max-entropy framework of RL, however their framework does not result in a policy drift term (as in PPO). In contrast, for the formalism presented here, it is most natural to represent an agent's preferences via a distribution over policies defined in terms of value (i.e. total reward), from which a policy drift term naturally emerges. There is also the topic of active inference [9] which aims to formulate action-selection as variational inference, however it appears that central claims -- such as the minimization of the "expected free energy" -- lack a solid theoretical justification, as highlighted by [10, 11].
+**Related work.** The framework presented here differs from previous work: [1] describes an agent's preference via binary optimality variables whose distribution is defined in terms of reward, from which they are able to justify the max-entropy framework of RL, however their framework does not result in a policy drift term (as in PPO). In contrast, for the formalism presented here, it is most natural to represent an agent's preferences via a distribution over policies (defined in terms of value), from which a policy drift term and an entropy regularization term naturally emerge. There is also the topic of active inference [9] which aims to formulate action-selection as variational inference, however it appears that central claims -- such as the minimization of the "expected free energy" -- lack a solid theoretical justification, as highlighted by [10, 11].
 
 ### Variational framework for perception & action
 
@@ -18,7 +18,7 @@ We will consider the following graphical model,
 	<img src="/assets/variational-perception-action/graphical_general.png" width="350"/>
 </p>
 
-where at time $$t$$, $$s_t$$ represents the environment's (hidden) state, $$x_t$$ a partial observation of this state, and $$a_t$$ an action. For simplicity we have made a Markov assumption on how the hidden states evolve. The dependency $$s_t \to a_t$$ is because the ideal action $$a_t$$ ultimately depends only on the current environment state $$s_t$$ (given the Markov assumption). The associated probabilistic decomposition (up to time $$t$$) is
+where $$s_t$$ represents the environment's (hidden) state, $$x_t$$ a partial observation of this state, and $$a_t$$ an action, at time $$t$$. For simplicity we have made a Markov assumption on how the hidden states evolve. The dependency $$s_t \to a_t$$ is because the ideal action $$a_t$$ ultimately depends only on the current environment state $$s_t$$ (given the Markov assumption). The associated probabilistic decomposition (up to time $$t$$) is
 
 $$p(s_{1:t}, x_{1:t}, a_{1:t}) = \prod_{\tau=1}^{t} p(s_{\tau}\mid s_{\tau-1}, a_{\tau-1}) p(x_{\tau}\mid s_{\tau}) p(a_{\tau}\mid s_{\tau})$$
 
@@ -31,14 +31,14 @@ To provide a Bayesian framework for action, we wish to frame the objective of an
 
 $$p(a_t\mid x_{1:t}, a_{<t}) \equiv \int ds_t \; p(s_t\mid x_{1:t}, a_{<t}) p(a_t\mid s_t)$$
 
-i.e. we can view action selection as the process of inferring the underlying state $$s_t \sim p(s_t\mid x_{1:t}, a_{<t})$$, and then inferring the associated action $$a_t \sim p(a_t\mid s_t)$$. But how do we appropriately define $$p(a_t\mid s_t)$$ to represent an "ideal" agent? Naively we may consider $$p(a_t\mid s_t)$$ to be a point-mass/Dirac-delta distribution centered at the optimal action $$a^{*}(s_t)$$, however this does not provide a convenient notion of Bayesian inference. Instead we want to consider a smoothed version that places the most weight on the optimal action $$a^{*}(s_t)$$, but also places non-zero weight on other actions in a way that is correlated with an action/policy's *value*. In order to define $$p(a_t\mid s_t)$$ to satisfy this notion, it appears that the simplest description is in the form of a mixture distribution, introducing a policy variable $$\pi$$ and writing,
+i.e. we can view action selection as the process of inferring the underlying state $$s_t \sim p(s_t\mid x_{1:t}, a_{<t})$$, and then inferring the associated action $$a_t \sim p(a_t\mid s_t)$$. But how do we appropriately define $$p(a_t\mid s_t)$$ to represent an "ideal" agent? Naively we may consider $$p(a_t\mid s_t)$$ to be a point-mass/Dirac-delta distribution centered at the optimal action $$a^{*}(s_t)$$, however this does not provide a convenient notion of Bayesian inference. Instead we will consider a smoothed version that places the most weight on the optimal action $$a^{*}(s_t)$$, but also places non-zero weight on other actions in a way that is correlated with an action/policy's *value*. In order to define $$p(a_t\mid s_t)$$ to satisfy this notion, it appears that the simplest description is in the form of a mixture distribution, introducing a policy variable $$\pi$$ and writing,
 
 $$p(a_t\mid s_t) = \int d\pi \; p(a_t, \pi\mid s_t) = \int d\pi \; p(\pi\mid s_t) \pi(a_t\mid s_t)$$
 
 where we write $$\pi(a_t\mid s_t) \equiv p(a_t\mid s_t, \pi)$$. A notable property of a mixture distribution is that we can write $$p(a_{\tau}\mid s_{\tau}) = \mathbb{E}_{p(\pi\mid s_{\tau})}[\pi(a_{\tau}\mid s_{\tau})]$$, which -- as we will see later -- allows us to apply a variational bound.
-* The reason for introducing the policy variable $$\pi$$ is because it is unclear how the goodness of a single action $$a_t$$ would be defined. Its goodness is based on how the future plays out, which requires taking some additional future actions, and the policy variable $$\pi$$ takes the role of determining these future actions in order for a well-defined value.
+* The reason for introducing the policy variable $$\pi$$ is because it is unclear how the goodness of a single action $$a_t$$ would be defined. Its goodness is based on how the future plays out, which requires taking some additional future actions, and the policy variable $$\pi$$ takes the role of determining these future actions, allowing for a well-defined notion of value.
 
-We then introduce a value system $$V_{\pi}(s)$$, describing the value of policy $$\pi$$ starting from the state $$s$$. We consider a Boltzmann preference over policies based on this value system,
+We then introduce a value system $$V_{\pi}(s)$$, describing the value of policy $$\pi$$ starting from the state $$s$$. We can consider a Boltzmann preference over policies based on this value system,
 
 $$
 \begin{equation}
@@ -54,13 +54,13 @@ $$V_{\pi}(s_t) = \mathbb{E}_{p(s_{>t}, a_{\geq t}\mid s_t, \pi)}\left[\sum_{\tau
 $$\text{with} \; \; \; p(s_{>t}, a_{\geq t}\mid s_t, \pi) = \prod_{\tau=t}^{\infty} \pi(a_{\tau}\mid s_{\tau}) p(s_{\tau+1}\mid s_{\tau}, a_{\tau})$$
 
 for a discount factor $$\gamma \in [0, 1]$$. Note that $$\beta = \infty$$ corresponds to taking an argmax over $$V_{\pi}(s_t)$$, representing "perfect rationality". Finite $$\beta$$ corresponds to "bounded rationality", placing weight on policies that dont perfectly maximize $$V_{\pi}(s_t)$$.
-* We will leave the remaining distributions -- $$p(s_t\mid s_{t-1}, a_{t-1})$$ and $$p(x_t\mid s_t)$$ -- implicit, but in practical implementation, we represent them as Gaussians parameterized by neural networks.
+* We will leave the remaining distributions -- $$p(s_t\mid s_{t-1}, a_{t-1})$$ and $$p(x_t\mid s_t)$$ -- implicit, but in practical implementation, we can choose them as Gaussians parameterized by neural networks.
 
 **Variational inference.** However, even assuming that we have direct access to all relevant distributions (which we dont), computing the integral of Equation (1) will be intractable as we expect $$s_t$$ to be high-dimensional. As a result, we cannot perform exact Bayesian inference and so must utilize an approximate scheme of Bayesian inference. The approximate scheme we will consider is *variational inference*: at time $$t$$ an agent has access to information $$(x_{1:t}, a_{<t})$$, and we will consider minimizing (with respect to $$p$$) the model's corresponding surprise $$-\log p(x_{1:t}, a_{<t})$$ by instead minimizing (with respect to $$p$$ and $$q$$) the *variational bound* $$F(x_{1:t}, a_{<t})$$,
 
 $$-\log p(x_{1:t}, a_{<t}) \leq F(x_{1:t}, a_{<t}) := D_{\text{KL}}(q(s_{1:t}\mid x_{1:t}, a_{<t})\mid \mid p(s_{1:t}, x_{1:t}, a_{<t}))$$
 
-where we have introduced the variational/approximate distribution $$q$$. $$F$$ is commonly called the variational free energy (VFE). Variational inference considers minimizing this upper bound $$F(x_{1:t}, a_{<t})$$ on surprisal, rather than minimizing the surprisal itself (which is intractable to do). We will use the shorthand $$F_t \equiv F(x_{1:t}, a_{<t})$$.
+(a consequence of Jensen's inequality) where we have introduced the variational/approximate distribution $$q$$. $$F$$ is commonly called the variational free energy (VFE). Variational inference considers minimizing this upper bound $$F(x_{1:t}, a_{<t})$$ on surprisal, rather than minimizing the surprisal itself (which is intractable to do). We will use the shorthand $$F_t \equiv F(x_{1:t}, a_{<t})$$.
 
 When the VFE $$F_t$$ is perfectly minimized with respect to $$q$$, with $$q(s_{1:t}\mid x_{1:t}, a_{<t}) = p(s_{1:t}\mid x_{1:t}, a_{<t})$$, then the VFE is exactly equal to the surprisal,
 
@@ -116,7 +116,7 @@ where
 * (d) penalizes policy drift, by incentivizing $$q(\pi\mid s_{\tau})$$ to favour policies $$\pi$$ that fit previously taken actions $$a_{<t}$$.
 * (e) and (f) are entropy regularization terms, for perception and action-selection respectively.
 
-Note that (d) and (f) achieve the same role as policy clipping in PPO, and the entropy regularization in SAC, respectively. Note that entropy regularization in SAC has been previously justified via a variational framework [1], but with differences to the framework presented here.
+Note that (d) and (f) achieve the same role as policy clipping in PPO, and the entropy regularization in SAC, respectively. Note that entropy regularization in SAC has been previously justified via a variational framework [1], but with differences to the framework presented here (described at beginning of post).
 
 Under Equation (1), term (c) reduces to the expected value which is exactly what the field of reinforcement learning is concerned with. An overview of reinforcement learning methods is included in the Appendix.
 
