@@ -211,7 +211,7 @@ That is, we can potentially think of iterative inference as taking place implici
 TODO
 
 **Neuro interpretation.** A rough neuroscientific interpretation could look like:
-* $$z_t^n$$ as the state of the $$n$$th cortical column.
+* $$z_t^n$$ as the state of the $$n$$th cortical column, with $$z_t$$ the state of the cortex (unsure whether this would include the prefrontal cortex, which may operate by different principles than the rest of the cortex?).
 * Amortized inference as initial feedforward sweep of neural activity (as described in [7]).
 * The iterative inference stage as a phase of local communication between cortical columns, eventually converging to some agreement $$z_t$$.
 * Global dependence of $$\mu_n(z_t^{P(n)}, z_{t-1}^n, a_{t-1})$$ on the action $$a_{t-1}$$ (at every node $$n$$) as analogous to efferent copying.
