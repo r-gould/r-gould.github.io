@@ -5,4 +5,4 @@
 layout: home
 ---
 
-I am a 4th year (Part III) mathematics student at the University of Cambridge, broadly interested in understanding intelligent systems and developing the science of deep learning via theory and empirics. I am also interested in mathematical formalisms of intelligent behaviour, such as those based on variational inference (see [this post](https://r-gould.github.io/2024/09/23/variational-perception-action.html)), and neuro-inspired methods of representation learning (such as predictive coding) & reward-based learning, towards systems capable of efficient learning and reasoning.
+I am a 4th year (Part III) mathematics student at the University of Cambridge, broadly interested in developing a scientific understanding of neural networks. I am also interested in mathematical formalisms of intelligent behaviour, such as those based on variational inference (see [this post](https://r-gould.github.io/2024/09/23/variational-perception-action.html)), and neuro-inspired methods of representation learning (such as predictive coding) & reward-based learning, towards systems capable of efficient learning and reasoning.
