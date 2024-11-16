@@ -22,7 +22,7 @@ where $$s_t$$ represents the environment's (hidden) state, $$x_t$$ a partial obs
 
 $$p(s_{1:t}, x_{1:t}, a_{1:t}) = \prod_{\tau=1}^{t} p(s_{\tau}\mid s_{\tau-1}, a_{\tau-1}) p(x_{\tau}\mid s_{\tau}) p(a_{\tau}\mid s_{\tau})$$
 
-where for brevity we write $$p(s_1|s_0, a_0) \equiv p(s_1)$$. We can interpret:
+where $$p(s_1|s_0, a_0) \equiv p(s_1)$$. We can interpret:
 * $$p(s_{\tau}\mid s_{\tau-1}, a_{\tau-1})$$ as the environment's transition dynamics; a description of how the environment's state evolves over time.
 * $$p(x_{\tau}\mid s_{\tau})$$ describing the lossy map from hidden state to partial observation. 
 * $$p(a_{\tau}\mid s_{\tau})$$ describing the ideal/optimal action distribution given the state $$s_{\tau}$$, where optimality is defined with respect to a value system (described further below).
