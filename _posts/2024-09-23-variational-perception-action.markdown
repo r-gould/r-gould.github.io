@@ -18,16 +18,16 @@ We will consider the following graphical model,
 	<img src="/assets/variational-perception-action/graphical_general.png" width="350"/>
 </p>
 
-where $$s_t$$ represents the environment's (hidden) state, $$x_t$$ a partial observation of this state, and $$a_t$$ an action, at time $$t$$. For simplicity we have made a Markov assumption on how the hidden states evolve. The dependency $$s_t \to a_t$$ is because the ideal action $$a_t$$ ultimately depends only on the current environment state $$s_t$$ (given the Markov assumption). The associated probabilistic decomposition (up to time $$t$$) is
+where $$s_t$$ represents the environment's (hidden) state, $$x_t$$ a partial observation of this state, and $$a_t$$ an action, at time $$t$$. For simplicity we have made a Markov assumption on how the hidden states evolve. The dependency $$s_t \to a_t$$ is because the optimal action $$a_t$$ (we define optimality further below) ultimately depends only on the current environment state $$s_t$$ (given the Markov assumption). The associated probabilistic decomposition (up to time $$t$$) is
 
 $$p(s_{1:t}, x_{1:t}, a_{1:t}) = \prod_{\tau=1}^{t} p(s_{\tau}\mid s_{\tau-1}, a_{\tau-1}) p(x_{\tau}\mid s_{\tau}) p(a_{\tau}\mid s_{\tau})$$
 
-We can interpret:
+where for brevity we write $$p(s_1|s_0, a_0) \equiv p(s_1)$$. We can interpret:
 * $$p(s_{\tau}\mid s_{\tau-1}, a_{\tau-1})$$ as the environment's transition dynamics; a description of how the environment's state evolves over time.
 * $$p(x_{\tau}\mid s_{\tau})$$ describing the lossy map from hidden state to partial observation. 
 * $$p(a_{\tau}\mid s_{\tau})$$ describing the ideal/optimal action distribution given the state $$s_{\tau}$$, where optimality is defined with respect to a value system (described further below).
 
-To provide a Bayesian framework for action, we wish to frame the objective of an agent as performing inference over this graphical model. Since an agent will have access to information $$(x_{1:t}, a_{<t})$$ at time $$t$$, we wish to frame action selection of the next action $$a_t$$ as the process of computing/sampling from
+To provide a Bayesian framework for action, **we wish to frame the objective of an agent as performing inference over this graphical model**. Since an agent will have access to information $$(x_{1:t}, a_{<t})$$ at time $$t$$, we wish to frame action selection of the next action $$a_t$$ as the process of computing/sampling from
 
 $$p(a_t\mid x_{1:t}, a_{<t}) \equiv \int ds_t \; p(s_t\mid x_{1:t}, a_{<t}) p(a_t\mid s_t)$$
 
@@ -206,7 +206,7 @@ $$\text{Explicit iterative inference:} \; \; \; z^{(n+1)} = z^{(n)} - \eta \frac
 
 That is, we can potentially think of iterative inference as taking place implicitly over the layers of a transformer, whereas in the brain/predictive coding it takes place over time. This justifies why we may expect transformers to have to be much deeper than the brain; the brain's recurrent/backward connections are *roughly* analogous to a deeper, strictly feedforward residual architecture.
 
-**Temporal and active predictive coding.** 
+**Temporal and active predictive coding.** The above has neglected two aspects: temporality, and action selection. Our above framework naturally extends to this case in the following way.
 
 ### References
 
