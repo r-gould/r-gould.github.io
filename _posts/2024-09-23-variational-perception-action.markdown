@@ -206,7 +206,19 @@ $$\text{Explicit iterative inference:} \; \; \; z^{(n+1)} = z^{(n)} - \eta \frac
 
 That is, we can potentially think of iterative inference as taking place implicitly over the layers of a transformer, whereas in the brain/predictive coding it takes place over time. This justifies why we may expect transformers to have to be much deeper than the brain; the brain's recurrent/backward connections are *roughly* analogous to a deeper, strictly feedforward residual architecture.
 
-**Temporal and active predictive coding.** The above presentation of predictive coding has neglected two aspects: temporality, and action selection. Our general framework naturally extends to include these two aspects, as we will now show.
+**Temporal, active predictive coding.** The above presentation of predictive coding has neglected two aspects: temporality, and action selection. Our general framework naturally extends to include these two aspects, as we will now show.
+
+TODO
+
+**Neuro interpretation.** A rough neuroscientific interpretation could look like:
+* $$z_t^n$$ as the state of the $$n$$th cortical column.
+* Amortized inference as initial feedforward sweep of neural activity (as described in [7]).
+* The iterative inference stage as a phase of local communication between cortical columns, eventually converging to some agreement $$z_t$$.
+* Global dependence of $$\mu_n(z_t^{P(n)}, z_{t-1}^n, a_{t-1})$$ on the action $$a_{t-1}$$ (at every node $$n$$) as analogous to efferent copying.
+* Relation to basal ganglia: dorsal striatum embodies $$\hat{Q}(s_t, a_t)$$, and ventral striatum embodies $$\hat{V}(s_t)$$.
+* Standard interpretation of dopamine from midbrain as communicating reward-related errors, facilitating the computation of gradient $$\nabla_{\phi} V_{\pi_{\phi}}(s)$$.
+* Hippocampus acting as a replay buffer, useful for sampling past $$(s, a, s') \in \mathcal{D}$$ (for training world model $$p$$ and estimates $$\hat{Q}$$, $$\hat{V}$$).
+* Adding compositional structure to reward function, in the sense of "Reward Bases" [12], could model context-dependent, dynamic values and adaptive behaviour.
 
 ### References
 
@@ -231,6 +243,8 @@ That is, we can potentially think of iterative inference as taking place implici
 [10] Millidge, B., Tschantz, A., & Buckley, C. L. (2021). Whence the expected free energy?
 
 [11] Champion, T., Bowman, H., Marković, D., & Grześ, M. (2024). Reframing the Expected Free Energy: Four Formulations and a Unification.
+
+[12] Millidge, B., Walton, M., & Bogacz, R. (2022). Reward bases: Instantaneous reward revaluation with temporal difference learning.
 
 ### Appendix: Reinforcement learning background
 
