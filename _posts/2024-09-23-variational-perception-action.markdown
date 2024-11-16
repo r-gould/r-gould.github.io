@@ -206,7 +206,7 @@ $$\text{Explicit iterative inference:} \; \; \; z^{(n+1)} = z^{(n)} - \eta \frac
 
 That is, we can potentially think of iterative inference as taking place implicitly over the layers of a transformer, whereas in the brain/predictive coding it takes place over time. This justifies why we may expect transformers to have to be much deeper than the brain; the brain's recurrent/backward connections are *roughly* analogous to a deeper, strictly feedforward residual architecture.
 
-**Temporal and active predictive coding.** The above has neglected two aspects: temporality, and action selection. Our above framework naturally extends to this case in the following way.
+**Temporal and active predictive coding.** The above presentation of predictive coding has neglected two aspects: temporality, and action selection. Our general framework naturally extends to include these two aspects, as we will now show.
 
 ### References
 
