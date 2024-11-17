@@ -215,11 +215,12 @@ TODO
 * Amortized inference as initial feedforward sweep of neural activity (as described in [7]).
 * The iterative inference stage as a phase of local communication between cortical columns, eventually converging to some agreement $$z_t$$. Agrees with cortical uniformity, with each cortical column employing the same local algorithm for communication and updates.
 * Global dependence of $$\mu_n(z_t^{P(n)}, z_{t-1}^n, a_{t-1})$$ on the action $$a_{t-1}$$ at every node $$n$$ as analogous to efferent copying.
-* Relation to basal ganglia: dorsal striatum embodies $$\hat{Q}(s_t, a_t)$$, and ventral striatum embodies $$\hat{V}(s_t)$$.
+* Relation to basal ganglia: dorsal striatum embodies $$\hat{Q}(s_t, a_t)$$, and ventral striatum embodies $$\hat{V}(s_t)$$, with $$s_t$$ received by striatum via projections from cortex.
 * Standard interpretation of dopamine from midbrain as communicating reward-related errors, facilitating updating of $$\hat{V}$$ and $$\hat{Q}$$ via projections to basal ganglia, and potentially the computation of gradient $$\nabla_{\phi} V_{\pi_{\phi}}(s)$$.
-* Corticospinal neurons as implementing the projection $$z_t \mapsto a_t \sim \pi_{\phi}(a_t|z_t)$$?
+* Corticospinal neurons as implementing the projection $$z_t \mapsto a_t \sim \pi_{\phi}(a_t\mid z_t)$$?
 * Hippocampus acting as a replay buffer, useful for sampling past $$(s, a, s') \in \mathcal{D}$$ (for training world model $$p$$ and estimates $$\hat{Q}$$, $$\hat{V}$$).
 * Adding compositional structure to reward function, in the sense of "Reward Bases" [12], could model context-dependent dynamic values, and adaptive behaviour.
+* Something like the cortico-basal ganglia-thalamo-cortical loop as facilitating the computation of $$\nabla_{\phi} Q_{\pi_{\phi}}(s, a)$$ and $$\nabla_{\theta} V_{\pi_{\phi}}(s)$$ for updating the policy and world model respectively? (i.e. basal ganglia needs state $$s$$ from cortex, and cortex needs information about how $$Q_{\pi_{\phi}}$$ and $$V_{\pi_{\phi}}$$ vary wrt $$\theta$$ and $$\phi$$ from the basal ganglia)
 
 ### References
 
