@@ -18,7 +18,7 @@ We will consider the following graphical model,
 	<img src="/assets/variational-perception-action/graphical_general.png" width="350"/>
 </p>
 
-where $$s_t$$ represents the environment's (hidden) state, $$x_t$$ a partial observation of this state, and $$a_t$$ an action, at time $$t$$. For simplicity we have made a Markov assumption on how the hidden states evolve. The dependency $$s_t \to a_t$$ is a consequence of this Markov assumption, with the optimal action $$a_t$$ (optimality defined further below) ultimately depending only on the current environment state $$s_t$$ and not on previous states $$s_{<t}$$.
+where $$s_t$$ represents the environment's (hidden) state, $$x_t$$ a partial observation of this state, and $$a_t$$ an action, at time $$t$$. For simplicity we have made a Markov assumption on how the hidden states evolve. The dependency $$s_t \to a_t$$ is a consequence of this Markov assumption, with the optimal action $$a_t$$ (optimality defined further below) ultimately depending only on the current environment state $$s_t$$, independent of previous states $$s_{<t}$$ (given $$s_t$$).
 
 The associated probabilistic decomposition (up to time $$t$$) is
 
