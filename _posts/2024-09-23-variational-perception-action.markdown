@@ -206,11 +206,11 @@ We can extend the above to include *amortized* inference, where upon receiving $
 $$\text{Residual structure:} \; \; \; z^{(l+1)} = z^{(l)} + f_{l+1}(z^{(l)}) \; \; \; \text{at layer} \; l$$
 $$\text{Explicit iterative inference:} \; \; \; z^{(n+1)} = z^{(n)} - \eta \frac{\partial F(z^{(n)})}{\partial z} \; \; \; \text{at time-step} \; n$$
 
-That is, we can potentially think of iterative inference as taking place implicitly over the layers of a transformer, whereas in the brain/predictive coding it takes place over time. This justifies why we may expect transformers to have to be much deeper than the brain; the brain's recurrent/backward connections are *roughly* analogous to a deeper, strictly feedforward residual architecture.
+That is, we can potentially think of iterative inference as taking place implicitly over the layers of a residual architecture (like a transformer), whereas in the brain/predictive coding, it takes place over time via backward connections. This justifies why we may expect transformers to have to be much deeper than the brain; the brain's recurrent/backward connections are *roughly* analogous to a **deeper**, strictly feedforward residual architecture.
 
 **Temporal, active predictive coding.** The above presentation of predictive coding has neglected two aspects: temporality, and action selection. Our general framework naturally extends to include these two aspects, as we will now show.
 
-TODO
+(to write up)
 
 **Neuro interpretation.** A rough neuroscientific interpretation could look like:
 * $$z_t^n$$ as the state of the $$n$$th cortical column, with $$z_t$$ the state of the cortex (unsure whether this would include the prefrontal cortex, which may operate by different principles (e.g. not simply predictive coding) compared to e.g. the sensory cortex?).
