@@ -161,7 +161,7 @@ with $$s = (s^1, \ldots, s^L)$$ and decomposition
 $$p(s, x) = p(s^L) \prod_{l=1}^{L} p(s^{l-1}\mid s^l)$$
 
 where $$s^0 \equiv x$$. Predictive coding makes two further assumptions:
-1. $p$ is Gaussian,
+1. $$p$$ is Gaussian,
 
 $$p(s^{l-1}\mid s^l) := \text{N}(s^{l-1}; \mu_l(s^l), \Sigma_l), \; \; \; p(s^L) := \text{N}(s^L; \hat{\mu}, \hat{\Sigma})$$
 
@@ -172,7 +172,7 @@ $$q(s^l\mid s^{l-1}) = \delta(s^l - z_l)$$
 
 where $$z = (z_1, \ldots, z_L)$$ parameterize $$q$$.
 
-We can interpret $$z$$ as the fast-changing synaptic activity, and $$\theta$$ as the slow-changing synaptic weights. This interpretation is supported by the variational EM algorithm.
+We can interpret $$z$$ as the **fast-changing synaptic activity**, and $$\theta$$ as the **slow-changing synaptic weights**. This interpretation is supported by the variational EM algorithm, which indeed updates the parameters of $$q$$ (in this case, parameter $$z$$) at a faster timescale than the parameters of $$p$$.
 
 In this case the free energy $$F(x)$$ from Equation (2) (now independent of time) takes the form,
 
