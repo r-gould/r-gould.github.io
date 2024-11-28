@@ -120,7 +120,7 @@ where
 * (d) penalizes policy drift, by incentivizing $$q(\pi\mid s_{\tau})$$ to favour policies $$\pi$$ that fit previously taken actions $$a_{<t}$$.
 * (e) and (f) are entropy regularization terms, for perception and action-selection respectively.
 
-Note that (d) and (f) achieve the same role as policy clipping in PPO, and the entropy regularization in SAC, respectively. Note that entropy regularization in SAC has been previously justified via a variational framework [1], but with differences to the framework presented here (described at beginning of post).
+Note that (d) and (f) achieve the same role as policy clipping in PPO, and the entropy regularization in SAC, respectively. Note that entropy regularization in SAC has been previously justified via a variational framework [1], but with differences to the framework presented here (as described at the beginning).
 
 Under Equation (1), term (c) reduces to the expected value which is exactly what the field of reinforcement learning is concerned with. An overview of reinforcement learning methods is included in the Appendix.
 
@@ -273,9 +273,7 @@ $$Q_{\pi}(s_t, a_t) = \mathbb{E}_{p(s_{>t}, a_{>t}\mid s_t, a_t, \pi)}\left[\sum
 
 and note that
 
-$$V_{\pi}(s) = \mathbb{E}_{\pi(a\mid s)}[Q_{\pi}(s, a)]$$
-
-$$Q_{\pi}(s, a) = R(s, a) + \gamma \mathbb{E}_{p(s'\mid s, a)}[V_{\pi}(s')]$$
+$$V_{\pi}(s) = \mathbb{E}_{\pi(a\mid s)}[Q_{\pi}(s, a)], \quad Q_{\pi}(s, a) = R(s, a) + \gamma \mathbb{E}_{p(s'\mid s, a)}[V_{\pi}(s')]$$
 
 There appears to be two notable methods for performing credit assignment in RL: (a) policy gradient methods (e.g. REINFORCE, PPO) (b) amortized gradient methods (e.g. DQN, DDPG, SVG(0), SAC). Both involve gradient ascent using gradient $$\nabla_{\phi} V_{\pi_{\phi}}(s_t)$$, yet utilize different expressions for this gradient. As a quick summary,
 
@@ -289,7 +287,7 @@ b) *Amortized gradient methods* instead consider the form,
 
 $$\nabla_{\phi} V_{\pi_{\phi}}(s_t) \approx \nabla_{\phi} \mathbb{E}_{\pi_{\phi}(a_t\mid s_t)}[\hat{Q}(s_t, a_t)]$$
 
-for an approximation $$\hat{Q} \approx Q_{\pi_{\phi}}$$ or $$Q_{\pi_{*}}$$ (for optimal policy $$\pi_{*}$$). In most contexts we can write $$a_t = f_{\phi}(s_t, \epsilon)$$ under $$a_t \sim \pi_{\phi}(a_t\mid s_t)$$ for random variable $$\epsilon \sim p(\epsilon)$$, and hence via the reparameterization trick we can write
+for an approximation $$\hat{Q} \approx Q_{\pi_{\phi}}$$ or $$Q_{\pi_{*}}$$ (for optimal policy $$\pi_{*}$$). In most contexts we can write $$a_t = f_{\phi}(s_t, \epsilon)$$ under $$a_t \sim \pi_{\phi}(a_t\mid s_t)$$ for random variable $$\epsilon \sim p(\epsilon)$$, and hence via the **reparameterization trick** we can write
 
 $$\nabla_{\phi} V_{\pi_{\phi}}(s_t) \approx  \mathbb{E}_{p(\epsilon)}[\nabla_{\phi} \hat{Q}(s_t, f_{\phi}(s_t, \epsilon))]$$
 
@@ -321,7 +319,7 @@ for $$\epsilon \sim \text{N}(0, I)$$.
 
 	$$\nabla_{\phi} V_{\pi_{\phi}}(s_t) \approx \nabla_{\phi} \hat{Q}(s_t, \mu_{\phi}(s_t))$$
 
-	It approximates $$\hat{Q} = Q_{\pi_{*}}$$ equivalently to DQN.
+	and approximating $$\hat{Q} = Q_{\pi_{*}}$$ equivalently to DQN.
 
 3. The SVG(0) algorithm is an extension of DDPG for stochastic policies $$\pi_{\phi}$$, by utilizing the reparameterization trick (demonstrated above in (b)). It approximates $$\hat{Q} \approx Q_{\pi_{\phi}}$$ (i.e. not under the optimal policy, unlike DDPG) using a SARSA-like objective,
 
