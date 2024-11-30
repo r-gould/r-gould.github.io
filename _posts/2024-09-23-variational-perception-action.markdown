@@ -124,11 +124,11 @@ Note that (d) and (f) achieve the same role as policy clipping in PPO, and the e
 
 Under Equation (1), term (c) reduces to the expected value which is exactly what the field of reinforcement learning is concerned with. An overview of reinforcement learning methods is included in the Appendix.
 
-**Internal structure of hidden states.** We can include additional structure on the hidden state $$s$$ by generalizing to an arbitrary DAG topology for the hidden state $$s_t = (s_t^1, \ldots, s_t^N)$$, where $$s_t^n$$ is the state of node $$n$$ at time $$t$$. For a general DAG, a reasonable choice of dependence is
+**Internal structure of hidden states.** We can include additional structure on the hidden state $$s$$ by generalizing to an arbitrary DAG topology for the hidden state $$s_t = (s_t^1, \ldots, s_t^N)$$, where $$s_t^n$$ is the state of node $$n$$ at time $$t$$. For a general DAG, we have
 
 $$p(s_{\tau}\mid s_{\tau-1}, a_{\tau-1}) = \prod_{n=1}^{N} p(s_{\tau}^{n}\mid s_{\tau}^{\mathcal{P}(n)}, s_{\tau-1}^{n}, a_{\tau-1})$$
 
-where $$\mathcal{P}(n) \subset \{1, \ldots, N\}$$ denotes the parent indices for the $$n$$th node. Further, $$p(x_{\tau}\mid s_{\tau}) = p(x_{\tau}\mid s_{\tau}^{\mathcal{P}(0)})$$, and we will denote $$s_t^0 \equiv x_t$$.
+where $$\mathcal{P}(n) \subset \{1, \ldots, N\}$$ denotes the parent indices for the $$n$$th node. Further, $$p(x_{\tau}\mid s_{\tau}) = p(x_{\tau}\mid s_{\tau}^{\mathcal{P}(0)})$$, and we will denote $$s_t^0 \equiv x_t$$. Note that we have implicitly made a *locality* assumption of $$p(s_{\tau}^{n}\mid s_{\tau}^{\mathcal{P}(n)}, s_{\tau-1}, a_{\tau-1}) = p(s_{\tau}^{n}\mid s_{\tau}^{\mathcal{P}(n)}, s_{\tau-1}^{n}, a_{\tau-1})$$.
 * Conditioning $$s_{\tau}^{n}$$ on $$(s_{\tau-1}^n, a_{\tau-1})$$ accounts for temporal dynamics.
 * And conditioning on $$s_{\tau}^{\mathcal{P}(n)}$$ accounts for local interaction effects between nodes.
 
