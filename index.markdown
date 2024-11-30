@@ -5,4 +5,4 @@
 layout: home
 ---
 
-I am a 4th year (Part III) mathematics student at the University of Cambridge, broadly interested in developing a scientific understanding of neural networks. I am also interested in mathematical formalisms of intelligent behaviour, such as those based on variational inference (see [this post](https://r-gould.github.io/2024/09/23/variational-perception-action.html)), for inspiring new methods of learning and credit assignment that address the limitations of current methods, towards systems capable of efficient learning and reasoning.
+I am a 4th year (Part III) mathematics student at the University of Cambridge, broadly interested in developing a scientific understanding of neural networks. I am also interested in mathematical formalisms of intelligent behaviour, such as those based on variational inference (see [this post](https://r-gould.github.io/2024/09/23/variational-perception-action.html)), for inspiring methods of learning and credit assignment that address the limitations of current methods.
