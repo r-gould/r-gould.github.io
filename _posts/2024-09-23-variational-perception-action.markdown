@@ -212,6 +212,16 @@ That is, we can potentially think of iterative inference as taking place implici
 
 The above presentation of predictive coding has neglected two aspects: temporality, and action selection. Our general framework naturally extends to include these two aspects, as we will show below.
 
+**Information seeking.** With access to a generative model $$p$$, we are able to implement information-seeking behaviour through the reward function. Denote the environment-based reward by $$r(s)$$. Then we can consider the full reward function
+
+$$R(s) = r(s) + \alpha i(s)$$
+
+with a neg-entropy term
+
+$$i(s) := \mathbb{E}_{\pi_{\phi}(a\mid s) p(s'\mid s, a)}[\log p(s'\mid s, a)] = \mathbb{E}_{\pi_{\phi}(a\mid s)}[-H[p(s'\mid s, a)]]$$
+
+with the parameter $$\alpha$$ determining the balance between exploration vs. exploitation. In more detail, the $$i(s)$$ term in the reward $$R(s)$$ incentivizes states $$s$$ and actions $$a$$ that result in a confident belief (i.e. $$H[p(s'\mid s, a)] \approx 0$$) regarding the world's next state $$s'$$, and achieving such confidence would require sufficient exploration.
+
 **Neuro interpretation.** A rough neuroscientific interpretation could look like:
 * $$z_t^n$$ as the state of the $$n$$th cortical column, with $$z_t$$ the state of the cortex (unsure whether this would include the prefrontal cortex, which may operate by different principles (e.g. not simply predictive coding) compared to e.g. the sensory cortex?).
 * Amortized inference as initial feedforward sweep of neural activity (as described in [7]).
