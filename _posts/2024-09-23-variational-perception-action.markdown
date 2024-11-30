@@ -116,7 +116,7 @@ where
 
 	$$-\log p(\pi\mid s_{\tau}) = -\beta V[\pi\mid s_{\tau}] + \log Z(s_{\tau})$$
 
-	for normalizing constant $$Z(s_{\tau})$$. Here $$\beta$$ determines the rate of exploration vs exploitation.
+	for normalizing constant $$Z(s_{\tau})$$.
 * (d) penalizes policy drift, by incentivizing $$q(\pi\mid s_{\tau})$$ to favour policies $$\pi$$ that fit previously taken actions $$a_{<t}$$.
 * (e) and (f) are entropy regularization terms, for perception and action-selection respectively.
 
