@@ -203,6 +203,8 @@ $$\frac{\partial F}{\partial \theta_l} = -\left[\frac{\partial \mu_l(z_l)}{\part
 
 This update process is local, and hence biologically plausible, since each update of $$z_l$$ only depends on locally accessible information of its children nodes (in this case, $$z_{l-1}$$).
 
+* This locality contrasts with conventional backpropagation. For example, under conventional backpropagation, a single update step for the weight of the first layer requires access to the weight of the final layer -- such non-local dependence is not present in predictive coding.
+
 We can extend the above to include *amortized* inference, where upon receiving $$x$$ we compute some initialization value for the neural activity $$z$$, and from there perform iterative inference. We can interpret the typical models in machine learning, e.g. transformers, as solely performing such an amortized inference stage, without performing any iterative inference explicitly. However, one can argue that the residual structure of modern architectures, such as transformers, allows one to simulate an iteriative inference-like process. Indeed, they basically take the same form,
 
 $$\text{Residual structure:} \; \; \; z^{(l+1)} = z^{(l)} + f_{l+1}(z^{(l)}) \; \; \; \text{at layer} \; l$$
