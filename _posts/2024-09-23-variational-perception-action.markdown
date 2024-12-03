@@ -366,7 +366,7 @@ $$\nabla_{\phi} V_{\pi_{\phi}}(s_t) = \sum_{\tau=t}^{T} \mathbb{E}_{p(s_{>t}, a_
 for a variety of choices of $$\Phi_{t, \tau}$$:
 1. $$\Phi_{t, \tau} = G_t$$.
 2. $$\Phi_{t, \tau} = G_{\tau} = \sum_{\tau'=\tau}^{T} R(s_{\tau'}, a_{\tau'})$$.
-3. $$\Phi_{t, \tau} = G_{\tau} - b(s_{\tau})$, e.g. $b = \hat{V} \approx V_{\pi_{\phi}}$$.
+3. $$\Phi_{t, \tau} = G_{\tau} - b(s_{\tau})$$, e.g. $$b = \hat{V} \approx V_{\pi_{\phi}}$$.
 4. $$\Phi_{t, \tau} = Q_{\pi_{\phi}}(s_{\tau}, a_{\tau})$$.
 5. $$\Phi_{t, \tau} = Q_{\pi_{\phi}}(s_{\tau}, a_{\tau}) - V_{\pi_{\phi}}(s_{\tau})$$ (advantage), which is just (4) with a baseline (3).
 6. $$\Phi_{t, \tau} = R(s_{\tau}, a_{\tau}) + \gamma R(s_{\tau+1}, a_{\tau+1}) + \cdots + \gamma^T R(s_{\tau+T}, a_{\tau+T}) + V_{\pi_{\phi}}(s_{\tau+T+1}) - V_{\pi_{\phi}}(s_{\tau})$$.
