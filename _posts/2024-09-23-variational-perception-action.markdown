@@ -375,7 +375,7 @@ for a variety of choices of $$\Phi_{t, \tau}$$:
 
 $$\mathbb{E}_{p(s_{>t}, a_{\geq t}\mid s_t, \pi_{\phi})}[f(s_{\leq \tau}, a_{<\tau}) \nabla_{\phi} \log \pi_{\phi}(a_{\tau}\mid s_{\tau})] = 0$$
 
-(4) holds because,
+for $$\tau \geq t$$. (4) holds because,
 
 $$
 \begin{align*}
