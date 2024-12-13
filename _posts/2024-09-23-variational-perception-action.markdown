@@ -224,7 +224,7 @@ $$i(s) := \mathbb{E}_{\pi_{\phi}(a\mid s) p(s'\mid s, a)}[\log p(s'\mid s, a)] =
 
 with the parameter $$\alpha$$ determining the balance between exploration vs. exploitation. In more detail, the $$i(s)$$ term in the reward $$R(s)$$ incentivizes states $$s$$ and actions $$a$$ that result in a confident belief (i.e. $$H[p(s'\mid s, a)] \approx 0$$) regarding the world's next state $$s'$$, and achieving such confidence would require sufficient exploration.
 
-**Neuro interpretation.** A rough neuroscientific interpretation could look like:
+**Neuro interpretation.** One perspective highlighted by [13] is that to understand biological intelligence, one should first try to understand the computational/algorithmic descriptions of cognition (e.g. the framework of variational inference), and only then should one consider its potential neural implementation and relation to the brain. In this vein, we can make the following rough analogies to the brain:
 * $$z_t^n$$ as the state of the $$n$$th cortical column, with $$z_t$$ the state of the cortex (unsure whether this would include the prefrontal cortex, which may operate by different principles (e.g. not simply predictive coding) compared to e.g. the sensory cortex?).
 * Amortized inference as initial feedforward sweep of neural activity (as described in [7]).
 * The iterative inference stage as a phase of local communication between cortical columns, eventually converging to some agreement $$z_t$$. Agrees with cortical uniformity, with each cortical column employing the same local algorithm for communication and updates.
@@ -259,6 +259,8 @@ with the parameter $$\alpha$$ determining the balance between exploration vs. ex
 [11] Champion, T., Bowman, H., Marković, D., & Grześ, M. (2024). Reframing the Expected Free Energy: Four Formulations and a Unification.
 
 [12] Millidge, B., Walton, M., & Bogacz, R. (2022). Reward bases: Instantaneous reward revaluation with temporal difference learning.
+
+[13] Marr, D. (1982). Vision: A computational investigation into the human representation and processing of visual information.
 
 ### Appendix: Reinforcement learning background
 
