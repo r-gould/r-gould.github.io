@@ -5,9 +5,9 @@ date:   2025-03-22 22:53:08
 mathjax: true
 ---
 
-### Notes on prosaic alignment and control
+## Notes on prosaic alignment and control
 
-*A working document, in an effort to gain a high-level view of alignment and control for current language models in order to better evaluate which research directions are most relevant and which should be prioritized towards safe real-world deployment of AI systems.*
+*A working document, in an effort to gain a broad view of alignment and control for current day language models in order to better evaluate which research directions are most relevant and which should be prioritized towards effective real-world deployment of AI systems.*
 
 A broad overview of alignment and control for current day language models.
 * Alignment: designing systems that behave in accordance with human values, in the sense of helpful and reliable assistants. Will also include model robustness in this category.
@@ -15,17 +15,17 @@ A broad overview of alignment and control for current day language models.
 
 There will be an implicit focus on *scalable* solutions to alignment and control: methods that are applicable to the largest and most capable future models that we may wish to deploy in real-world contexts.
 
-#### Alignment
+### Alignment
 
-##### Pretraining
+#### Pretraining
 
-*Language models as simulators.* Pretraining on the Internet encourages language models to be capable of simulating a wide diversity of personas if prompted correctly. One rough but illustrative picture is viewing a pretrained model as performing a *Bayesian model average* over learned personas, where the probability $$p_{\text{PT}}(y|x)$$ that the pretrained model outputs response $$y$$ given prompt $$x$$ can be written **schematically** as
+*Language models as simulators.* Pretraining on the Internet encourages language models to be capable of simulating a wide diversity of personas if prompted correctly. One rough but illustrative picture is viewing a pretrained model as performing a *Bayesian model average* over learned personas, where the probability $$p_{\text{PT}}(y\mid x)$$ that the pretrained model outputs response $$y$$ given prompt $$x$$ can be written **schematically** as
 
-$$p_{\text{PT}}(y|x) = \int d\mathfrak{p} \, p_{\text{PT}}(\mathfrak{p}|x) p(y|x, \mathfrak{p})$$
+$$p_{\text{PT}}(y\mid x) = \int d\mathfrak{p} \, p_{\text{PT}}(\mathfrak{p}\mid x) p(y\mid x, \mathfrak{p})$$
 
-integrating over all *personas* $$\mathfrak{p}$$ relevant to modeling text on the Internet (e.g. the persona of the average Stack Overflow contributor), with $$p_{\text{PT}}(\mathfrak{p}|x)$$ the learned distribution over personas $$\mathfrak{p}$$ given prompt $$x$$ and $$p(y|x, \mathfrak{p})$$ the fixed distribution (independent of model parameters) over completions $$y$$ given prompt $$x$$ under persona $$\mathfrak{p}$$.
+integrating over all *personas* $$\mathfrak{p}$$ relevant to modeling text on the Internet (e.g. the persona of the average Stack Overflow contributor), with $$p_{\text{PT}}(\mathfrak{p}\mid x)$$ the learned distribution over personas $$\mathfrak{p}$$ given prompt $$x$$ and $$p(y\mid x, \mathfrak{p})$$ the fixed distribution (independent of model parameters) over completions $$y$$ given prompt $$x$$ under persona $$\mathfrak{p}$$.
 
-Namely, the distribution $$p_{\text{PT}}(\mathfrak{p}|x)$$ describes what the model has learned from the Internet: the probability that the model should engage in persona $$\mathfrak{p}$$ given prompt $$x$$. In an ideal world, $$p_{\text{PT}}(\mathfrak{p}|x)$$ would effectively be a point-mass on a helpful, honest and harmless persona $$\mathfrak{p}_{\text{HHH}}$$, however the pretrained model has no reason to specifically favour such a persona given the diversity of the pretraining data. This motivates prompting and finetuning as a means to shift this distribution $$p_{\text{PT}}(\mathfrak{p}|x)$$ towards personas of interest, as we will discuss in more detail later (see "Prompt-level steering" and "Behaviour-level steering" below).
+Namely, the distribution $$p_{\text{PT}}(\mathfrak{p}\mid x)$$ describes what the model has learned from the Internet: the probability that the model should engage in persona $$\mathfrak{p}$$ given prompt $$x$$. In an ideal world, $$p_{\text{PT}}(\mathfrak{p}\mid x)$$ would effectively be a point-mass on a helpful, honest and harmless persona $$\mathfrak{p}_{\text{HHH}}$$, however the pretrained model has no reason to specifically favour such a persona given the diversity of the pretraining data. This motivates prompting and finetuning as a means to shift this distribution $$p_{\text{PT}}(\mathfrak{p}\mid x)$$ towards personas of interest, as we will discuss in more detail later (see "Prompt-level steering" and "Behaviour-level steering" below).
 * Through finetuning, we essentially aim to unlearn the undesirable behaviours learned at pretraining. The limited robustness of LMs (e.g. the success of simple prefilling attacks and the shallowness of finetuning [8], arbitrary behaviour elicitation [34]) suggests that unlearning is difficult and finetuning is not greatly effective. Additionally, the size of the pretraining dataset is magnitudes larger than the size of the finetuning dataset, which is likely a contributing factor to this difficulty.
 
 Ultimately, the model's internal representation $$z(x)$$ of a particular prompt $$x$$ encodes the persona $$\mathfrak{p}$$ that is currently active. Interpretability methods like representation reading [1], sparse auto-encoders [2, 3], and LatentQA [4] allow for reading off attributes of a model's persona, such as "helpfulness", and for steering towards such behaviours (see "Representation-level steering" below).
@@ -37,12 +37,12 @@ Ideally at pretraining we would learn good representations by a method that is d
 
 From another direction, improved pretraining data selection seems promising, and [6] is one example of an attempt to modify pretraining for this purpose, using a reward function/classifier to score training data that allows a model to learn from undesirable data while not learning to imitate the data behaviourally.
 
-##### Steering
+#### Steering
 
 By default, a pretrained model will not behave usefully; it has no particular preference for being "helpful". We wish to "steer" the pretrained model to be more useful for a deployment task of interest. Steering can be performed at different levels of abstraction, with a computational hierarchy of: $$(\text{prompt}, \text{weights}) \to \text{representations} \to \text{behaviour}$$.
 * In practice, models are mainly steered at the behaviour-level (via SFT and RLHF) and prompt-level (via system prompts). Representation-level and weight-level steering methods are also promising and discussed below.
 
-**Behaviour-level steering.** Using the notation introduced in the previous section, we would like to steer the distribution $$p_{\text{PT}}(\mathfrak{p}|x)$$ towards behaviours/personas $$\mathfrak{p}$$ that correspond with a helpful assistant $$\mathfrak{p}_{\text{HHH}}$$. Most immediately, we could consider prompting the model appropriately via $$x$$ to elicit desired personas (i.e. prompt-level steering), such as via few-shot prompting. This requires no additional training.
+**Behaviour-level steering.** Using the notation introduced in the previous section, we would like to steer the distribution $$p_{\text{PT}}(\mathfrak{p}\mid x)$$ towards behaviours/personas $$\mathfrak{p}$$ that correspond with a helpful assistant $$\mathfrak{p}_{\text{HHH}}$$. Most immediately, we could consider prompting the model appropriately via $$x$$ to elicit desired personas (i.e. prompt-level steering), such as via few-shot prompting. This requires no additional training.
 
 A different approach is to perform additional training in exactly the same manner as pretraining -- i.e. using a next-token prediction loss -- but instead use human-curated text data that demonstrates ideal interactions between a user and a helpful assistant. This is the idea behind supervised finetuning (SFT). Some limitations of SFT include:
 1. Costly: requires explicit human *demonstrations* of ideal responses (which is typically more difficult/costly than human *evaluations* of model's responses, e.g. evaluating the goodness of a research paper being much easier than creating a good research paper).
@@ -60,10 +60,10 @@ SFT and RLHF are often referred to as "finetuning" methods, and in practice they
 
 	$$\mathcal{L}[R] := \mathbb{E}_{(x, y_0, y_1, b) \sim \mathcal{D}}[-\log \sigma((-1)^{1-b} (R(x, y_1) - R(x, y_0)))]$$
 
-for prompts $$x$$, model completions $$(y_0, y_1) \sim \pi_{\text{ref}}(\cdot|x)$$, and preference label $$b \in \{0, 1\}$$ (with $$b=1$$ iff completion $$y_1$$ is preferred over $$y_0$$) obtained by human labellers. Note that $$\pi_{\text{ref}}$$ is the initial pretrained (and SFT'd) model.
-2. Train the language model $$\pi = \pi(y|x)$$ to optimize $$R$$ via PPO (or DPO):
+for prompts $$x$$, model completions $$(y_0, y_1) \sim \pi_{\text{ref}}(\cdot\mid x)$$, and preference label $$b \in \{0, 1\}$$ (with $$b=1$$ iff completion $$y_1$$ is preferred over $$y_0$$) obtained by human labellers. Note that $$\pi_{\text{ref}}$$ is the initial pretrained (and SFT'd) model.
+2. Train the language model $$\pi = \pi(y\mid x)$$ to optimize $$R$$ via PPO (or DPO):
 
-	$$\mathcal{V}[\pi] := \mathbb{E}_{\rho(x) \pi(y|x)}[R(x, y)] - \tau D_{\text{KL}}(\pi||\pi_{\text{ref}})$$
+	$$\mathcal{V}[\pi] := \mathbb{E}_{\rho(x) \pi(y\mid x)}[R(x, y)] - \tau D_{\text{KL}}(\pi\mid \mid \pi_{\text{ref}})$$
 
 Note that step 2 is applicable to generic reward models $$R$$, whereas step 1 is specific to learning $$R$$ via response comparison data (found to be reliable in practice, since getting humans to give raw preference ratings is noisy).
 
@@ -79,7 +79,7 @@ Misspecification corresponds to the overall oracle-train gap, i.e. the total dis
 	- Human response comparison data only captures "which response is better" (rankings) rather than "how good is this response" (ratings). Human rating data is found to be too noisy in practice, restricting us to use ranking data.
 * Human-train gap (discrepancy between $$R_{\text{human}}$$ and $$R_{\text{trained}}$$) originating from:
 	- Learned reward model not correctly generalizing to human preferences due to an ineffective training setup.
-	- Distribution shift due to a model's response distribution $$\pi(y|x)$$ changing during RL training, but $$R_{\text{trained}}$$ was trained using responses from the original model $$\pi_{\text{ref}}(y|x)$$. Periodic retraining of the reward model can resolve this though this is costly. d-RLAIF approaches discussed below could also alleviate such distribution shift issues.
+	- Distribution shift due to a model's response distribution $$\pi(y\mid x)$$ changing during RL training, but $$R_{\text{trained}}$$ was trained using responses from the original model $$\pi_{\text{ref}}(y\mid x)$$. Periodic retraining of the reward model can resolve this though this is costly. d-RLAIF approaches discussed below could also alleviate such distribution shift issues.
 
 The effect of reward misspecification is that ultimately the LM is trained to maximize $$R_{\text{trained}}$$ during RL training, and hence any discrepancies between $$R^{*}$$ and $$R_{\text{trained}}$$ will be exploited if it better allows for value maximization, often resulting in undesirable behaviours -- called *reward hacking*, or *reward overoptimization*.
 * Note that even with a perfect reward model that experiences no misspecification, we may still suffer from *underoptimization* if our RL techniques are ineffective and result in suboptimal maxima.
@@ -143,7 +143,7 @@ TODO
 * In some cases prompting can be competitive with finetuning. [27] find that the performance of few-shot prompting improves with model scale and can be competitive with/outperform finetuning methods. Also [28] find an in-context learning approach to outperform SFT and SFT + RLHF. This paper also finds that SFT + RLHF has a rather superficial effect on model behaviour, with only the distribution of stylistic tokens differing, which agrees with the shallowness results of [8].
 * The limitations of naively prompting a pretrained model. What goes wrong? Why do we require finetuning? Why is prompt engineering the pretrained model not sufficient?
 
-#### Control
+### Control
 
 It may be unrealistic to aim for models that are perfectly aligned and robust in every context. Instead, we could consider adaptive mechanisms at deployment that monitor and mitigate potential misalignment. This is the idea behind control. Or in other words, we can't expect the "initial conditions" of deployment (i.e. the pretrained + finetuned model) to be perfect. Correction during deployment is feasible since "controllers are often much simpler than the systems they control" [29].
 
