@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Notes on prosaic alignment and control"
-date:   2023-03-22 22:53:08
+date:   2025-03-22 22:53:08
 mathjax: true
 ---
 
