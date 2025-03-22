@@ -5,8 +5,6 @@ date:   2025-03-22 22:53:08
 mathjax: true
 ---
 
-## Notes on prosaic alignment and control
-
 *A working document, in an effort to gain a broad view of alignment and control for current day language models in order to better evaluate which research directions are most relevant and which should be prioritized towards effective real-world deployment of AI systems.*
 
 A broad overview of alignment and control for current day language models.
