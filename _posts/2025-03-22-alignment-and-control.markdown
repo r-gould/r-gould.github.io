@@ -37,7 +37,7 @@ From another direction, improved pretraining data selection seems promising, and
 
 #### Steering
 
-By default, a pretrained model will not behave usefully; it has no particular preference for being "helpful". We wish to "steer" the pretrained model to be more useful for a deployment task of interest. Steering can be performed at different levels of abstraction, with a computational hierarchy of: $$(\text{prompt}, \text{weights}) \to \text{representations} \to \text{behaviour}$$.
+By default, a pretrained model will not behave usefully; it has no particular preference for being "helpful". We wish to "steer" the pretrained model to be more useful for a deployment task of interest. Steering can be performed at different levels of abstraction. Note that language models have a computational hierarchy of: $$(\text{prompt}, \text{weights}) \to \text{representations} \to \text{behaviour}$$. Steering can be performed at the level of any component in this hierarchy.
 * In practice, models are mainly steered at the behaviour-level (via SFT and RLHF) and prompt-level (via system prompts). Representation-level and weight-level steering methods are also promising and discussed below.
 
 **Behaviour-level steering.** Using the notation introduced in the previous section, we would like to steer the distribution $$p_{\text{PT}}(\mathfrak{p}\mid x)$$ towards behaviours/personas $$\mathfrak{p}$$ that correspond with a helpful assistant $$\mathfrak{p}_{\text{HHH}}$$. Most immediately, we could consider prompting the model appropriately via $$x$$ to elicit desired personas (i.e. prompt-level steering), such as via few-shot prompting. This requires no additional training.
@@ -58,7 +58,7 @@ SFT and RLHF are often referred to as "finetuning" methods, and in practice they
 
 	$$\mathcal{L}[R] := \mathbb{E}_{(x, y_0, y_1, b) \sim \mathcal{D}}[-\log \sigma((-1)^{1-b} (R(x, y_1) - R(x, y_0)))]$$
 
-for prompts $$x$$, model completions $$(y_0, y_1) \sim \pi_{\text{ref}}(\cdot\mid x)$$, and preference label $$b \in \{0, 1\}$$ (with $$b=1$$ iff completion $$y_1$$ is preferred over $$y_0$$) obtained by human labellers. Note that $$\pi_{\text{ref}}$$ is the initial pretrained (and SFT'd) model.
+	for prompts $$x$$, model completions $$(y_0, y_1) \sim \pi_{\text{ref}}(\cdot\mid x)$$, and preference label $$b \in \{0, 1\}$$ (with $$b=1$$ iff completion $$y_1$$ is preferred over $$y_0$$) obtained by human labellers. Note that $$\pi_{\text{ref}}$$ is the initial pretrained (and SFT'd) model.
 2. Train the language model $$\pi = \pi(y\mid x)$$ to optimize $$R$$ via PPO (or DPO):
 
 	$$\mathcal{V}[\pi] := \mathbb{E}_{\rho(x) \pi(y\mid x)}[R(x, y)] - \tau D_{\text{KL}}(\pi\mid \mid \pi_{\text{ref}})$$
@@ -87,7 +87,7 @@ The effect of reward misspecification is that ultimately the LM is trained to ma
 *Learning from AI feedback.* The oracle-human gap seems to be a fundamental bottleneck to RLHF being a scalable alignment technique. How can we remedy the limitations of human-collected preference data?
 
 One approach is to allow AI to assist humans in generating training signals. Namely, we could make use of LMs themselves to help generate demonstrations for SFT and evaluations for RLHF.
-* A pretrained LM should have some understanding of human values from the Internet, so we could try and utilize this understanding to generate preference data that aligns with human values.
+* A pretrained LM should have some understanding of human values from the Internet, so we should try and utilize this understanding to generate preference data that aligns with human values.
 * Here the focus will be on LMs helping to generate training signal. In the "Control" section we will also consider using LMs for the purpose of monitoring and interpretability.
 
 Constitutional AI (CAI) [13] generates SFT and RLHF data with very little human involvement; the only human oversight is the selection of constitutional principles that the generating LM is prompted to abide by during data generation. It has also been found (for sufficiently large models) that simple constitutional principles like "Act to best benefit humanity" are competitive with more detailed rule sets [14].
@@ -148,7 +148,7 @@ It may be unrealistic to aim for models that are perfectly aligned and robust in
 We can construct monitoring pipelines that act as wrappers around the model that involve checks at various levels (input, representations, behaviour) and potentially relay certain decisions to humans when appropriate. We can test the robustness of a given pipeline by assuming that the model being wrapped is adversarially trying to subvert the pipeline. This is the framing of [30].
 
 Language models have the computational hierarchy: $$(\text{prompt}, \text{weights}) \to \text{representations} \to \text{behaviour}$$. Just as we can steer the model with respect to each component in this hierarchy, we can also perform monitoring with respect to each component:
-* Prompt-level: monitor inputs to the model via an input classifier (as in Constitutional Classifiers [31]).
+* Prompt-level: monitor inputs to the model via an input classifier (as in Constitutional Classifiers [31]) to detect adversarial attacks or OOD inputs.
 * Weight-level: mechanistic understanding could allow us to detect phenomena like deception at the weight-level (though, unlike the other forms of monitoring, this is static over deployment).
 * Representation-level: methods like RepE [1], SAEs [2, 3], and LIT [4] allow for monitoring the properties of internal representations, e.g. [32] detects harmful behaviour using RepE.
 * Behaviour-level: monitor outputs of the model via an output classifier (as in Constitutional Classifiers [31]).
