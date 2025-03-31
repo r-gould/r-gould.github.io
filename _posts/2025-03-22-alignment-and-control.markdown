@@ -13,6 +13,8 @@ A broad overview of alignment and control for current day language models.
 
 There will be an implicit focus on *scalable* solutions to alignment and control: methods that are applicable to the largest and most capable future models that we may wish to deploy in real-world contexts.
 
+(a third category could be interpretability/understanding, which can (and frequently does) inform approaches to alignment and control)
+
 ### Alignment
 
 #### Pretraining
