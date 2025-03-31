@@ -65,7 +65,7 @@ SFT and RLHF are often referred to as "finetuning" methods, and in practice they
 
 Note that step 2 is applicable to generic reward models $$R$$, whereas step 1 is specific to learning $$R$$ via response comparison data (found to be reliable in practice, since getting humans to give raw preference ratings is noisy).
 
-The reward model $$R = R(x, y)$$ used in RLHF is likely to be \textit{misspecified} to some degree. Namely, let $$R^{*}$$ denote the *oracle reward* describing our true, "platonic" human preferences. We do not have access to this oracle, and instead must rely on a human's ratings, which can be thought of as samples from another reward model $$R_{\text{human}}$$. Further, as seen in step 1 of RLHF above, we essentially train a reward model $$R_{\text{trained}}$$ to predict the outputs of $$R_{\text{human}}$$ to allow for larger-scale training (collecting data entirely from humans for training is too costly). We then perform RL training using reward function $$R = R_{\text{trained}}$$. Each step introduces its own discrepancies/gaps:
+The reward model $$R = R(x, y)$$ used in RLHF is likely to be *misspecified* to some degree. Namely, let $$R^{*}$$ denote the *oracle reward* describing our true, "platonic" human preferences. We do not have access to this oracle, and instead must rely on a human's ratings, which can be thought of as samples from another reward model $$R_{\text{human}}$$. Further, as seen in step 1 of RLHF above, we essentially train a reward model $$R_{\text{trained}}$$ to predict the outputs of $$R_{\text{human}}$$ to allow for larger-scale training (collecting data entirely from humans for training is too costly). We then perform RL training using reward function $$R = R_{\text{trained}}$$. Each step introduces its own discrepancies/gaps:
 
 $$R^{*} \underbrace{\longleftrightarrow}_{\text{oracle-human gap}} R_{\text{human}} \underbrace{\longleftrightarrow}_{\text{human-train gap}} R_{\text{trained}}$$
 
@@ -87,8 +87,8 @@ The effect of reward misspecification is that ultimately the LM is trained to ma
 *Learning from AI feedback.* The oracle-human gap seems to be a fundamental bottleneck to RLHF being a scalable alignment technique. How can we remedy the limitations of human-collected preference data?
 
 One approach is to allow AI to assist humans in generating training signals. Namely, we could make use of LMs themselves to help generate demonstrations for SFT and evaluations for RLHF.
-* A pretrained LM should have some understanding of human values from the Internet, so we should try and utilize this understanding to generate preference data that aligns with human values.
-* Here the focus will be on LMs helping to generate training signal. In the "Control" section we will also consider using LMs for the purpose of monitoring and interpretability.
+* Importantly, we can expect a pretrained LM to have some understanding of human values and our preferences, allowing LMs to assist us in generating preference data.
+* Here the focus will be on LMs helping to generate training signal. In the "Control" section we will also consider using LM feedback for the purpose of monitoring and interpretability.
 
 Constitutional AI (CAI) [13] generates SFT and RLHF data with very little human involvement; the only human oversight is the selection of constitutional principles that the generating LM is prompted to abide by during data generation. It has also been found (for sufficiently large models) that simple constitutional principles like "Act to best benefit humanity" are competitive with more detailed rule sets [14].
 
@@ -99,7 +99,7 @@ In the setting of RLAIF, a task may simply be too difficult for the AI to evalua
 *Improving RLAIF.* RLAIF relies on using LMs that can act as effective evaluators/judges. There are many works that evaluate how effectively LMs can act as evaluators (often called "meta-evaluation"). For example, [19, 20] find that even though LMs can often generate correct solutions to reasoning problems, they often fail to evaluate which solution is correct (i.e. LMs find generation easier than evaluation, even though to humans evaluation is often easier than generation). Note that work on evaluating reward models (e.g. RewardBench [21]) also classifies as meta-evaluation since reward models are pretrained LMs that have been additionally trained to evaluate helpfulness.
 
 How can we improve the ability for language models to act as evaluators for RLAIF?
-* We could perform RLHF but instead specifically collect preference data for the task of evaluation (rather than generic task of helpfulness as currently done): e.g. sampling two evaluations from a model, and getting a human to choose a preferred evaluation. Here humans are acting as "meta-evaluators" to produce good LM evaluators.
+* We could perform RLHF but instead specifically collect preference data for the task of evaluation (rather than generic task of helpfulness as currently done): e.g. sampling two evaluations from a model, and getting a human to choose a preferred evaluation. Here humans are acting as "meta-evaluators" to produce good LM evaluators. This is the approach taken in CriticGPT [35].
 * Alternatively (or additionally), we could use other LMs (or the same LM, i.e. self-improvement) as an evaluator instead of humans. Namely, we could let the model generate two evaluations, and then let an evaluator model choose which of these evaluations is best. This is analogous to performing RL-CAI on the task of evaluation. Here we are using an LM as a meta-evaluator.
 	- To what extent can we just keep repeating this process iteratively, using the improved model to evaluate itself, and repeat? At what point are diminishing returns reached? Can we understand the limitations of such "iterative improvement" methods more generally?
 * Or, for evaluations that the model finds difficult (e.g. responses that the model is highly uncertainty about), relaying evaluation to humans instead. Ideally this would only be a small subset of evaluations.
@@ -114,7 +114,7 @@ That is, for both RLHF and the brain, the "reward model" is misspecified relativ
 * A trivial example in the brain concerns context-dependent rewards and homeostaticity: e.g. hunger diminishes after eating, preventing the continued pursuit of food rewards. Though this example is a little trivial, and we would like some more interesting examples.
 
 **Representation-level steering.** Finetuning is a behaviour-level method of steering: we directly incentivize certain model outputs over others. One can imagine that this could have undesirable effects, e.g. a model producing the right outputs for the wrong reasons/not accurately internalizing the goal that we want the model to pursue (goal misgeneralization). 
-* A relevant example: finetuning an LM on insecure code has the unintended consequence of causing the model to output generically bad things [22].
+* A relevant example: finetuning an LM on insecure code has the unintended consequence of causing the model to output generically bad things [22]. The shallowness of alignment training [8] can also be viewed as an example of goal misgeneralization.
 
 This motivates considering a more fine-grained method of steering. We can move to a lower level of abstraction, from behaviour to representations, and consider representation-level steering. Methods in this vein typically involve "locating" certain interpretable concepts in the model, such as the concept of "helpfulness", and amplifying these concepts to (hopefully) result in interpretable changes in model behaviour. Some methods include:
 * Sparse auto-encoders (SAEs) [2, 3]: under the assumption that representations decompose into a sparse linear combination of semantic feature directions, sparse auto-encoders allow for extracting these feature directions. Then, through automated-interpretability pipelines [3, Automatically Interpreting Millions of Features in Large Language Models], we can assign human-understandable interpretations to these feature directions and use them to steer model behaviour accordingly (by adding the features to representations, or modifying the activations of the SAE before reconstruction).
@@ -227,3 +227,5 @@ Language Models
 [33] Detecting Adversarial Examples Is (Nearly) As Hard As Classifying Them
 
 [34] Eliciting Language Model Behaviors with Investigator Agents
+
+[35] LLM Critics Help Catch LLM Bugs
