@@ -17,7 +17,7 @@ There will be an implicit focus on *scalable* solutions to alignment and control
 
 #### Pretraining
 
-*Language models as simulators.* Pretraining on the Internet encourages language models to be capable of simulating a wide diversity of personas if prompted correctly. One rough but illustrative picture is viewing a pretrained model as performing a *Bayesian model average* over learned personas, where the probability $$p_{\text{PT}}(y\mid x)$$ that the pretrained model outputs response $$y$$ given prompt $$x$$ can be written **schematically** as
+*Language models as simulators.* Pretraining on the Internet encourages language models to be capable of simulating a wide diversity of personas if prompted correctly. One rough but illustrative picture is viewing a pretrained model as performing a *Bayesian model average* over learned personas, where the probability $$p_{\text{PT}}(y\mid x)$$ that the pretrained model outputs response $$y$$ given prompt $$x$$ can be written schematically as
 
 $$p_{\text{PT}}(y\mid x) = \int d\mathfrak{p} \, p_{\text{PT}}(\mathfrak{p}\mid x) p(y\mid x, \mathfrak{p})$$
 
