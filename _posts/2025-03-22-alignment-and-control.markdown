@@ -13,7 +13,7 @@ A broad overview of alignment and control for current day language models.
 
 There will be an implicit focus on *scalable* solutions to alignment and control: methods that are applicable to the largest and most capable future models that we may wish to deploy in real-world contexts.
 
-(a third category could be interpretability/understanding, which can (and frequently does) inform approaches to alignment and control)
+(a third category could be interpretability/model understanding, which can (and frequently does) inform approaches to alignment and control)
 
 ### Alignment
 
@@ -93,7 +93,7 @@ One can consider the worst case setting of assuming that the AI's output is esse
 * Recursive reward modeling [18] considers recursively decomposing complex tasks into simpler subtasks that the human/AI supervisor can evaluate and then combine into an overall evaluation.
 * In the case of evaluating code correctness (where a user prompts the model with a specification e.g. "write code to find the nth prime"), as long as the human supervisor can understand the user's intended specification, they can construct test cases for the code and ensure that they pass. Related work on a non-expert evaluating SQL code [37].
 
-This first example, of using an AI system to act as an evaluator and generate supervision signal, is demonstrated in Constitutional AI (CAI) [13]. CAI generates demonstrations for SFT, and evaluations for RL, with the only human oversight being the selection of constitutional principles that the generating model is prompted to follow during data generation. Namely, on the RLHF side, a given choice of constitution $$\mathcal{C}$$ results in an associated preference model $$R_{\mathcal{C}}$$ that one can then use for RL.
+This first example, of using an AI system to act as an evaluator and generate supervision signal, is demonstrated in Constitutional AI (CAI) [13]. CAI generates demonstrations for SFT, and evaluations for RL, with the only human oversight being the selection of constitutional principles that the generating model is prompted to follow during data generation. Namely, on the RLHF side, a given choice of constitution $$\mathcal{C}$$ results in an associated preference model $$R_{\mathcal{C}} = R_{\mathcal{C}}(x, y)$$ that one can then use for RL.
 * It has been found (for sufficiently large models) that very simple constitutions like "Act to best benefit humanity" are competitive with more detailed rule sets [14].
 * Training a preference model means CAI suffers from distribution shift problems (see the 4th bullet point under "oracle-human gap" above). d-RLAIF [17] proposes a solution to this distribution shift issue by obtaining evaluations directly from the model during RL training, i.e. no reward model has to be trained.
 * The motivation for using AI feedback for alignment is that we can expect e.g. a pretrained LM to have some understanding of human values and our preferences, or to be able to simulate someone that does, which allows them to assist in preference data generation.
