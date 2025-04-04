@@ -87,7 +87,7 @@ The effect of reward misspecification is that ultimately the LM is trained to ma
 
 *Scalable oversight.* The problem of misspecification -- and specifically the oracle-human gap -- can be mainly attributed to humans not being very reliable supervisors. One can consider this problem in more generality: how can we reliably supervise and evaluate the outputs of AI systems on complex tasks? This is often studied under the term *scalable oversight*.
 
-One can consider the worst case setting of assuming that the AI's output is essentially unreadable to the human supervisor (e.g. code written in a language that the supervisor doesn't know). In order to aid the human, we would like to produce a human-readable artifact that the human can base their supervision upon. Some examples of methods for doing this include:
+One particularly difficult version of the scalable oversight problem involves assuming that the AI's output is essentially unreadable to the human supervisor (e.g. code in a language that the human supervisor is unfamiliar with). In order to aid the human, we would like to produce a human-readable artifact that the human can base their supervision upon. Some examples of methods for doing this include:
 * Allow an assistant AI to provide supervision, perhaps with an argument that the supervisor can engage with.
 * Summarization of the AI's output by an assistant AI in a way that's curated to the supervisor's ability.
 * Debate [39] allows multiple instances of the same AI system to argue for different sides of an argument (e.g. "does this response follow the user's instruction?"), producing a debate transcript that the supervisor can base their judgement upon.
@@ -105,6 +105,11 @@ There are many works that evaluate how effectively LMs can act as evaluators, of
 	- To what extent can we just keep repeating this process iteratively (using that evaluation and meta-evaluation are similar tasks), using the improved model to evaluate itself, and repeat? At what point are diminishing returns reached? Can we understand the limitations of such "iterative improvement" methods more generally?
 
 Note that scalable oversight is also relevant in the control context (discussed later) for the purposes of monitoring and interpretability during deployment as a means to mitigate misalignment.
+
+*Relation to weak-to-strong generalization.* As noted by [41], one can view both scalable oversight and weak-to-strong generalization [42] as orthogonal approaches to alignment:
+* Scalable oversight: improve the judge's supervision ability.
+* Weak-to-strong generalization: improve the ability to generalize from the supervision signals of a fixed judge.
+In an LM context, weak-to-strong generalization concerns the setting of improving the ability for the reward model (RM) to correctly generalize from imperfect human preference data (whereas scalable oversight would aim to improve the quality of the preference data). [42] finds negative results for weak-to-strong generalization in this setting: training a larger RM using the outputs of a smaller RM causes the larger RM to collapse to the performance of the smaller RM (whereas for chess and NLP tasks, the larger model can meaningfully outperform the smaller model). It may be that modeling a human's feedback as the outputs of a smaller reward model is problematic. It also may be that the relevant setting is instead using a smaller RM to train a larger policy (rather than training a larger RM) and observing whether the larger policy can learn to "grok" the intended goal.
 
 *Evaluating scalable oversight.* One problem we must face when evaluating proposed solutions to scalable oversight is that, for very complex tasks, we have no access to ground truth labels, essentially by construction.
 
@@ -246,3 +251,7 @@ Language Models
 [39] AI safety via debate
 
 [40] Automatically Interpreting Millions of Features in Large Language Models
+
+[41] Scalable Oversight and Weak-to-Strong Generalization: Compatible approaches to the same problem (https://www.alignmentforum.org/posts/hw2tGSsvLLyjFoLFS/scalable-oversight-and-weak-to-strong-generalization)
+
+[42] Weak-to-Strong Generalization: Eliciting Strong Capabilities With Weak Supervision
