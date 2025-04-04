@@ -109,6 +109,7 @@ Note that scalable oversight is also relevant in the control context (discussed 
 *Relation to weak-to-strong generalization.* As noted by [41], one can view both scalable oversight and weak-to-strong generalization [42] as orthogonal approaches to alignment:
 * Scalable oversight: improve the judge's supervision ability.
 * Weak-to-strong generalization: improve the ability to generalize from the supervision signals of a fixed judge.
+
 In an LM context, weak-to-strong generalization concerns the setting of improving the ability for the reward model (RM) to correctly generalize from imperfect human preference data (whereas scalable oversight would aim to improve the quality of the preference data). [42] finds negative results for weak-to-strong generalization in this setting: training a larger RM using the outputs of a smaller RM causes the larger RM to collapse to the performance of the smaller RM (whereas for chess and NLP tasks, the larger model can meaningfully outperform the smaller model). It may be that modeling a human's feedback as the outputs of a smaller reward model is problematic. It also may be that the relevant setting is instead using a smaller RM to train a larger policy (rather than training a larger RM) and observing whether the larger policy can learn to "grok" the intended goal.
 
 *Evaluating scalable oversight.* One problem we must face when evaluating proposed solutions to scalable oversight is that, for very complex tasks, we have no access to ground truth labels, essentially by construction.
