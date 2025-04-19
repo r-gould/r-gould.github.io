@@ -1,4 +1,4 @@
----
+![image](https://github.com/user-attachments/assets/56b07a4b-9717-454b-b527-b5adc54a89f3)---
 layout: post
 title:  "Notes on alignment and control"
 date:   2025-03-22 22:53:08
@@ -8,12 +8,12 @@ mathjax: true
 *A working document, in an effort to gain a broad view of alignment and control for current day language models in order to better evaluate which research directions are most relevant and which should be prioritized towards effective real-world deployment of AI systems.*
 
 A broad overview of alignment and control for current day language models.
-* Alignment: designing systems that behave in accordance with human values, in the sense of helpful and reliable assistants. Will also include model robustness in this category.
-* Control: mitigating the possibility of alignment/robustness failures via monitoring and intervention during deployment.
+* Alignment: Designing systems that behave in accordance with human values. Will also include model robustness in this category.
+* Control: Mitigating the possibility of alignment/robustness failures via monitoring and intervention during deployment.
 
 There will be an implicit focus on *scalable* solutions to alignment and control: methods that are applicable to the largest and most capable future models that we may wish to deploy in real-world contexts.
 
-(a third category could be interpretability/model understanding, which can (and frequently does) inform approaches to alignment and control)
+(a third category could be interpretability, which can (and frequently does) inform approaches to alignment and control)
 
 ### Alignment
 
@@ -30,12 +30,8 @@ Namely, the distribution $$p_{\text{PT}}(\mathfrak{p}\mid x)$$ describes what th
 
 Ultimately, the model's internal representation $$z(x)$$ of a particular prompt $$x$$ encodes the persona $$\mathfrak{p}$$ that is currently active. Interpretability methods like representation reading [1], sparse auto-encoders [2, 3], and LatentQA [4] allow for reading off attributes of a model's persona, such as "helpfulness", and for steering towards such behaviours (see "Representation-level steering" below).
 
-*Rethinking pretraining.* Rather than trying to improve the effectiveness of finetuning at unlearning undesirable pretraining behaviour (as we will discuss in the next section), perhaps we should instead rethink the pretraining process itself. It is clear that there is a great mismatch between the task of pretraining and the behaviour we wish an LM to have at deployment; unsurprisingly, most text on the Internet does not match a "helpful persona". It may be unrealistic to expect finetuning to be able to effectively unlearn all undesirable pretraining behaviours. Is there an alternative way of pretraining that doesn't encourage a model to explicitly emulate behaviours that are misaligned with deployment?
-
-Ideally at pretraining we would learn good representations by a method that is detached from the concept of model behaviour, and only after pretraining would we like to specifically target model behaviour and form behavioural circuits (e.g. via SFT/RLHF). Achieving this ambition seems to require moving away from behaviour-centric losses like next-token prediction at pretraining, and instead using more representation-centric losses that are detached from model behaviour. Exactly what this could look like in practice is unclear, but the learning objective of something like a VAE perhaps captures the intuition of a form of learning that is detached from behaviour: in the case of a VAE trained on images, the learning of representations is not explicitly tied to any specific downstream task that we may care about, e.g. classification.
-* An additional hope is that alternative learning methods could produce inherently robust features [5].
-
-From another direction, improved pretraining data selection seems promising, and [6] is one example of an attempt to modify pretraining for this purpose, using a reward function/classifier to score training data that allows a model to learn from undesirable data while not learning to imitate the data behaviourally.
+*Rethinking pretraining.* Rather than trying to improve the effectiveness of finetuning at unlearning undesirable pretraining behaviour (as we will discuss in the next section), perhaps we should instead rethink the pretraining process itself. It is clear that there is a great mismatch between the task of pretraining and the behaviour we wish an LM to have at deployment; unsurprisingly, most text on the Internet does not match a "helpful persona". It may be unrealistic to expect finetuning to be able to effectively unlearn all undesirable pretraining behaviours. Is there an alternative way of pretraining that doesn't encourage a model to explicitly emulate behaviours that are misaligned with deployment? We still wish for the model to learn from all available data, but by a means that is detached from behaviour – the fact that we use the same next-token learning objective for both pretraining and SFT seems inherently problematic, and ideally there would be some separation between these learning processes, with pretraining learning knowledge and useful representations while finetuning learns good behaviours.
+* It is unclear what this would look like in practice, but one analogy is a VAE: when training a VAE on images, the learning of representations is not explicitly tied to any specific downstream task like classification (yet the representations are still very useful for this task), and the objective used to train a VAE is very different from the cross entropy objective used to train a classifier. We would like something similar for LMs, with pretraining corresponding to representation learning by a means that is not explicitly tied to imitating behaviour.
 
 #### Steering
 
