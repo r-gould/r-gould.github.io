@@ -1,3 +1,4 @@
+---
 layout: post
 title:  "Notes on alignment and control"
 date:   2025-03-22 22:53:08
