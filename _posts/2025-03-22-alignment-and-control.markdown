@@ -1,4 +1,3 @@
-![image](https://github.com/user-attachments/assets/56b07a4b-9717-454b-b527-b5adc54a89f3)---
 layout: post
 title:  "Notes on alignment and control"
 date:   2025-03-22 22:53:08
