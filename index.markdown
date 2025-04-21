@@ -6,7 +6,7 @@ layout: home
 ---
 
 I am currently a 4th year mathematics student at the University of Cambridge, and an incoming EECS PhD student at UC Berkeley this fall. My main interest is in working towards reliable and safely deployable AI systems, with specific interests spanning:
-* Alignment: designing AI systems to be reliable and safe to deploy, with focus areas of *misspecification*, *reward hacking*, *misgeneralization* and *robustness* failures.
+* Alignment: designing AI systems to be reliable and safe to deploy, with focus areas of *misspecification*, *reward hacking*, *misgeneralization* and *robustness*.
 * Evaluation: evaluating whether a given AI system is aligned and behaves as intended, through *scalable oversight* and *comprehensive behavioral evaluations* (the findings of which then informing the alignment stage).
 * Control: mitigating the downstream effects of misalignment through robust inference-time detection and intervention pipelines.
 
