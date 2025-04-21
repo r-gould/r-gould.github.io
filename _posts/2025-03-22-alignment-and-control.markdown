@@ -8,7 +8,7 @@ mathjax: true
 *A working document, in an effort to gain a broad view of alignment and control for current day language models in order to better evaluate which research directions are most relevant and which should be prioritized towards effective real-world deployment of AI systems.*
 
 A broad overview of alignment and control for current day language models.
-* Alignment: Designing systems that behave in accordance with human values. Will also include model robustness in this category.
+* Alignment: Designing systems that behave reliably and safely as we intend. Will also include model robustness in this category.
 * Control: Mitigating the possibility of alignment/robustness failures via monitoring and intervention during deployment.
 
 There will be an implicit focus on *scalable* solutions to alignment and control: methods that are applicable to the largest and most capable future models that we may wish to deploy in real-world contexts.
