@@ -7,7 +7,7 @@ layout: home
 
 I am currently a 4th year mathematics student at the University of Cambridge, and an incoming EECS PhD student at UC Berkeley this fall. My main interest is in working towards reliable and safely deployable AI systems, with specific interests spanning:
 * Alignment: designing AI systems to be reliable and safe to deploy, with focus areas of *misspecification*, *reward hacking*, *misgeneralization* and *robustness*.
-* Evaluation: evaluating whether a given AI system is aligned and behaves as intended, through *scalable oversight* and *comprehensive behavioral evaluations* (with findings then informing the alignment stage).
+* Evaluation: evaluating whether a given AI system is aligned and behaves as intended, through *scalable and robust oversight* as well as *comprehensive behavioral evaluations*, with findings from evaluations (e.g. discovery of problematic behaviour) informing the alignment stage.
 * Control: mitigating the downstream effects of misalignment through robust inference-time detection and intervention pipelines.
 
-I am also interested in mathematical formalisms of intelligent behaviour, such as those based on variational inference (see [this post](https://r-gould.github.io/2024/09/23/variational-perception-action.html)).
+I have written some notes on these topics [here](https://r-gould.github.io/2025/03/22/alignment-and-control.html). I am also interested in mathematical formalisms of intelligent behaviour, such as those based on variational inference (see [this post](https://r-gould.github.io/2024/09/23/variational-perception-action.html)).
