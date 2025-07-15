@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Notes on alignment and control"
+title:  "Notes on prosaic alignment and control"
 date:   2025-03-22 22:53:08
 mathjax: true
 ---
@@ -8,12 +8,10 @@ mathjax: true
 *A working document, in an effort to gain a broad view of alignment and control for current day language models in order to better evaluate which research directions are most relevant and which should be prioritized towards effective real-world deployment of AI systems.*
 
 A broad overview of alignment and control for current day language models.
-* Alignment: Designing systems that behave reliably and safely as we intend. Will also include model robustness in this category.
+* Alignment: Designing AI systems to be reliable and safe to deploy, with a focus on misspecification (outer alignment) and misgeneralization (inner alignment).
 * Control: Mitigating the possibility of alignment/robustness failures via monitoring and intervention during deployment.
 
 There will be an implicit focus on *scalable* solutions to alignment and control: methods that are applicable to the largest and most capable future models that we may wish to deploy in real-world contexts.
-
-(a third category could be interpretability, which can (and frequently does) inform approaches to alignment and control)
 
 ### Alignment
 
@@ -25,13 +23,18 @@ $$p_{\text{PT}}(y\mid x) = \int d\mathfrak{p} \, p_{\text{PT}}(\mathfrak{p}\mid 
 
 integrating over all *personas* $$\mathfrak{p}$$ relevant to modeling text on the Internet (e.g. the persona of the average Stack Overflow contributor), with $$p_{\text{PT}}(\mathfrak{p}\mid x)$$ the learned distribution over personas $$\mathfrak{p}$$ given prompt $$x$$ and $$p(y\mid x, \mathfrak{p})$$ the fixed distribution (independent of model parameters) over completions $$y$$ given prompt $$x$$ under persona $$\mathfrak{p}$$.
 
-Namely, the distribution $$p_{\text{PT}}(\mathfrak{p}\mid x)$$ describes what the model has learned from the Internet: the probability that the model should engage in persona $$\mathfrak{p}$$ given prompt $$x$$. In an ideal world, $$p_{\text{PT}}(\mathfrak{p}\mid x)$$ would effectively be a point-mass on a helpful, honest and harmless persona $$\mathfrak{p}_{\text{HHH}}$$, however the pretrained model has no reason to specifically favour such a persona given the diversity of the pretraining data. This motivates prompting and finetuning as a means to shift this distribution $$p_{\text{PT}}(\mathfrak{p}\mid x)$$ towards personas of interest, as we will discuss in more detail later (see "Prompt-level steering" and "Behaviour-level steering" below).
-* Through finetuning, we essentially aim to unlearn the undesirable behaviours learned at pretraining. The limited robustness of LMs (e.g. the success of simple prefilling attacks and the shallowness of finetuning [8], arbitrary behaviour elicitation [34]) suggests that unlearning is difficult and finetuning is not greatly effective. Additionally, the size of the pretraining dataset is magnitudes larger than the size of the finetuning dataset, which is likely a contributing factor to this difficulty.
+Namely, the distribution $$p_{\text{PT}}(\mathfrak{p}\mid x)$$ describes what the model has learned from the Internet: the probability that the model should engage in persona $$\mathfrak{p}$$ given prompt $$x$$. In an ideal world, $$p_{\text{PT}}(\mathfrak{p}\mid x)$$ would effectively be a point-mass on a maximally helpful and honest persona $$\mathfrak{p}_{\text{HHH}}$$, however the pretrained model has no reason to specifically favour such a persona given the diversity of the pretraining data. This motivates prompting and finetuning as a means to shift this distribution $$p_{\text{PT}}(\mathfrak{p}\mid x)$$ towards personas of interest, as we will discuss in more detail later (see "Prompt-level steering" and "Behaviour-level steering" below).
+* Through finetuning, we essentially aim to unlearn the undesirable behaviours learned at pretraining. The limited robustness of LMs (e.g. the success of simple prefilling attacks and the shallowness of finetuning [8, 9], arbitrary behaviour elicitation [34]) suggests that unlearning is difficult and finetuning is not greatly effective. Additionally, the size of the pretraining dataset is magnitudes larger than the size of the finetuning dataset, which is likely a contributing factor to this difficulty.
 
 Ultimately, the model's internal representation $$z(x)$$ of a particular prompt $$x$$ encodes the persona $$\mathfrak{p}$$ that is currently active. Interpretability methods like representation reading [1], sparse auto-encoders [2, 3], and LatentQA [4] allow for reading off attributes of a model's persona, such as "helpfulness", and for steering towards such behaviours (see "Representation-level steering" below).
 
+*Shallowness of finetuning.* The observed shallowness of finetuning [8, 9] suggests that the finetuned persona distribution $$p_{\text{FT}}(\mathfrak{p}\mid x)$$ has essentially the same support as $$p_{\text{PT}}(\mathfrak{p}\mid x)$$, i.e. $$p_{\text{PT}}(\mathfrak{p}\mid x) \approx 0 \implies p_{\text{FT}}(\mathfrak{p}\mid x) \approx 0$$, describing the observation that finetuning usually does not teach the model fundamentally new behaviours.
+
+<!--One bottleneck to a deeper, non-shallow form of RL finetuning is misspecification (described in more detail later): if your objective is misspecified, then at a certain point in training, model behaviour will degenerate and overoptimization/reward hacking will occur. This can be seen clearly in Figure 2(b) of [43]. And even in cases where misspecification is not a problem (e.g. verifiable tasks like reasoning problems), dataset size instead bottlenecks non-shallow finetuning. But even if one can get a deeper form of RL finetuning to work (with some kind of verifiable/intrinsic reward, such as a curiosity reward), the beneficial alignment properties of LMs that stem from supervised learning on human demonstrations are overridden by behaviour learned through this deeper form of RL finetuning. In particular, it appears we would enter a regime of model training more akin to AlphaGo, which comes with the unpredictability and uninterpretability of learned RL behaviours (try predicting the behaviours that AlphaGo will learn before training it...).-->
+
 *Rethinking pretraining.* Rather than trying to improve the effectiveness of finetuning at unlearning undesirable pretraining behaviour (as we will discuss in the next section), perhaps we should instead rethink the pretraining process itself. It is clear that there is a great mismatch between the task of pretraining and the behaviour we wish an LM to have at deployment; unsurprisingly, most text on the Internet does not match a "helpful persona". It may be unrealistic to expect finetuning to be able to effectively unlearn all undesirable pretraining behaviours. Is there an alternative way of pretraining that doesn't encourage a model to explicitly emulate behaviours that are misaligned with deployment? We still wish for the model to learn from all available data, but by a means that is detached from behaviour – the fact that we use the same next-token learning objective for both pretraining and SFT seems inherently problematic, and ideally there would be some separation between these learning processes, with pretraining learning knowledge and useful representations while finetuning learns good behaviours.
 * It is unclear what this would look like in practice, but one analogy is a VAE: when training a VAE on images, the learning of representations is not explicitly tied to any specific downstream task like classification (yet the representations are still very useful for this task), and the objective used to train a VAE is very different from the cross entropy objective used to train a classifier. We would like something similar for LMs, with pretraining corresponding to representation learning by a means that is not explicitly tied to imitating behaviour.
+* Ideally, behaviour would be completely
 
 #### Steering
 
@@ -252,3 +255,5 @@ Language Models
 [41] Scalable Oversight and Weak-to-Strong Generalization: Compatible approaches to the same problem (https://www.alignmentforum.org/posts/hw2tGSsvLLyjFoLFS/scalable-oversight-and-weak-to-strong-generalization)
 
 [42] Weak-to-Strong Generalization: Eliciting Strong Capabilities With Weak Supervision
+
+[43] Scaling Laws for Reward Model Overoptimization
