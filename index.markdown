@@ -14,4 +14,4 @@ In the context of LMs, I am mainly interested in:
 
 Notes on these topics can be found [here](https://r-gould.github.io/2025/03/22/alignment-and-control.html). 
 
-Beyond LMs, I am interested in mathematical formalisms of intelligent behavior based on the framework of variational inference (as in [this post](https://r-gould.github.io/2024/09/23/variational-perception-action.html)), and more generally, in deriving properties of intelligent behavior from simple mathematical principles (analogous to the [construction](https://r-gould.github.io/todo) of the Standard Model).
+Beyond LMs, I am interested in mathematical formalisms of intelligent behavior based on the framework of variational inference (as in [this post](https://r-gould.github.io/2024/09/23/variational-perception-action.html)), and more generally, in deriving properties of intelligent behavior from simple mathematical principles (analogous to the [construction](https://r-gould.github.io/2025/06/20/constructing-qfts.html) of the Standard Model).
