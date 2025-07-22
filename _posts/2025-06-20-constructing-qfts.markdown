@@ -17,7 +17,7 @@ with $$\mathbb{P}: \mathcal{C} \to [0, \infty)$$, defining the normalization con
 
 $$Z = \int_{\mathcal{C}} \text{D}\Psi \, e^{-S[\Psi]}$$
 
-often called the \textit{partition function}. Explicitly, the field configuration space will take the form
+often called the *partition function*. Explicitly, the field configuration space will take the form
 
 $$\begin{align*}
 \mathcal{C} &= C^{\infty}(M, V^{(1)}) \times \cdots \times C^{\infty}(M, V^{(N)})\\
@@ -26,7 +26,7 @@ $$\begin{align*}
 
 with $$\Psi_i \in C^{\infty}(M, V^{(i)})$$ for a (finite-dimensional) vector space $$V^{(i)}$$ and spacetime manifold $$M$$, and defining $$V := V^{(1)} \oplus \cdots \oplus V^{(N)}$$.
 
-Physical quantities that can be measured via experiment -- such as scattering probabilities, as demonstrated by the LSZ formula (see Appendix A.2) -- are directly related to field expectances, also called \textit{correlators}, that take the general form
+Physical quantities that can be measured via experiment -- such as scattering probabilities, as demonstrated by the LSZ formula (see Appendix A.2) -- are directly related to field expectances, also called *correlators*, that take the general form
 
 $$\mathbb{E}_{\Psi \sim S}[\Psi_{i_1}(x_1) \cdots \Psi_{i_n}(x_n)] := \frac{1}{Z} \int_{\mathcal{C}} \text{D}\Psi \, \Psi_{i_1}(x_1) \cdots \Psi_{i_n}(x_n) e^{-S[\Psi]}$$
 
@@ -36,9 +36,9 @@ Constructing a well-behaved definition of the path integral measure $$\text{D}\P
 
 $$\text{D}\Psi_i := \prod_j da_j^{(i)}$$
 
-which will generally be an infinite product and result in divergences, requiring some form of \textit{regulation}, either via Fujikawa regulation (as used when computing anomalies, as in Section 4), or by truncating the infinite product via a cutoff (as used in the context of Wilsonian renormalization, as in Section 8).
+which will generally be an infinite product and result in divergences, requiring some form of *regulation*, either via Fujikawa regulation (as used when computing anomalies, as in Section 4), or by truncating the infinite product via a cutoff (as used in the context of Wilsonian renormalization, as in Section 8).
 
-To motivate the guiding principles behind the construction of our theory $$S$$, we first must introduce some central concepts. First, we will view the configuration space $$\mathcal{C}$$ as exhibiting \textit{physical redundancy}, containing many configurations that are physically equivalent. In particular, we can think of there as being some true non-redundant physical configuration space $$\mathcal{P}$$, and with $$\mathcal{C}$$ being partitioned as
+To motivate the guiding principles behind the construction of our theory $$S$$, we first must introduce some central concepts. First, we will view the configuration space $$\mathcal{C}$$ as exhibiting *physical redundancy*, containing many configurations that are physically equivalent. In particular, we can think of there as being some true non-redundant physical configuration space $$\mathcal{P}$$, and with $$\mathcal{C}$$ being partitioned as
 
 $$\mathcal{C} = \bigcup_{\Phi \in \mathcal{P}} [\Phi]$$
 
@@ -46,10 +46,10 @@ for equivalence classes $$[\Phi] = \{\Phi' \in \mathcal{C}: \Phi \sim \Phi'\}$$ 
 
 $$\mathcal{P} \cong \mathcal{C}/\sim$$
 
-The physical equivalence relation $$\sim$$ will be defined by the orbits of a collection of \textit{Lie groups} $$(G^{(0)}, G^{(1)}, \ldots, G^{(K)})$$ (i.e. groups that are also manifolds), consisting of a \textit{spacetime} symmetry group $$G^{(0)}$$ inherent to the particular manifold and metric $$(M, g)$$ under consideration, as well as a collection of \textit{gauge} symmetry groups $$(G^{(1)}, \ldots, G^{(K)})$$. We will denote the overall symmetry group by $$G := G^{(0)} \times G^{(1)} \times \cdots \times G^{(K)}$$.
+The physical equivalence relation $$\sim$$ will be defined by the orbits of a collection of *Lie groups* $$(G^{(0)}, G^{(1)}, \ldots, G^{(K)})$$ (i.e. groups that are also manifolds), consisting of a *spacetime* symmetry group $$G^{(0)}$$ inherent to the particular manifold and metric $$(M, g)$$ under consideration, as well as a collection of *gauge* symmetry groups $$(G^{(1)}, \ldots, G^{(K)})$$. We will denote the overall symmetry group by $$G := G^{(0)} \times G^{(1)} \times \cdots \times G^{(K)}$$.
 * Physical equivalence to orbits of the spacetime group $$G^{(0)}$$ is reasonably intuitive since (as discussed in Section 1) it essentially describes coordinate transformations that leave the metric invariant (isometries), and it is reasonable to expect that physical predictions should be independent of such choices. However, physical equivalence under the gauge groups is less intuitive. It turns out that the choice $$(G^{(1)}, G^{(2)}, G^{(3)}) = (U(1), SU(2), SU(3))$$ agrees extraordinarily closely with our universe, however the reason why appears unknown. As we will see in detail, this choice for gauge groups is a particularly simple choice you can make while satisfying Equation 1 and 2, and defines the Standard Model.
 
-In order to define an equivalence relation $$\sim$$ over field configurations $$\Psi \in \mathcal{C}$$ using these groups, we require \textit{representations} of these groups that describe how they actually act on the field content $$\Psi$$. Concretely, the representation of $$G^{(k)}$$ acting on $$\Psi_i \in C^{\infty}(M, V^{(i)})$$ will be denoted $$\rho^{(i, k)}: G^{(k)} \to \text{GL}(V^{(i, k)})$$, where each representation is assigned its own \textit{sector} $$V^{(i, k)}$$ of $$V^{(i)}$$ on which to act, with
+In order to define an equivalence relation $$\sim$$ over field configurations $$\Psi \in \mathcal{C}$$ using these groups, we require *representations* of these groups that describe how they actually act on the field content $$\Psi$$. Concretely, the representation of $$G^{(k)}$$ acting on $$\Psi_i \in C^{\infty}(M, V^{(i)})$$ will be denoted $$\rho^{(i, k)}: G^{(k)} \to \text{GL}(V^{(i, k)})$$, where each representation is assigned its own *sector* $$V^{(i, k)}$$ of $$V^{(i)}$$ on which to act, with
 
 $$V^{(i)} = \underbrace{V^{(i, 0)}}_{\text{spacetime sector}} \oplus \underbrace{V^{(i, 1)} \oplus \cdots \oplus V^{(i, K)}}_{\text{gauge sectors}}$$
 
@@ -93,16 +93,16 @@ $$\begin{equation}
 
 Our theory is ultimately described by the triple $$(S, G, \rho)$$ consisting of the action, the group content, and representation content respectively. Equation 2 only places constraints on $$(G, \rho)$$, whereas Equation 1 constrains all of $$(S, G, \rho)$$. The focus of Section 1-3 and Sec 5-7 will be constructing a theory that achieves Equation 1, while the implications of Equation 2 are examined in Section 4.
 
-In constructing a theory $$S$$ that satisfies Equation 1, the spacetime group $$G^{(0)}$$ will play a particularly special role. Namely, we will begin with a theory of empty field content $$\Psi = \emptyset$$ and add to the field content incrementally, using representations of $$G^{(0)}$$ to construct the initial field content of the theory (i.e. spinors), with $$S$$ designed to be invariant (in the sense of Equation 1) to $$G^{(0)}$$ by design. From here, we will then obtain invariance to $$(G^{(1)}, \ldots, G^{(K)})$$ via a process called \textit{minimal coupling}. A total overview:
+In constructing a theory $$S$$ that satisfies Equation 1, the spacetime group $$G^{(0)}$$ will play a particularly special role. Namely, we will begin with a theory of empty field content $$\Psi = \emptyset$$ and add to the field content incrementally, using representations of $$G^{(0)}$$ to construct the initial field content of the theory (i.e. spinors), with $$S$$ designed to be invariant (in the sense of Equation 1) to $$G^{(0)}$$ by design. From here, we will then obtain invariance to $$(G^{(1)}, \ldots, G^{(K)})$$ via a process called *minimal coupling*. A total overview:
 
 * Section 1: We motivate the spacetime group $$G^{(0)} = \text{Spin}(1, 3) \cong \text{SL}(2; \mathbb{C})$$, allowing us to begin constructing the field content $$\Psi = \{\psi_{L, i}\}_{i=1}^{N_L} \cup \{\chi_{R, j}\}_{j=1}^{N_R}$$ consisting of $$N_L$$ left-handed spinors and $$N_R$$ right-handed spinors.
 * Section 2: We then design an action $$S[\Psi]$$ that is invariant to $$G^{(0)}$$ in the sense of Equation \ref{eqn:Sinvar}.
-* Section 3: To make $$S[\Psi]$$ invariant to the gauge groups $$(G^{(1)}, \ldots, G^{(K)})$$, we perform \textit{minimal coupling}, which involves extending the field content
+* Section 3: To make $$S[\Psi]$$ invariant to the gauge groups $$(G^{(1)}, \ldots, G^{(K)})$$, we perform *minimal coupling*, which involves extending the field content
 
     $$\Psi \mapsto \Psi \cup \{A^{(k)}\}_{k=1}^{K}$$
 
     for a 4-vector $$A^{(k)}$$ associated with each gauge group $$G^{(k)}$$ that transforms appropriately under $$G^{(k)}$$, and adding appropriate terms to $$S[\Psi]$$ involving these new fields.
-* Section 4: Checking that Equation 2 is satisfied requires us to compute \textit{anomalies}, describing the extent to which $$\text{D}\Psi$$ fails to be invariant under $$\rho$$. Anomalies must vanish in order for Equation 2 to be satisfied. We will see that the Standard Model, defined by the gauge groups
+* Section 4: Checking that Equation 2 is satisfied requires us to compute *anomalies*, describing the extent to which $$\text{D}\Psi$$ fails to be invariant under $$\rho$$. Anomalies must vanish in order for Equation 2 to be satisfied. We will see that the Standard Model, defined by the gauge groups
 
     $$(G^{(1)}, G^{(2)}, G^{(3)}) = (U(1), SU(2), SU(3))$$
 
@@ -111,14 +111,14 @@ In constructing a theory $$S$$ that satisfies Equation 1, the spacetime group $$
 
     $$\Psi \mapsto \Psi \cup \{H\}$$
 
-    for a single scalar $$H$$ that transforms appropriately under the gauge groups to preserve gauge invariance of $$S[\Psi]$$. In the context of the Standard Model, $$H$$ is called the \textit{Higgs boson}, and the associated interaction terms are called the \textit{Yukawa terms}.
+    for a single scalar $$H$$ that transforms appropriately under the gauge groups to preserve gauge invariance of $$S[\Psi]$$. In the context of the Standard Model, $$H$$ is called the *Higgs boson*, and the associated interaction terms are called the *Yukawa terms*.
 * Section 6: We will promote the auxiliary fields $$\{A^{(k)}\}_{k=1}^{K}$$ and $$H$$ to be dynamical fields in their own right, possessing their own kinetic terms in the action $$S[\Psi]$$.
-* Section 7: To remedy divergences that arise from integrating over physically-equivalent configuriations, we must introduce \textit{ghost fields} $$\bar{c}^{(k)}, c^{(k)} \in C^{\infty}(M, \mathfrak{g}^{(k)})$$ for each gauge field $$A^{(k)}$$:
+* Section 7: To remedy divergences that arise from integrating over physically-equivalent configuriations, we must introduce *ghost fields* $$\bar{c}^{(k)}, c^{(k)} \in C^{\infty}(M, \mathfrak{g}^{(k)})$$ for each gauge field $$A^{(k)}$$:
 
     $$\Psi \mapsto \Psi \cup \{\bar{c}^{(k)}, c^{(k)}\}_{k=1}^{K}$$
 
-    This requires adding certain contributions to the action that \textit{break gauge invariance}. However, remnants of gauge invariance still persist through \textit{BRST invariance}.
-* Section 8: Experiments on Earth are restricted to a relatively low ``anthropic'' energy scale, which means that we can only expect our theories (e.g. the Standard Model) to be accurate at low energies if we determine the values of their couplings via such experiments. We show how the procedure of \textit{renormalization} allows us to extrapolate such low-energy theories to higher energy scales beyond that which we can observe, and in the special case of \textit{asymptotic freedom}, to arbitrarily large energy scales.
+    This requires adding certain contributions to the action that *break gauge invariance*. However, remnants of gauge invariance still persist through *BRST invariance*.
+* Section 8: Experiments on Earth are restricted to a relatively low ``anthropic'' energy scale, which means that we can only expect our theories (e.g. the Standard Model) to be accurate at low energies if we determine the values of their couplings via such experiments. We show how the procedure of *renormalization* allows us to extrapolate such low-energy theories to higher energy scales beyond that which we can observe, and in the special case of *asymptotic freedom*, to arbitrarily large energy scales.
 * Section 9: Since quantities of physical relevance can be written in terms of correlators, extracting physical predictions from a theory requires computing correlators. We outline how correlators can be computed perturbatively.
 
 Main references of relevance: David Tong's [Standard Model notes](https://www.damtp.cam.ac.uk/user/tong/standardmodel.html) are most relevant to Section 1-6, and David Skinner's [Advanced QFT notes](https://www.damtp.cam.ac.uk/user/dbs26/AQFT.html) are relevant to Section 7-9. Section 4 is also closely based on David Tong's [Gauge Theory notes](https://www.damtp.cam.ac.uk/user/tong/gaugetheory.html).
