@@ -9,7 +9,7 @@ The aim of this post is to motivate and demonstrate the guiding principles that 
 
 Notation: We will denote the space of smooth maps between a manifold $$M$$ and a vector space $$V$$ by $$C^{\infty}(M, V)$$. For a functional $$F: C^{\infty}(M, V) \to \mathbb{R}$$, we will denote its functional derivative at $$f \in C^{\infty}(M, V)$$ evaluated at point $$x \in M$$ by $$\frac{\delta F[f]}{\delta f(x)} \in \mathbb{R}$$. We will denote the space of invertible linear maps from $$V$$ to $$V$$ by $$\text{GL}(V)$$.
 
-\textbf{Introduction.} In quantum field theory, a theory is described by a functional $$S: \mathcal{C} \to \mathbb{R}$$ called the \textit{action}, mapping field configurations $$\Psi \in \mathcal{C}$$ to a real number. $$\Psi$$ will generally be made up of a collection of fields $$\Psi = (\Psi_1, \ldots, \Psi_N)$$ relevant to our theory. With an action, we can integrate over the space of field configurations $$\mathcal{C}$$ via the measure
+**Introduction.** In quantum field theory, a theory is described by a functional $$S: \mathcal{C} \to \mathbb{R}$$ called the \textit{action}, mapping field configurations $$\Psi \in \mathcal{C}$$ to a real number. $$\Psi$$ will generally be made up of a collection of fields $$\Psi = (\Psi_1, \ldots, \Psi_N)$$ relevant to our theory. With an action, we can integrate over the space of field configurations $$\mathcal{C}$$ via the measure
 
 $$\text{D}\Psi \, \mathbb{P}[\Psi] = \left[\prod_{i=1}^{N} \text{D}\Psi_i\right] \mathbb{P}[\Psi], \qquad \text{with} \quad \mathbb{P}[\Psi] := \frac{1}{Z} e^{-S[\Psi]}$$
 
