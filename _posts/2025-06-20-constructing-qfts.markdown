@@ -81,14 +81,14 @@ Importantly, in order for this condition to hold generically, one can see that w
 
 $$\begin{equation}
 \label{eqn:Sinvar}
-S[\rho_g \Psi] = S[\Psi] \qquad \forall \; \; g \in C^{\infty}(M, G)
+S[\rho_g \Psi] = S[\Psi] \qquad \forall \; \; g \in C^{\infty}(M, G) \qquad\qquad (Equation 1)
 \end{equation}$$
 
 and
 
 $$\begin{equation}
 \label{eqn:Dinvar}
-\text{D}(\rho_g \Psi) = \text{D}\Psi \qquad \forall \; \; g \in C^{\infty}(M, G)
+\text{D}(\rho_g \Psi) = \text{D}\Psi \qquad \forall \; \; g \in C^{\infty}(M, G) \qquad\qquad (Equation 2)
 \end{equation}$$
 
 Our theory is ultimately described by the triple $$(S, G, \rho)$$ consisting of the action, the group content, and representation content respectively. Equation 2 only places constraints on $$(G, \rho)$$, whereas Equation 1 constrains all of $$(S, G, \rho)$$. The focus of Section 1-3 and Sec 5-7 will be constructing a theory that achieves Equation 1, while the implications of Equation 2 are examined in Section 4.
@@ -96,7 +96,7 @@ Our theory is ultimately described by the triple $$(S, G, \rho)$$ consisting of 
 In constructing a theory $$S$$ that satisfies Equation 1, the spacetime group $$G^{(0)}$$ will play a particularly special role. Namely, we will begin with a theory of empty field content $$\Psi = \emptyset$$ and add to the field content incrementally, using representations of $$G^{(0)}$$ to construct the initial field content of the theory (i.e. spinors), with $$S$$ designed to be invariant (in the sense of Equation 1) to $$G^{(0)}$$ by design. From here, we will then obtain invariance to $$(G^{(1)}, \ldots, G^{(K)})$$ via a process called *minimal coupling*. A total overview:
 
 * Section 1: We motivate the spacetime group $$G^{(0)} = \text{Spin}(1, 3) \cong \text{SL}(2; \mathbb{C})$$, allowing us to begin constructing the field content $$\Psi = \{\psi_{L, i}\}_{i=1}^{N_L} \cup \{\chi_{R, j}\}_{j=1}^{N_R}$$ consisting of $$N_L$$ left-handed spinors and $$N_R$$ right-handed spinors.
-* Section 2: We then design an action $$S[\Psi]$$ that is invariant to $$G^{(0)}$$ in the sense of Equation \ref{eqn:Sinvar}.
+* Section 2: We then design an action $$S[\Psi]$$ that is invariant to $$G^{(0)}$$ in the sense of Equation 1.
 * Section 3: To make $$S[\Psi]$$ invariant to the gauge groups $$(G^{(1)}, \ldots, G^{(K)})$$, we perform *minimal coupling*, which involves extending the field content
 
     $$\Psi \mapsto \Psi \cup \{A^{(k)}\}_{k=1}^{K}$$
@@ -1553,7 +1553,7 @@ We have that $$\mathfrak{h}^{*} = \text{span}_{\mathbb{C}} \Phi$$.
 
 
 
-Since $$|\Phi| \geq \dim\mathfrak{h}^{*}$$, the set of roots will generally be an overcomplete basis for $$\mathfrak{h}^{*}$$. This motivates constructing a minimal set of exactly $$r$$ roots that acts as a basis for $$\mathfrak{h}^{*}$$.
+Since $$\mid\Phi\mid \geq \dim\mathfrak{h}^{*}$$, the set of roots will generally be an overcomplete basis for $$\mathfrak{h}^{*}$$. This motivates constructing a minimal set of exactly $$r$$ roots that acts as a basis for $$\mathfrak{h}^{*}$$.
 
 To do so, we perform the following reduction to obtain the \textit{simple roots}.
 
@@ -1570,7 +1570,7 @@ To do so, we perform the following reduction to obtain the \textit{simple roots}
 
     These results tell us that, for any $$\alpha \in \Phi$$, $$\kappa(E_{\alpha}, H) = \kappa(E_{\alpha}, E_{\beta}) = 0$$ for any $$H \in \mathfrak{h}$$ and any $$\beta \in \Phi$$ such that $$\beta \neq -\alpha$$. But since $$\kappa$$ is non-degenerate by semi-simplicity, $$\kappa(E_{\alpha}, \cdot)$$ cannot map everything to zero. The only option is for $$-\alpha \in \Phi$$ with $$\kappa(E_{\alpha}, E_{-\alpha}) \neq 0$$.
 
-And since $$0 \notin \Phi$$, we have that $$|\Phi|$$ is even. Let's separate $$\mathfrak{h}^{*} \cong \mathbb{C}^{r}$$ into two halves via a $$r-1$$ $$\mathbb{C}$$-dimensional hyperplane (that intersects with the origin). This hyperplane will split $$\Phi$$ into two equally sized sets of roots:
+And since $$0 \notin \Phi$$, we have that $$\mid\Phi\mid$$ is even. Let's separate $$\mathfrak{h}^{*} \cong \mathbb{C}^{r}$$ into two halves via a $$r-1$$ $$\mathbb{C}$$-dimensional hyperplane (that intersects with the origin). This hyperplane will split $$\Phi$$ into two equally sized sets of roots:
 
 $$\Phi := \Phi_{+} \cup \Phi_{-}$$
 
@@ -1580,7 +1580,7 @@ Now that we have halved the size of $$\Phi$$ to $$\Phi_{+}$$, there is one furth
 
 $$\Phi_S = \{\alpha_{(i)} : i = 1, \ldots, |\Phi_S|\}$$
 
-We will now show that $$\Phi_S$$ is a basis for $$\mathfrak{h}^{*}$$ with $$|\Phi_S| = r$$.
+We will now show that $$\Phi_S$$ is a basis for $$\mathfrak{h}^{*}$$ with $$\mid\Phi_S\mid = r$$.
 
 Firstly, we have that
 
