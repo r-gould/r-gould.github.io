@@ -9,15 +9,15 @@ The aim of this post is to motivate and demonstrate the guiding principles that 
 
 Notation: We will denote the space of smooth maps between a manifold $$M$$ and a vector space $$V$$ by $$C^{\infty}(M, V)$$. For a functional $$F: C^{\infty}(M, V) \to \mathbb{R}$$, we will denote its functional derivative at $$f \in C^{\infty}(M, V)$$ evaluated at point $$x \in M$$ by $$\frac{\delta F[f]}{\delta f(x)} \in \mathbb{R}$$. We will denote the space of invertible linear maps from $$V$$ to $$V$$ by $$\text{GL}(V)$$.
 
-**Introduction.** In quantum field theory, a theory is described by a functional $$S: \mathcal{C} \to \mathbb{R}$$ called the action, mapping field configurations $$\Psi \in \mathcal{C}$$ to a real number. $$\Psi$$ will generally be made up of a collection of fields $$\Psi = (\Psi_1, \ldots, \Psi_N)$$ relevant to our theory. With an action, we can integrate over the space of field configurations $$\mathcal{C}$$ via the measure
+**Introduction.** In quantum field theory, a theory is described by a functional $$S: \mathcal{C} \to \mathbb{R}$$ called the action, mapping field configurations $$\Psi \in \mathcal{C}$$ to a real number $$S[\Psi]$$. $$\Psi$$ will generally be made up of a collection of fields $$\Psi = (\Psi_1, \ldots, \Psi_N)$$ relevant to our theory. With an action, we can integrate over the space of field configurations $$\mathcal{C}$$ via the measure
 
-$$\text{D}\Psi \, \mathbb{P}[\Psi] = \left[\prod_{i=1}^{N} \text{D}\Psi_i\right] \mathbb{P}[\Psi], \qquad \text{with} \quad \mathbb{P}[\Psi] := \frac{1}{Z} e^{-S[\Psi]}$$
+$$\text{D}\Psi \, \mathbb{P}[\Psi] \equiv \left[\prod_{i=1}^{N} \text{D}\Psi_i\right] \mathbb{P}[\Psi], \qquad \text{with} \quad \mathbb{P}[\Psi] := \frac{1}{Z} e^{-S[\Psi]}$$
 
-with $$\mathbb{P}: \mathcal{C} \to [0, \infty)$$, defining the normalization constant
+with probability density $$\mathbb{P}: \mathcal{C} \to [0, \infty)$$, defining the normalization constant
 
 $$Z = \int_{\mathcal{C}} \text{D}\Psi \, e^{-S[\Psi]}$$
 
-often called the *partition function*. Explicitly, the field configuration space will take the form
+often called the *partition function* (we will discuss the meaning of $$\text{D}\Psi$$ below). Explicitly, the field configuration space will take the form
 
 $$\begin{align*}
 \mathcal{C} &= C^{\infty}(M, V^{(1)}) \times \cdots \times C^{\infty}(M, V^{(N)})\\
@@ -32,13 +32,13 @@ $$\mathbb{E}_{\Psi \sim S}[\Psi_{i_1}(x_1) \cdots \Psi_{i_n}(x_n)] := \frac{1}{Z
 
 for arbitrary $$n \in \mathbb{Z}_{+}$$, indices $$(i_1, \ldots, i_n) \in \{1, \ldots, N\}^n$$, and points $$(x_1, \ldots, x_n) \subset M$$. Given that such expectances are directly related to physical quantities, an important constraint will be for $$S$$ to be such that these expectances are invariant under transformations that leave $$\Psi$$ physically equivalent (e.g. Lorentz transformations), which we will soon make precise.
 
-Constructing a well-behaved definition of the path integral measure $$\text{D}\Psi$$ is non-trivial. One approach is to expand each field $$\Psi_i \in C^{\infty}(M, V^{(i)})$$ in an eigenfunction basis $$\{\psi_j^{(i)}\}_j$$ of $$C^{\infty}(M, V^{(i)})$$, providing expansion coefficients $$\{a^{(i)}_j\}_j$$ for $$\Psi_i$$ and allowing us to consider
+Constructing a well-behaved definition of the path integral measure $$\text{D}\Psi$$ is non-trivial. The approach that we will use is to expand each field $$\Psi_i \in C^{\infty}(M, V^{(i)})$$ in an eigenfunction basis $$\{\psi_i^j\}_j$$ of $$C^{\infty}(M, V^{(i)})$$, letting us write $$\Psi_i(x) = \sum_j a_i^j \psi_i^j(x)$$ for expansion coefficients $$\{a_i^j\}_j$$ and allowing us to define
 
 $$\text{D}\Psi_i := \prod_j da_j^{(i)}$$
 
-which will generally be an infinite product and result in divergences, requiring some form of *regulation*, either via Fujikawa regulation (as used when computing anomalies, as in Section 4), or by truncating the infinite product via a cutoff (as used in the context of Wilsonian renormalization, as in Section 8).
+but since this is an infinite product, it will generally result in divergences, requiring some form of *regulation*, either via Fujikawa regulation (as used when computing anomalies, as in Section 4), or by truncating the infinite product via a cutoff (as used in the context of Wilsonian renormalization, as in Section 8), or some other regulation method.
 
-To motivate the guiding principles behind the construction of our theory $$S$$, we first must introduce some central concepts. First, we will view the configuration space $$\mathcal{C}$$ as exhibiting *physical redundancy*, containing many configurations that are physically equivalent. In particular, we can think of there as being some true non-redundant physical configuration space $$\mathcal{P}$$, and with $$\mathcal{C}$$ being partitioned as
+To motivate the guiding principles behind the construction of our theory $$S$$, we first must introduce some central concepts. First, we should view the configuration space $$\mathcal{C}$$ as exhibiting *physical redundancy*, containing many configurations that are physically equivalent. In particular, we can think of there as being some true non-redundant physical configuration space $$\mathcal{P}$$, and with $$\mathcal{C}$$ being partitioned as
 
 $$\mathcal{C} = \bigcup_{\Phi \in \mathcal{P}} [\Phi]$$
 
@@ -49,7 +49,7 @@ $$\mathcal{P} \cong \mathcal{C}/\sim$$
 The physical equivalence relation $$\sim$$ will be defined by the orbits of a collection of *Lie groups* $$(G^{(0)}, G^{(1)}, \ldots, G^{(K)})$$ (i.e. groups that are also manifolds), consisting of a *spacetime* symmetry group $$G^{(0)}$$ inherent to the particular manifold and metric $$(M, g)$$ under consideration, as well as a collection of *gauge* symmetry groups $$(G^{(1)}, \ldots, G^{(K)})$$. We will denote the overall symmetry group by $$G := G^{(0)} \times G^{(1)} \times \cdots \times G^{(K)}$$.
 * Physical equivalence to orbits of the spacetime group $$G^{(0)}$$ is reasonably intuitive since (as discussed in Section 1) it essentially describes coordinate transformations that leave the metric invariant (isometries), and it is reasonable to expect that physical predictions should be independent of such choices. However, physical equivalence under the gauge groups is less intuitive. It turns out that the choice $$(G^{(1)}, G^{(2)}, G^{(3)}) = (U(1), SU(2), SU(3))$$ agrees extraordinarily closely with our universe, however the reason why appears unknown. As we will see in detail, this choice for gauge groups is a particularly simple choice you can make while satisfying Equation 1 and 2, and defines the Standard Model.
 
-In order to define an equivalence relation $$\sim$$ over field configurations $$\Psi \in \mathcal{C}$$ using these groups, we require *representations* of these groups that describe how they actually act on the field content $$\Psi$$. Concretely, the representation of $$G^{(k)}$$ acting on $$\Psi_i \in C^{\infty}(M, V^{(i)})$$ will be denoted $$\rho^{(i, k)}: G^{(k)} \to \text{GL}(V^{(i, k)})$$, where each representation is assigned its own *sector* $$V^{(i, k)}$$ of $$V^{(i)}$$ on which to act, with
+In order to define this physical equivalence relation $$\sim$$ over $$\mathcal{C}$$ using these groups, we require *representations* of these groups that describe how they actually act on the field content $$\Psi$$. Concretely, the representation of $$G^{(k)}$$ acting on $$\Psi_i \in C^{\infty}(M, V^{(i)})$$ will be denoted $$\rho^{(i, k)}: G^{(k)} \to \text{GL}(V^{(i, k)})$$, where each representation is assigned its own *sector* $$V^{(i, k)}$$ of $$V^{(i)}$$ on which to act, with
 
 $$V^{(i)} = \underbrace{V^{(i, 0)}}_{\text{spacetime sector}} \oplus \underbrace{V^{(i, 1)} \oplus \cdots \oplus V^{(i, K)}}_{\text{gauge sectors}}$$
 
