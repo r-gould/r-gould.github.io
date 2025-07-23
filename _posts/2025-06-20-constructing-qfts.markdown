@@ -81,14 +81,14 @@ Importantly, in order for this condition to hold generically, one can see that w
 
 $$\begin{equation}
 \label{eqn:Sinvar}
-S[\rho_g \Psi] = S[\Psi] \qquad \forall \; \; g \in C^{\infty}(M, G) \qquad\qquad (Equation 1)
+S[\rho_g \Psi] = S[\Psi] \qquad \forall \; \; g \in C^{\infty}(M, G) \qquad\qquad (\text{Equation 1})
 \end{equation}$$
 
 and
 
 $$\begin{equation}
 \label{eqn:Dinvar}
-\text{D}(\rho_g \Psi) = \text{D}\Psi \qquad \forall \; \; g \in C^{\infty}(M, G) \qquad\qquad (Equation 2)
+\text{D}(\rho_g \Psi) = \text{D}\Psi \qquad \forall \; \; g \in C^{\infty}(M, G) \qquad\qquad (\text{Equation 2})
 \end{equation}$$
 
 Our theory is ultimately described by the triple $$(S, G, \rho)$$ consisting of the action, the group content, and representation content respectively. Equation 2 only places constraints on $$(G, \rho)$$, whereas Equation 1 constrains all of $$(S, G, \rho)$$. The focus of Section 1-3 and Sec 5-7 will be constructing a theory that achieves Equation 1, while the implications of Equation 2 are examined in Section 4.
