@@ -9,7 +9,7 @@ The aim of this post is to motivate and demonstrate the guiding principles that 
 
 Notation: We will denote the space of smooth maps between a manifold $$M$$ and a vector space $$V$$ by $$C^{\infty}(M, V)$$. For a functional $$F: C^{\infty}(M, V) \to \mathbb{R}$$, we will denote its functional derivative at $$f \in C^{\infty}(M, V)$$ evaluated at point $$x \in M$$ by $$\frac{\delta F[f]}{\delta f(x)} \in \mathbb{R}$$. We will denote the space of invertible linear maps from $$V$$ to $$V$$ by $$\text{GL}(V)$$.
 
-**Introduction.** In quantum field theory, a theory is described by a functional $$S: \mathcal{C} \to \mathbb{R}$$ called the \textit{action}, mapping field configurations $$\Psi \in \mathcal{C}$$ to a real number. $$\Psi$$ will generally be made up of a collection of fields $$\Psi = (\Psi_1, \ldots, \Psi_N)$$ relevant to our theory. With an action, we can integrate over the space of field configurations $$\mathcal{C}$$ via the measure
+**Introduction.** In quantum field theory, a theory is described by a functional $$S: \mathcal{C} \to \mathbb{R}$$ called the action, mapping field configurations $$\Psi \in \mathcal{C}$$ to a real number. $$\Psi$$ will generally be made up of a collection of fields $$\Psi = (\Psi_1, \ldots, \Psi_N)$$ relevant to our theory. With an action, we can integrate over the space of field configurations $$\mathcal{C}$$ via the measure
 
 $$\text{D}\Psi \, \mathbb{P}[\Psi] = \left[\prod_{i=1}^{N} \text{D}\Psi_i\right] \mathbb{P}[\Psi], \qquad \text{with} \quad \mathbb{P}[\Psi] := \frac{1}{Z} e^{-S[\Psi]}$$
 
@@ -126,14 +126,14 @@ Main references of relevance: David Tong's [Standard Model notes](https://www.da
 
 ### 1. The spacetime symmetry group and its representations
 
-We begin with an empty theory of no field content $$\Phi = \emptyset$$. To start things off, we must choose some ($$d$$-dimensional) spacetime manifold $$M$$ to embed our theory into, as well as a metric $$g$$ over this manifold. Roughly, the manifold $$M$$ describes the *topology* of our spacetime, and the metric $$g$$ describes the \textit{geometry} of our spacetime.
+We begin with an empty theory of no field content $$\Phi = \emptyset$$. To start things off, we must choose some ($$d$$-dimensional) spacetime manifold $$M$$ to embed our theory into, as well as a metric $$g$$ over this manifold. Roughly, the manifold $$M$$ describes the *topology* of our spacetime, and the metric $$g$$ describes the *geometry* of our spacetime.
 * For example, with a metric $$g$$, we can define a notion of distance between any two points $$x, y \in M$$ on the manifold using geodesics. A metric $$g$$ also gives us a notion of curvature of spacetime.
 
 Our manifold $$M$$ comes equipped with a tangent space $$T(M)$$, and in particular, a (local) coordinate basis $$\{\partial_{\mu}\}_{\mu=0}^{d-1} \subset T(M)$$ of this tangent space, acting as partial derivatives that can act on our (to be constructed) field content of type $$C^{\infty}(M, V)$$.
 
 **Motivating the spacetime symmetry group.** To begin defining the objects and fields $$\Psi_i$$ relevant to $$(M, g)$$, our starting point will be to consider the isometries of the metric $$g$$, corresponding to the coordinate transformations that leave $$g$$ invariant. Particularly, this set of transformations forms a group $$\text{Iso}(M, g)$$. We would like our spacetime symmetry group $$G^{(0)}$$ to be related to $$\text{Iso}(M, g)$$ in some capacity.
 
-Our metric $$g$$ will have some \textit{signature}, describing the signs of its eigenvalues. By the assumption of $$g$$ being non-degenerate (i.e. invertible as a matrix), we have that $$g$$ has no zero eigenvalues. We say that $$g$$ has signature $$(r, s)$$ if it has $$r$$ positive eigenvalues, and $$s$$ negative eigenvalues (where $$r+s = n$$). We then define the corresponding signature matrix $$\Omega_{\mu\nu}^{(r, s)} := \text{diag}(\underbrace{1, \ldots, 1}_{r \, \text{times}}, \underbrace{-1, \ldots, -1}_{s \, \text{times}})$$ for $$g$$. Then we have the following result: at any point $$x \in M$$, there exists a basis $$\{e_{\mu}\}_{\mu} \subset T_x(M)$$ such that
+Our metric $$g$$ will have some *signature*, describing the signs of its eigenvalues. By the assumption of $$g$$ being non-degenerate (i.e. invertible as a matrix), we have that $$g$$ has no zero eigenvalues. We say that $$g$$ has signature $$(r, s)$$ if it has $$r$$ positive eigenvalues, and $$s$$ negative eigenvalues (where $$r+s = n$$). We then define the corresponding signature matrix $$\Omega_{\mu\nu}^{(r, s)} := \text{diag}(\underbrace{1, \ldots, 1}_{r \, \text{times}}, \underbrace{-1, \ldots, -1}_{s \, \text{times}})$$ for $$g$$. Then we have the following result: at any point $$x \in M$$, there exists a basis $$\{e_{\mu}\}_{\mu} \subset T_x(M)$$ such that
 
 $$g_x(e_{\mu}, e_{\nu}) = \Omega_{\mu\nu}^{(r, s)}$$
 
@@ -159,7 +159,7 @@ We will now study its representations.
 * Note that if both $$r, s > 1$$, then $$\text{Spin}(r, s)$$ is no longer the universal covering group; it is only the double cover of $$SO^{+}(r, s)$$ (by definition).
 * In the above, we restricted to the local isometry group $$\text{Iso}(M, \Omega^{(r, s)})$$. Can we say something about the representations of the ``true'' isometry group $$\text{Iso}(M, g)$$ (or its linear component)?
 
-**Representations.** Of particular interest to our universe is the choice $$d=4$$, corresponding to the signature $$(r, s) = (1, 3)$$, with manifold $$M \cong \mathbb{R}^{1, 3}$$, representing 1 temporal dimension and 3 spatial dimensions. The signature matrix is $$\eta_{\mu\nu}$$, called the \textit{Minkowski metric}, taking the form $$\eta = \text{diag}(1, -1, -1, -1)$$.
+**Representations.** Of particular interest to our universe is the choice $$d=4$$, corresponding to the signature $$(r, s) = (1, 3)$$, with manifold $$M \cong \mathbb{R}^{1, 3}$$, representing 1 temporal dimension and 3 spatial dimensions. The signature matrix is $$\eta_{\mu\nu}$$, called the *Minkowski metric*, taking the form $$\eta = \text{diag}(1, -1, -1, -1)$$.
 
 In this case, we can identify
 
