@@ -5,7 +5,7 @@ date:   2025-06-20 09:00:00
 mathjax: true
 ---
 
-The aim of this post is to motivate and demonstrate the guiding principles that underlie the construction of quantum field theories, and particularly the Standard Model -- arguably the most successful scientific theory of all time.
+The aim of this post is to motivate and demonstrate the guiding principles that underlie the construction of quantum field theories, and particularly the Standard Model -- arguably one of the most successful scientific theories of all time.
 
 Notation: We will denote the space of smooth maps between a manifold $$M$$ and a vector space $$V$$ by $$C^{\infty}(M, V)$$. For a functional $$F: C^{\infty}(M, V) \to \mathbb{R}$$, we will denote its functional derivative at $$f \in C^{\infty}(M, V)$$ evaluated at point $$x \in M$$ by $$\frac{\delta F[f]}{\delta f(x)} \in \mathbb{R}$$. We will denote the space of invertible linear maps from $$V$$ to $$V$$ by $$\text{GL}(V)$$.
 
@@ -145,9 +145,9 @@ with $$\text{O}(r, s)$$ the linear/homogeneous orthogonal group of signature $$(
 
 $$\text{O}(r, s) = \{A \in \text{GL}(r+s; \mathbb{R}): A^T \Omega^{(r,s)} A = \Omega^{(r,s)}\}$$
 
-We will restrict our attention to the linear isometries $$\text{O}(r, s)$$.
+We will restrict our attention to the local linear isometries $$\text{O}(r, s)$$ of $$g$$.
 
-We would like to understand the available representations of $$O(r, s)$$, which can most easily be performed by looking at its Lie algebra $$\mathfrak{o}(r, s)$$. Simply connected Lie groups are particularly nice for this purpose, since there is a one-to-one correspondence between Lie group representations and Lie algebra representations in this case. However, $$O(r, s)$$ is not simply connected.
+To construct some initial field content $$\Psi$$, we would like to understand the available representations of $$O(r, s)$$, which can most easily be performed by looking at its Lie algebra $$\mathfrak{o}(r, s)$$. Simply connected Lie groups are particularly nice for this purpose, since there is a one-to-one correspondence between Lie group representations and Lie algebra representations in this case. However, $$O(r, s)$$ is not simply connected.
 
 But, in general, for any finite-dimensional Lie algebra $$\mathfrak{g}$$, there is a unique simply connected group $$G$$ whose Lie algebra is $$\mathfrak{g}$$. Further, for a Lie group $$H$$ that also has this algebra $$\mathfrak{g}$$, then the corresponding simply connected Lie group $$G$$ is isomorphic to the universal covering group of the connected component of $$H$$ that contains the identity.
 
@@ -155,9 +155,9 @@ In our case, this means that the unique simply connected Lie group associated wi
 
 $$G^{(0)} = \text{Spin}(1, d-1)$$
 
-We will now study its representations.
+In total, we have chosen $$G^{(0)}$$ to be the unique simply connected Lie group corresponding to (the Lie algebra of) the local linear isometries of $$g$$. We will now study its representations.
 * Note that if both $$r, s > 1$$, then $$\text{Spin}(r, s)$$ is no longer the universal covering group; it is only the double cover of $$SO^{+}(r, s)$$ (by definition).
-* In the above, we restricted to the local isometry group $$\text{Iso}(M, \Omega^{(r, s)})$$. Can we say something about the representations of the ``true'' isometry group $$\text{Iso}(M, g)$$ (or its linear component)?
+* In the above, we restricted to the local isometry group $$\text{Iso}(M, \Omega^{(r, s)})$$. Can we say something about the representations of the ``true'' global isometry group $$\text{Iso}(M, g)$$ (or its linear component)?
 
 **Representations.** Of particular interest to our universe is the choice $$d=4$$, corresponding to the signature $$(r, s) = (1, 3)$$, with manifold $$M \cong \mathbb{R}^{1, 3}$$, representing 1 temporal dimension and 3 spatial dimensions. The signature matrix is $$\eta_{\mu\nu}$$, called the *Minkowski metric*, taking the form $$\eta = \text{diag}(1, -1, -1, -1)$$.
 
@@ -165,7 +165,7 @@ In this case, we can identify
 
 $$G^{(0)} = \text{Spin}(1, 3) \cong SL(2; \mathbb{C})$$
 
-with $$SO^{+}(1, 3) \cong SL(2; \mathbb{C})/\mathbb{Z}_2$$. In particular, we have that
+with $$SO^{+}(1, 3) \cong SL(2; \mathbb{C})/\mathbb{Z}_2$$. In particular, by construction, we have that
 
 $$\mathfrak{o}(1, 3) \cong \mathfrak{sl}(2; \mathbb{C})$$
 
@@ -260,17 +260,17 @@ Iterating through the first couple of these representations is sufficient to def
     $$S \mapsto_{A} D_{A}^{(0, 0)} S \equiv S$$
 
     under $$A \in SL(2; \mathbb{C})$$.
-* A \textit{left-handed spinor} $$\psi_L$$ lives in the 2-dimensional vector space $$V_{1, 0}$$ and transforms as
+* A *left-handed spinor* $$\psi_L$$ lives in the 2-dimensional vector space $$V_{1, 0}$$ and transforms as
 
     $$\psi_L \mapsto_{A} D_{A}^{(1, 0)} \psi_L \equiv \exp\left(d_{X_L(A)}^{(1)}\right) \psi_L$$
 
     under $$A \in SL(2; \mathbb{C})$$.
-* A \textit{right-handed spinor} $$\psi_R$$ lives in the 2-dimensional vector space $$V_{0, 1}$$ and transforms as
+* A *right-handed spinor* $$\psi_R$$ lives in the 2-dimensional vector space $$V_{0, 1}$$ and transforms as
 
     $$\psi_R \mapsto_{A} D_{A}^{(0, 1)} \psi_R \equiv \exp\left(d_{X_R(A)}^{(1)}\right) \psi_R$$
 
     under $$A \in SL(2; \mathbb{C})$$.
-* A \textit{4-vector} $$V$$ lives in the 4-dimensional vector space $$V_{1, 1}$$ and transforms as
+* A *4-vector* $$V$$ lives in the 4-dimensional vector space $$V_{1, 1}$$ and transforms as
     
     $$V \mapsto_{A} D_{A}^{(1, 1)} V \equiv \left(\exp\left(d_{X_L(A)}^{(1)}\right) \otimes \exp\left(d_{X_R(A)}^{(1)}\right)\right) V$$
 
