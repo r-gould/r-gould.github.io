@@ -5,6 +5,8 @@ date:   2025-06-20 09:00:00
 mathjax: true
 ---
 
+$$\newcommand{\slashed}[1]{\rlap{\,/}#1}$$
+
 The aim of this post is to motivate and demonstrate the guiding principles that underlie the construction of quantum field theories, and particularly the Standard Model -- arguably one of the most successful scientific theories of all time.
 
 Notation: We will denote the space of smooth maps between a manifold $$M$$ and a vector space $$V$$ by $$C^{\infty}(M, V)$$. For a functional $$F: C^{\infty}(M, V) \to \mathbb{R}$$, we will denote its functional derivative at $$f \in C^{\infty}(M, V)$$ evaluated at point $$x \in M$$ by $$\frac{\delta F[f]}{\delta f(x)} \in \mathbb{R}$$. We will denote the space of invertible linear maps from $$V$$ to $$V$$ by $$\text{GL}(V)$$.
@@ -34,7 +36,7 @@ for arbitrary $$n \in \mathbb{Z}_{+}$$, indices $$(i_1, \ldots, i_n) \in \{1, \l
 
 Constructing a well-behaved definition of the path integral measure $$\text{D}\Psi$$ is non-trivial. The approach that we will use is to expand each field $$\Psi_i \in C^{\infty}(M, V^{(i)})$$ in an eigenfunction basis $$\{\psi_i^j\}_j$$ of $$C^{\infty}(M, V^{(i)})$$, letting us write $$\Psi_i(x) = \sum_j a_i^j \psi_i^j(x)$$ for expansion coefficients $$\{a_i^j\}_j$$ and allowing us to define
 
-$$\text{D}\Psi_i := \prod_j da_j^{(i)}$$
+$$\text{D}\Psi_i := \prod_j da_i^j$$
 
 but since this is an infinite product, it will generally result in divergences, requiring some form of *regulation*, either via Fujikawa regulation (as used when computing anomalies, as in Section 4), or by truncating the infinite product via a cutoff (as used in the context of Wilsonian renormalization, as in Section 8), or some other regulation method.
 
@@ -278,7 +280,7 @@ Iterating through the first couple of these representations is sufficient to def
 
 These 4 objects are all we need to consider to construct the Standard Model.
 
-**Spinor transformations.** We can write the spinor transformation rules more explicitly. Note that $$d^{(1)}$$ describes the \textit{fundamental representation} of $$\mathfrak{su}(2)_{\mathbb{C}}$$, and the Pauli matrices $$\{-i\sigma^j/2\}_{j=1}^{3}$$ act as a fundamental representation of $$\mathfrak{su}(2)_{\mathbb{C}}$$, allowing us to choose
+**Spinor transformations.** We can write the spinor transformation rules more explicitly. Note that $$d^{(1)}$$ describes the *fundamental representation* of $$\mathfrak{su}(2)_{\mathbb{C}}$$, and the Pauli matrices $$\{-i\sigma^j/2\}_{j=1}^{3}$$ act as a fundamental representation of $$\mathfrak{su}(2)_{\mathbb{C}}$$, allowing us to choose
 
 $$d^{(1)}_{L_i} = -\frac{i}{2} \sigma^i, \qquad d^{(1)}_{R_i} = -\frac{i}{2} \sigma^i$$
 
@@ -301,7 +303,7 @@ which gives us the spinor transformation rules:
 $$\psi_L \mapsto_{A} \underbrace{\exp\left(-\frac{i}{2} \omega_{\mu\nu}(A) \sigma^{\mu\nu}\right)}_{=: \, L(A)} \psi_L, \qquad \psi_R \mapsto_{A} \underbrace{\exp\left(-\frac{i}{2} \omega_{\mu\nu}(A) \bar{\sigma}^{\mu\nu}\right)}_{=: \, R(A)}\psi_R$$
 
 Note that $$L(A)^{\dagger} = R(A)^{-1}$$.
-* One can also introduce a \textit{Dirac spinor} $$\psi$$ to live in the 4-dimensional space $$V_{1, 0} \oplus V_{0, 1}$$ and transform as
+* One can also introduce a *Dirac spinor* $$\psi$$ to live in the 4-dimensional space $$V_{1, 0} \oplus V_{0, 1}$$ and transform as
 
     $$\psi \mapsto_{A} (D_{A}^{(1, 0)} \oplus D_{A}^{(0, 1)}) \psi = \exp\left(-\frac{i}{2} \omega_{\mu\nu}(A) S^{\mu\nu}\right)$$
 
@@ -516,19 +518,19 @@ which can equivalently be described by a transformation of $$A_{\mu}^{(k)}$$:
 
 $$A_{\mu}^{(k)} \mapsto_{g} A_{\mu}^{(k)} + [\alpha, A_{\mu}^{(k)}] + \partial_{\mu} \alpha + O(\alpha^2)$$
 
-Hence, infinitesimally, we can view the role of all of $$\{X^{(L, i, k)}\}_{i=1}^{N_L} \cup \{X^{(R, j, k)}\}_{j=1}^{N_R}$$ as reducible to a single \textit{gauge field} $$A^{(k)}$$, transforming via the above rule.
+Hence, infinitesimally, we can view the role of all of $$\{X^{(L, i, k)}\}_{i=1}^{N_L} \cup \{X^{(R, j, k)}\}_{j=1}^{N_R}$$ as reducible to a single *gauge field* $$A^{(k)}$$, transforming via the above rule.
 
 **Achieving gauge invariance.** Repeating this for each gauge group $$k=1, \ldots, K$$, the above process corresponds to extending our field content
 
 $$\Psi \mapsto \Psi \cup \{A^{(k)}\}_{k=1}^{K}$$
 
-to include a \textit{gauge field} $$A^{(k)} \in C^{\infty}(M, \mathfrak{g}^{(k)})$$ for each gauge group $$G^{(k)}$$, with $$g = \exp(\alpha) \in C^{\infty}(M, G^{(k)})$$ transforming the field content as
+to include a *gauge field* $$A^{(k)} \in C^{\infty}(M, \mathfrak{g}^{(k)})$$ for each gauge group $$G^{(k)}$$, with $$g = \exp(\alpha) \in C^{\infty}(M, G^{(k)})$$ transforming the field content as
 
 $$\psi_{L, i} \mapsto_g \rho_g^{(L, i, k)} \psi_{L, i}, \quad \chi_{R, j} \mapsto_g \rho_g^{(R, j, k)} \chi_{R, j}, \quad A_{\mu}^{(k)} \mapsto_g A_{\mu}^{(k)} + [\alpha, A_{\mu}^{(k)}] + \partial_{\mu} \alpha + O(\alpha^2)$$
 
 (and leaving $$A^{(k')}$$ invariant for $$k' \neq k$$).
 
-This procedure for achieving gauge invariance is called \textit{minimal coupling} (since we are essentially performing the minimal modification to the kinetic action that achieves gauge invariance...?).
+This procedure for achieving gauge invariance is called *minimal coupling* (since we are essentially performing the minimal modification to the kinetic action that achieves gauge invariance...?).
 
 We can write the new gauge invariant action as
 
@@ -541,11 +543,11 @@ where we have defined the *covariant derivatives*:
 
 $$D_{\mu}^{(L, i)} := \partial_{\mu} - \sum_{k=1}^{K} g_k d^{(L, i, k)}_{A_{\mu}^{(k)}}, \qquad D_{\mu}^{(R, j)} := \partial_{\mu} - \sum_{k=1}^{K} g_k d^{(R, j, k)}_{A_{\mu}^{(k)}}$$
 
-and where we have introduced a \textit{coupling constant} $$g_k$$ for each gauge field $$A^{(k)}$$, equivalent to the rescaling $$A^{(k)} \mapsto g_k A^{(k)}$$, which slightly modifies the transformation rule to:
+and where we have introduced a *coupling constant* $$g_k$$ for each gauge field $$A^{(k)}$$, equivalent to the rescaling $$A^{(k)} \mapsto g_k A^{(k)}$$, which slightly modifies the transformation rule to:
 
 $$A_{\mu}^{(k)} \mapsto_{g} A_{\mu}^{(k)} + [\alpha, A_{\mu}^{(k)}] + \frac{1}{g_k}\partial_{\mu} \alpha + O(\alpha^2)$$
 
-**Field strengths.** For our discussion of anomalies, it will be useful to introduce the \textit{field strengths} $$F_{\mu\nu}^{(L, i)}$$:
+**Field strengths.** For our discussion of anomalies, it will be useful to introduce the *field strengths* $$F_{\mu\nu}^{(L, i)}$$:
 
 $$F_{\mu\nu}^{(L, i)} := -[D_{\mu}^{(L, i)}, D_{\nu}^{(L, i)}] = \sum_{k=1}^{K} g_k d^{(L, i, k)}_{f_{\mu\nu}^{(k)}} =: \sum_{k=1}^{K} g_k F_{\mu\nu}^{(L, i, k)}$$
 
@@ -557,7 +559,7 @@ and $$F_{\mu\nu}^{(L, i, k)} := d^{(L, i, k)}_{f_{\mu\nu}^{(k)}}$$.
 
 ### 4. Anomalies
 
-In the above, we have restricted our attention to satisfying Equation \ref{eqn:Sinvar}. In this section, we will address the second condition of Equation \ref{eqn:Dinvar}: the measure $$\text{D}\Psi$$ must be invariant to the symmetry group $$G$$ of our theory. If the measure fails to be invariant, we say that there is an \textit{anomaly} in our theory. The condition that the anomaly vanishes places strong constraints on the group content $$G$$ and representation content $$\rho$$ that we can consider, as we will see shortly.
+In the above, we have restricted our attention to satisfying Equation \ref{eqn:Sinvar}. In this section, we will address the second condition of Equation \ref{eqn:Dinvar}: the measure $$\text{D}\Psi$$ must be invariant to the symmetry group $$G$$ of our theory. If the measure fails to be invariant, we say that there is an *anomaly* in our theory. The condition that the anomaly vanishes places strong constraints on the group content $$G$$ and representation content $$\rho$$ that we can consider, as we will see shortly.
 * Note that the measure $$\text{D}\Psi_i$$ associated with non-spinor fields, such as gauge bosons, do not contribute anything to the anomaly, which is why we can restrict our attention to spinor measures only below. Further, since the spacetime group $$G^{(0)}$$ acts non-chirally on left and right-handed spinors (i.e. acts identically), transformations under $$G^{(0)}$$ will not introduce an anomaly, allowing us to further restrict our attention to gauge groups $$(G^{(1)}, \ldots, G^{(K)})$$.
 
 **Gauge transformation rule for spinor measures.** The study of whether $$\text{D}\Psi$$ is invariant requires proposing a specific definition for $$\text{D}\Psi$$. As mentioned in the introduction, we can do so by expanding $$\Psi$$ in a basis of $$C^{\infty}(M, V)$$ and performing some form of regulation. To construct such a basis, we will consider the Dirac operators
@@ -773,7 +775,7 @@ $$\sum_{i=1}^{N_L} C_{L, i}(k, r) \text{tr}(d_{T_a^{(k)}}^{(L, i, k)} d_{T_b^{(k
 
 $$\sum_{i=1}^{N_L} C_{L, i}(k, r, s) \text{tr}(d_{T_a^{(k)}}^{(L, i, k)}) \text{tr}(d_{T_b^{(r)}}^{(L, i, r)}) \text{tr}(d_{T_c^{(s)}}^{(L, i, s)}) = \sum_{j=1}^{N_R} C_{R, j}(k, r, s) \text{tr}(d_{T_a^{(k)}}^{(R, j, k)}) \text{tr}(d_{T_b^{(r)}}^{(R, j, r)}) \text{tr}(d_{T_c^{(s)}}^{(R, j, s)}) \quad \forall \; \; r \neq s, \; r \neq k, \; s \neq k$$
 
-The final three conditions are called \textit{mixed} anomaly conditions, since they mix together the representations of different gauge groups.
+The final three conditions are called *mixed* anomaly conditions, since they mix together the representations of different gauge groups.
 
 If the representation content $$\rho$$ of our theory satisfies this condition, then the (regulated) measure $$\text{D}\Psi$$ will be gauge invariant.
 
@@ -809,7 +811,7 @@ Todo: should better justify why this particular choice is one of the most simple
 
 **(This section is very unfinished)**
 
-The action \ref{eqn:Sgauged} has achieved our goal of satisfying \ref{eqn:Sinvar}: it is both invariant to the spacetime group $$G^{(0)}$$ by construction, and through minimal coupling, we have achieved invariance to the gauge groups $$G^{(1)} \times \cdots \times G^{(K)}$$. However, the action does not involve any \textit{interactions}, with no contractions between distinct spinors (e.g. no terms of the form $$\psi_L^{\dagger} \chi_R$$).
+The action \ref{eqn:Sgauged} has achieved our goal of satisfying \ref{eqn:Sinvar}: it is both invariant to the spacetime group $$G^{(0)}$$ by construction, and through minimal coupling, we have achieved invariance to the gauge groups $$G^{(1)} \times \cdots \times G^{(K)}$$. However, the action does not involve any *interactions*, with no contractions between distinct spinors (e.g. no terms of the form $$\psi_L^{\dagger} \chi_R$$).
 
 We previously found that terms of the form $$\psi_L^{\dagger} \chi_R$$ (and $$\chi_R^{\dagger} \psi_L$$) were invariant to the spacetime group $$G^{(0)}$$. But gauge invariance is problematic since, generally,
 
@@ -819,7 +821,7 @@ Indeed, as we will see, the choice of representations in the Standard Model are 
 
 $$\psi_L^{\dagger} H \chi_R$$
 
-is gauge invariant. Note that $$H$$ must transform as a scalar in order for the term to remain a scalar. Is there some \textit{maximal} choice of the transformation properties of $$H$$, such that we can produce the maximum number of interaction terms possible?
+is gauge invariant. Note that $$H$$ must transform as a scalar in order for the term to remain a scalar. Is there some *maximal* choice of the transformation properties of $$H$$, such that we can produce the maximum number of interaction terms possible?
 
 In the Standard Model, $$H$$ transforms under the gauge groups as $$(\mathbf{2}, \mathbf{1})_{1/2}$$, which allows for the interaction terms... Todo
 
@@ -828,7 +830,7 @@ In the Standard Model, $$H$$ transforms under the gauge groups as $$(\mathbf{2},
 
 **(This section is unfinished)**
 
-In the above, we have introduced auxiliary fields $$\{A^{(k)}\}_{k=1}^{K}$$ and $$H$$ to our theory in order to help us achieve gauge invariance. Here, we make a key step: we promote these fields to be \textit{dynamical} in their own right, possessing their own kinetic terms in the action $$S[\Psi]$$. In particular, these kinetic terms should include derivatives of these auxiliary fields, and preserve overall spacetime & gauge invariance.
+In the above, we have introduced auxiliary fields $$\{A^{(k)}\}_{k=1}^{K}$$ and $$H$$ to our theory in order to help us achieve gauge invariance. Here, we make a key step: we promote these fields to be *dynamical* in their own right, possessing their own kinetic terms in the action $$S[\Psi]$$. In particular, these kinetic terms should include derivatives of these auxiliary fields, and preserve overall spacetime & gauge invariance.
 * The idea that derivative terms make the fields ``dynamical'' can be seen by considering the classical equations of motion (i.e. the Euler-Lagrange equations), which give non-trivial dynamics when the action depends on a derivative of the field.
 
 **Kinetic terms for $$A^{(k)}$$.** In order to make $$A^{(k)}$$ dynamical, we would like to construct a spacetime \& gauge invariant term that depends on $$A_{\mu}^{(k)}$$ and its derivatives $$\partial_{\nu} A_{\mu}^{(k)}$$. Recall that we defined
@@ -841,7 +843,7 @@ $$f_{\mu\nu}^{(k)} \mapsto_{\alpha} f_{\mu\nu}^{(k)} + [\alpha, f_{\mu\nu}^{(k)}
 
 under a gauge transformation by $$\alpha \in C^{\infty}(M, \mathfrak{g}^{(k)})$$.
 
-As shown in Appendix A.1.1, each semi-simple Lie algebra $$\mathfrak{g}^{(k)}$$ has its own natural metric $$\kappa^{(k)}: \mathfrak{g}^{(k)} \times \mathfrak{g}^{(k)} \to \mathbb{C}$$, called the \textit{Killing form}. Importantly, the Killing form satisfies the identity
+As shown in Appendix A.1.1, each semi-simple Lie algebra $$\mathfrak{g}^{(k)}$$ has its own natural metric $$\kappa^{(k)}: \mathfrak{g}^{(k)} \times \mathfrak{g}^{(k)} \to \mathbb{C}$$, called the *Killing form*. Importantly, the Killing form satisfies the identity
 
 $$\kappa^{(k)}(X, [Y, Z]) = \kappa^{(k)}(Y, [Z, X]) = \kappa^{(k)}(Z, [X, Y])$$ 
 
@@ -852,7 +854,7 @@ $$\kappa^{(k)}(f_{\mu\nu}^{(k)}, f^{(k)\mu\nu}) \mapsto_{\alpha} \kappa^{(k)}(f_
 i.e. $$\kappa(f_{\mu\nu}^{(k)}, f^{(k)\mu\nu})$$ is (infinitesimally) gauge invariant. As a result, it is a natural candidate as a kinetic term for $$A^{(k)}$$. And since all 4-vector indices are contracted, it will be a Lorentz scalar.
 
 **Free and kinetic terms for $$H$$.** $$H^{\dagger} H$$ is the simplest Lorentz and gauge invariant term for $$H$$ (recall that $$H$$ is a Lorentz scalar). As a result, we can consider the contributions of the form $$(H^{\dagger} H)^n$$ for $$n \in \{1, 2, \ldots\}$$. We will focus specifically on the cases of $$n = 1,2$$.
-* We focus only on $$H^{\dagger} H$$ and $$(H^{\dagger} H)^2$$ terms because $$(H^{\dagger} H)^k$$ for $$k > 2$$ are not \textit{relevant} or \textit{marginal}, as defined at the end of Section 8. In the notation of Section 8, assuming canonical normalization of the kinetic contribution ($$(m, n) = (a, b)$$), an $$(m, n)$$ contribution is said to be irrelevant at low energies iff $$n-d+m(d-b)/a > 0$$. For us, $$(a, b) = (2, 2)$$, and since $$d=4$$, the condition for irrelevance becomes
+* We focus only on $$H^{\dagger} H$$ and $$(H^{\dagger} H)^2$$ terms because $$(H^{\dagger} H)^k$$ for $$k > 2$$ are not *relevant* or *marginal*, as defined at the end of Section 8. In the notation of Section 8, assuming canonical normalization of the kinetic contribution ($$(m, n) = (a, b)$$), an $$(m, n)$$ contribution is said to be irrelevant at low energies iff $$n-d+m(d-b)/a > 0$$. For us, $$(a, b) = (2, 2)$$, and since $$d=4$$, the condition for irrelevance becomes
     
     $$n+m > 4$$
 
@@ -887,7 +889,7 @@ Todo: show that, via symmetry breaking, fermions gaining mass.
 
 ### 7. Overcounting in the path integral
 
-There is some kind of ``overcounting'' happening when integrating over any field object $$\Psi_i \in \mathcal{C}_i$$ due to $$\mathcal{C}_i$$ including physically-equivalent field configurations that are related by a gauge transformation. In the specific case of gauge fields, this overcounting is detrimental and results in divergences. To remedy this issue requires \textit{breaking gauge invariance}, but some remnants of gauge invariance still persist through \textit{BRST invariance}. We will now outline these concepts.
+There is some kind of ``overcounting'' happening when integrating over any field object $$\Psi_i \in \mathcal{C}_i$$ due to $$\mathcal{C}_i$$ including physically-equivalent field configurations that are related by a gauge transformation. In the specific case of gauge fields, this overcounting is detrimental and results in divergences. To remedy this issue requires *breaking gauge invariance*, but some remnants of gauge invariance still persist through *BRST invariance*. We will now outline these concepts.
 * Some brief notes on the differences between integrating over the redundant configuration space $$\mathcal{C}$$ compared to the underlying physical configuration space $$\mathcal{P}$$ can be found in Appendix A.4.
 
 In the following, we will restrict our attention to a particular gauge field $$A \in C^{\infty}(M, \mathfrak{g}^{(k)})$$ associated with gauge group $$G^{(k)}$$ -- the following analysis will apply to each of the $$K$$ gauge fields individually. For gauge element $$\alpha \in C^{\infty}(M, \mathfrak{g}^{(k)})$$, we will use the notation
@@ -912,7 +914,7 @@ In the following we will work in Minkowski signature, meaning $$\mathbb{P}[\Psi]
 
 $$1 = N(\xi) \int D\omega \, e^{-i\int d^d x \, \omega(x)^2/2\xi}, \qquad 1 = \int D\alpha \, \delta(G_{\omega}(A^{\alpha}))\det\left(\frac{\delta G_{\omega}(A^{\alpha})}{\delta \alpha}\right)$$
 
-introducing a constant $$\xi$$ and normalization factor $$N(\xi)$$, as well as a \textit{gauge condition} $$G_{\omega}(A) := \partial^{\mu} A_{\mu} - \omega$$ (though the identity holds for generic conditions). Multiplying these two identities together gives
+introducing a constant $$\xi$$ and normalization factor $$N(\xi)$$, as well as a *gauge condition* $$G_{\omega}(A) := \partial^{\mu} A_{\mu} - \omega$$ (though the identity holds for generic conditions). Multiplying these two identities together gives
 
 $$1 = N(\xi) \int D\alpha \, e^{-i\int(\partial^{\mu} A_{\mu}^{\alpha})^2/2\xi} \det\left(\frac{\delta G_{\omega}(A^{\alpha})}{\delta \alpha}\right)\bigg|_{\omega = \partial^{\mu} A_{\mu}^{\alpha}}$$
 
@@ -955,7 +957,7 @@ But interestingly we can write
 
 $$\det(\Xi(A)) = \int \text{D}\bar{c} \, \text{D}c \, e^{-i \int d^d x \, \bar{c}_a \Xi(A)^a{}_{b} c^b}$$
 
-for so-called \textit{ghost fields} $$c, \bar{c} \in C^{\infty}(M, \mathfrak{g}^{(k)})$$ associated with $$A$$. This lets us consider the partition function
+for so-called *ghost fields* $$c, \bar{c} \in C^{\infty}(M, \mathfrak{g}^{(k)})$$ associated with $$A$$. This lets us consider the partition function
 
 $$\tilde{Z} :=  \int \text{D}\Phi \, \text{D}A \, e^{iS[\Phi, A]-i\int(\partial^{\mu} A_{\mu})^2/2\xi-i \int \bar{c}_a \Xi(A)^a{}_{b} c^b}$$
 
@@ -975,7 +977,7 @@ $$S[\Psi] \to S[\Psi] - \sum_{k=1}^{K} \left[\frac{1}{2\xi_k} \int d^d x \, (\pa
 
 We will derive gauge transformation rules for these ghost fields below.
 
-**BRST invariance.** Though this new action no longer satisfies the total gauge invariance we originally had, a restricted case of gauge invariance still remains, called \textit{BRST invariance}.
+**BRST invariance.** Though this new action no longer satisfies the total gauge invariance we originally had, a restricted case of gauge invariance still remains, called *BRST invariance*.
 
 In particular, recall that gauge transformations act infinitesimally as
 
@@ -1017,11 +1019,11 @@ Then naively, we could define
 
 $$\text{D}\Psi := \prod_{n \in \mathbb{Z}} d a_n$$
 
-but since this is an infinite product, it will generally result in divergences, necessitating \textit{regulation}. In the following, we will consider cutoff regulation: truncate the product by some cutoff parameter $$N \in \mathbb{Z}_{+}$$:
+but since this is an infinite product, it will generally result in divergences, necessitating *regulation*. In the following, we will consider cutoff regulation: truncate the product by some cutoff parameter $$N \in \mathbb{Z}_{+}$$:
 
 $$\text{D}\Psi^{(N)} := \prod_{n\in \mathbb{Z}_N} d a_n$$
 
-using the notation $$\mathbb{Z}_N := \{-N, -N+1, \ldots, N-1, N\}$$. Of particular relevance to renormalization is the \textit{Fourier basis}, corresponding to $$n \in \mathbb{Z}_N^d$$ (for spacetime dimension $$\dim M = d$$) and $$\psi_n(x) = e^{i\epsilon n \cdot x}$$ for some fixed discretization scale $$\epsilon$$. In this basis, we may write
+using the notation $$\mathbb{Z}_N := \{-N, -N+1, \ldots, N-1, N\}$$. Of particular relevance to renormalization is the *Fourier basis*, corresponding to $$n \in \mathbb{Z}_N^d$$ (for spacetime dimension $$\dim M = d$$) and $$\psi_n(x) = e^{i\epsilon n \cdot x}$$ for some fixed discretization scale $$\epsilon$$. In this basis, we may write
 
 $$\begin{align*}
 \Psi^{(N)}(x) &= \sum_{n \in \mathbb{Z}_N^d} a_n e^{i\epsilon n\cdot x}\\
@@ -1061,7 +1063,7 @@ Z^{(\Lambda)} &= \int_{\mathcal{C}^{(\Lambda)}} \text{D}\Psi \, e^{-S^{(\Lambda)
 &=: \int_{\mathcal{C}^{(\mu)}} \text{D}\chi \, e^{-S^{(\mu)}[\chi]}
 \end{align*}$$
 
-where we have defined the \textit{effective action} $$S^{(\mu)}: \mathcal{C}^{(\mu)} \to \mathbb{R}$$ by
+where we have defined the *effective action* $$S^{(\mu)}: \mathcal{C}^{(\mu)} \to \mathbb{R}$$ by
 
 $$S^{(\mu)}[\chi] := -\log\left(\int_{\mathcal{C}^{(\mu, \Lambda)}} \text{D} \eta \, e^{-S^{(\Lambda)}[\chi + \eta]}\right)$$
 
@@ -1094,11 +1096,11 @@ $$\begin{equation}
 \mathfrak{L}^{(\Lambda\to\mu)}[S^{(\Lambda)}] = S^{(\mu)}
 \end{equation}$$
 
-*Asymptotic freedom.* We say that $$S^{(\mu)}$$ is \textit{asymptotically free} if such a theory $$S^{(\Lambda)}$$ exists for $$\Lambda = \infty$$. For this theory $$S^{(\infty)}$$ to be valid, physical predictions must be finite, corresponding to finite correlators:
+*Asymptotic freedom.* We say that $$S^{(\mu)}$$ is *asymptotically free* if such a theory $$S^{(\Lambda)}$$ exists for $$\Lambda = \infty$$. For this theory $$S^{(\infty)}$$ to be valid, physical predictions must be finite, corresponding to finite correlators:
 
 $$\mathbb{E}_{\Psi \sim S^{(\infty)}}[\Psi_{i_1}(x_1) \cdots \Psi_{i_n}(x_n)] \;\; \text{finite}$$
 
-In the following, given some fixed $$S^{(\mu)}$$, we will consider constructing such a $$S^{(\Lambda)}$$ via the approach of \textit{counterterms}. In particular, denoting $$S^{(\mu\to\Lambda)} \equiv -S^{(\Lambda\to\mu)}$$, we may write
+In the following, given some fixed $$S^{(\mu)}$$, we will consider constructing such a $$S^{(\Lambda)}$$ via the approach of *counterterms*. In particular, denoting $$S^{(\mu\to\Lambda)} \equiv -S^{(\Lambda\to\mu)}$$, we may write
 
 $$S^{(\Lambda)}[\chi] = S^{(\mu)}[\chi] + S^{(\mu\to\Lambda)}[\chi]$$
 
@@ -1114,7 +1116,7 @@ S^{(\Lambda)}[\chi] = \sum_{m, n} \lambda_{m, n}^{(\Lambda)} \int_M d^d x \, L_{
 where $$L_{m, n}[\chi; x]$$ denotes all contributions with $$m$$ powers of $$\chi$$ and $$n$$ derivatives of $$\chi$$, with $$\{\lambda_{m, n}^{(\Lambda)}\}_{m, n}$$ the associated couplings. Similarly, we will denote the couplings of $$S^{(\mu)}$$ by $$\{\lambda_{m,n}^{(\mu)}\}_{m, n}$$, and of $$S^{(\mu\to\Lambda)}$$ by $$\{\delta\lambda_{m, n}^{(\mu\to\Lambda)}\}_{m, n}$$. Note that $$\lambda_{m, n}^{(\Lambda)} = \lambda_{m, n}^{(\mu)} + \delta\lambda_{m, n}^{(\mu\to\Lambda)}$$. We will denote the kinetic contribution by the indices $$(m, n) = (a, b)$$ (usually $$(a, b) = (2, 2)$$).
 
 
-We will assume that $$S^{(\mu)}$$ is \textit{canonically normalized}, in the sense that its kinetic contribution has a coefficient of $$1$$, i.e. $$\lambda_{a, b}^{(\mu)} = 1$$. Generally $$\lambda_{a, b}^{(\Lambda)} \neq 1$$ due to the contributions $$S^{(\mu\to\Lambda)}$$. To canonically normalize $$S^{(\Lambda)}$$, we will introduce the normalized field
+We will assume that $$S^{(\mu)}$$ is *canonically normalized*, in the sense that its kinetic contribution has a coefficient of $$1$$, i.e. $$\lambda_{a, b}^{(\mu)} = 1$$. Generally $$\lambda_{a, b}^{(\Lambda)} \neq 1$$ due to the contributions $$S^{(\mu\to\Lambda)}$$. To canonically normalize $$S^{(\Lambda)}$$, we will introduce the normalized field
 
 $$\hat{\chi} := Z^{1/a} \chi$$
 
@@ -1133,12 +1135,12 @@ $$\begin{align*}
 &= \frac{\lambda_{m, n}^{(\mu)} + \delta\lambda_{m, n}^{(\mu\to\Lambda)}}{Z^{m/a}}
 \end{align*}$$
 
-One often calls $$\hat{S}^{(\Lambda)}$$ the \textit{bare} theory, and $$S^{(\mu)}$$ the \textit{renormalized} theory.
+One often calls $$\hat{S}^{(\Lambda)}$$ the *bare* theory, and $$S^{(\mu)}$$ the *renormalized* theory.
 
 Counterterm renormalization involves designing the counterterms $$\delta\lambda_{m, n}^{(\mu\to\infty)}$$ such that the infinite energy theory $$\hat{S}^{(\infty)}$$ of couplings $$\hat{\lambda}^{(\infty)}_{m, n}$$ has finite correlators. As we outline in Section 9, one can compute correlators perturbatively. In our context, we can do so by 
 taking $$\delta\lambda_{m, n}^{(\mu\to\infty)}$$ to be sufficiently small such that we can treat $$\hat{S}^{(\mu\to\infty)}$$ as a perturbation. The general procedure of counterterm renormalization includes:
 1. Compute correlators perturbatively under $$\hat{S}^{(\Lambda)} = \hat{S}^{(\mu)} + \hat{S}^{(\mu\to\Lambda)}$$ by treating $$\hat{S}^{(\mu\to\Lambda)}$$ as a perturbation.
-2. Choose $$\delta\lambda_{m, n}^{(\mu\to\Lambda)}$$ appropriately (by some \textit{prescription}) to ensure that these correlators remain finite in the limit $$\Lambda \to \infty$$ and that the counterterms $$\delta\lambda_{m, n}^{(\mu\to\Lambda)}$$ also remain finite in this limit (such that the perturbative assumption is valid).
+2. Choose $$\delta\lambda_{m, n}^{(\mu\to\Lambda)}$$ appropriately (by some *prescription*) to ensure that these correlators remain finite in the limit $$\Lambda \to \infty$$ and that the counterterms $$\delta\lambda_{m, n}^{(\mu\to\Lambda)}$$ also remain finite in this limit (such that the perturbative assumption is valid).
 3. If this procedure can ensure that all $$n$$-pt correlators are finite for arbitrary $$n \in \mathbb{Z}_{+}$$, then we say that the theory $$S^{(\mu)}$$ is *asymptotically free*.
 
 In step 2, the *prescription* of counterterm renormalization describes how one chooses $$\delta\lambda_{m, n}^{(\mu\to\Lambda)}$$, since generally various different choices can result in finite correlators (e.g. can add an arbitrary constant). Different prescription schemes include the minimal subtraction (MS) scheme, the modified minimal subtraction ($$\bar{\text{MS}}$$) scheme, and the mass-shell scheme.
@@ -1211,9 +1213,9 @@ This operation is particularly special in that it \textbf{preserves energy scale
 As a result, we can view $$\mathfrak{C}^{(N\to M)}$$ as coarse-graining a theory by decreasing the cutoff and raising the discretization scale, while maintaining the same overall energy scale.
 
 We can classify the possible contributions $$\{L_{m, n}\}_{m, n}$$ to a theory based on how their couplings $$\{\lambda_{m, n}^{(N, \epsilon)}\}_{m, n}$$ behave under coarse-graining. Namely, from Equation \ref{eqn:coarsecouplings}, we have that for each $$(m, n)$$:
-1. $$n-d+m(d-b)/a > 0$$: Implies that $$\lambda^{(M, N\epsilon/M)}_{m, n} < \lambda^{(N, \epsilon)}_{m, n}$$, i.e. the $$(m, n)$$ contribution becomes weaker under coarse-graining. In this case, we say that the contribution is \textit{irrelevant}.
-2. $$n-d+m(d-b)/a = 0$$: Implies that $$\lambda^{(M, N\epsilon/M)}_{m, n} \approx \lambda^{(N, \epsilon)}_{m, n}$$, i.e. the $$(m, n)$$ contribution is invariant under coarse-graning. In this case, we say that the contribution is \textit{marginal}.
-3. $$n-d+m(d-b)/a < 0$$: Implies that $$\lambda^{(M, N\epsilon/M)}_{m, n} > \lambda^{(N, \epsilon)}_{m, n}$$, i.e. the $$(m, n)$$ contribution becomes stronger under coarse-graining. In this case, we say that the contribution is \textit{relevant}.
+1. $$n-d+m(d-b)/a > 0$$: Implies that $$\lambda^{(M, N\epsilon/M)}_{m, n} < \lambda^{(N, \epsilon)}_{m, n}$$, i.e. the $$(m, n)$$ contribution becomes weaker under coarse-graining. In this case, we say that the contribution is *irrelevant*.
+2. $$n-d+m(d-b)/a = 0$$: Implies that $$\lambda^{(M, N\epsilon/M)}_{m, n} \approx \lambda^{(N, \epsilon)}_{m, n}$$, i.e. the $$(m, n)$$ contribution is invariant under coarse-graning. In this case, we say that the contribution is *marginal*.
+3. $$n-d+m(d-b)/a < 0$$: Implies that $$\lambda^{(M, N\epsilon/M)}_{m, n} > \lambda^{(N, \epsilon)}_{m, n}$$, i.e. the $$(m, n)$$ contribution becomes stronger under coarse-graining. In this case, we say that the contribution is *relevant*.
 
 Todo: usually one interprets irrelevant terms as terms that can be ignored at low energy. But under coarse-graining the energy scale is not changing, so how can we remedy this difference in viewpoint?
 
@@ -1237,13 +1239,13 @@ Generally we can write
 
 $$\mathbb{E}_{\Psi \sim S}[\Psi_{i_1}(x_1) \cdots \Psi_{i_n}(x_n)] = (-1)^n \frac{\delta^n Z[J_1, \ldots, J_N]}{\delta J_{i_n}(x_n) \cdots \delta J_{i_1}(x_1)}\bigg|_{J_1 = \cdots = J_N = 0}$$
 
-where we have introduced a \textit{source} $$J_i \in C^{\infty}(M, V^{(i)})$$ for each field $$\Psi_i$$ and defined
+where we have introduced a *source* $$J_i \in C^{\infty}(M, V^{(i)})$$ for each field $$\Psi_i$$ and defined
 
 $$Z[J_1, \ldots, J_N] := \int_{\mathcal{C}} \text{D}\Psi \, e^{-S[\Psi] - \sum_{i=1}^{N} \int_M d^d x \, J_i(x) \cdot \Psi_i(x)}$$
 
 * The ordering of the functional derivatives is significant, since the Standard Model features Grassmann-valued fields (i.e. spinors) that anti-commute, with their sources also being Grassmann-valued. 
 
-Decomposing $$S[\Psi] = S_0[\Psi] + \Delta S[\Psi]$$ into \textit{free} contributions $$S_0$$ (i.e. kinetic and mass terms) and \textit{perturbative} contributions $$\Delta S$$ (i.e. interactions with small couplings), we are able to compute $$Z[J_1, \ldots, J_N]$$ perturbatively via Taylor expansion of:
+Decomposing $$S[\Psi] = S_0[\Psi] + \Delta S[\Psi]$$ into *free* contributions $$S_0$$ (i.e. kinetic and mass terms) and *perturbative* contributions $$\Delta S$$ (i.e. interactions with small couplings), we are able to compute $$Z[J_1, \ldots, J_N]$$ perturbatively via Taylor expansion of:
 
 $$Z[J_1, \ldots, J_N] = \exp\left(-\Delta S\left[\frac{\delta}{\delta J_1}, \ldots, \frac{\delta}{\delta J_N}\right]\right) Z_0[J_1, \ldots, J_N]$$
 
@@ -1264,7 +1266,7 @@ Because $$S_0[\Psi]$$ consists of free contributions and is at most quadratic in
 
     $$i(\square + m^2) D_F(x-y) = \delta(x-y)$$
 
-**Feynman rules.** The correlator *Feynman rules* are a distilled set of rules for computing the correlator term-by-term \textit{perturbatively} (via Taylor expansion), as described above.
+**Feynman rules.** The correlator *Feynman rules* are a distilled set of rules for computing the correlator term-by-term *perturbatively* (via Taylor expansion), as described above.
 * There are also a separate set of Feynman rules for computing scattering amplitudes directly.
 
 Todo: Give explicit conversion between Feynman diagrams and relevant integrals.
