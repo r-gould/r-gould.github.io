@@ -5,7 +5,7 @@ date:   2025-06-20 09:00:00
 mathjax: true
 ---
 
-$$\newcommand{\slashed}[1]{\rlap{\,/}#1}$$
+$$\def\slashed#1{\rlap{\,/}#1}$$
 
 The aim of this post is to motivate and demonstrate the guiding principles that underlie the construction of quantum field theories, and particularly the Standard Model -- arguably one of the most successful scientific theories of all time.
 
