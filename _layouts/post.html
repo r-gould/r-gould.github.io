@@ -14,15 +14,15 @@ layout: default
 
   <!-- mathjax -->
   {% if page.mathjax %}
-  <script>
-  window.MathJax = {
-    tex: {
-      macros: {
-        slashed: "{\\rlap{\\,/}#1}"
+  <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    TeX: {
+      Macros: {
+        slashed: ["{\\rlap{\\,/}#1}", 1]
       }
     }
-  };
+  });
   </script>
-  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
   {% endif %}
 </div>
