@@ -5,8 +5,6 @@ date:   2025-06-20 09:00:00
 mathjax: true
 ---
 
-$$\newcommand{\slashed}[1]{\rlap{\,/}\#1}$$
-
 The aim of this post is to motivate and demonstrate the guiding principles that underlie the construction of quantum field theories, and particularly the Standard Model -- arguably one of the most successful scientific theories of all time.
 
 Notation: We will denote the space of smooth maps between a manifold $$M$$ and a vector space $$V$$ by $$C^{\infty}(M, V)$$. For a functional $$F: C^{\infty}(M, V) \to \mathbb{R}$$, we will denote its functional derivative at $$f \in C^{\infty}(M, V)$$ evaluated at point $$x \in M$$ by $$\frac{\delta F[f]}{\delta f(x)} \in \mathbb{R}$$. We will denote the space of invertible linear maps from $$V$$ to $$V$$ by $$\text{GL}(V)$$.
